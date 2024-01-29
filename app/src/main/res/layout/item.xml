@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="4dp"
-    app:contentPadding="16dp"
-    android:layout_marginVertical="8dp"
-    android:layout_marginHorizontal="16dp">
+    app:contentPadding="16dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,18 +19,18 @@
             android:id="@+id/item_heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            tools:text="Sample Card Heading"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentTop="true"
+            android:textSize="24sp"
+            tools:text="Sample Card Heading" />
 
         <TextView
             android:id="@+id/item_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/item_heading"
             android:textSize="16sp"
-            tools:text="Sample Card Description"
-            android:layout_below="@id/item_heading"/>
+            tools:text="Sample Card Description" />
 
     </RelativeLayout>
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.singlestep.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+
+    <navigation
+        android:id="@+id/resultNav"
+        app:startDestination="@id/resultFragment">
+
+        <fragment
+            android:id="@+id/resultFragment"
+            android:name="com.example.singlestep.ui.result.ResultFragment"
+            android:label="fragment_result"
+            tools:layout="@layout/fragment_result">
+            <action
+                android:id="@+id/action_resultFragment_to_detailFragment"
+                app:destination="@id/detailFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/detailFragment"
+            android:name="com.example.singlestep.ui.detail.DetailFragment"
+            android:label="fragment_detail"
+            tools:layout="@layout/fragment_detail">
+            <argument
+                android:name="item"
+                app:argType="com.example.singlestep.model.Item" />
+        </fragment>
+
+    </navigation>
+
+</navigation>

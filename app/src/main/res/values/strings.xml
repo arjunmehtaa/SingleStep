@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">SingleStep</string>
     <string name="hello_world">Hello World</string>
-    <string name="home_fragment">Home Fragment</string>
-    <string name="result_fragment">Result Fragment</string>
+    <string name="home">Home</string>
+    <string name="result">Result</string>
+    <string name="detail">Detail</string>
+    <string name="item_details">Item %1$d details</string>
 </resources>

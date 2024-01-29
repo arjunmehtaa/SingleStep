@@ -21,12 +21,13 @@ class ResultViewModel : ViewModel() {
         coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
             _itemList.value = Result.Failure(exception)
         }
-        getHelloWorldsList()
+        getItemList()
     }
 
-    private fun getHelloWorldsList() {
+    private fun getItemList() {
         viewModelScope.launch(coroutineExceptionHandler) {
             _itemList.value = Result.Loading
+            // In the actual code, we would make an API request here to fetch some data
             _itemList.value = Result.Success(getSampleItems())
         }
     }

@@ -5,24 +5,28 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.singlestep.R
 import com.example.singlestep.databinding.ItemBinding
 import com.example.singlestep.model.Item
 
-class ItemAdapter()
-    : ListAdapter<Item, ItemAdapter.ItemViewHolder>(REPO_COMPARATOR) {
+class ItemAdapter(
+    private val clickListener: (item: Item) -> Unit
+) : ListAdapter<Item, ItemAdapter.ItemViewHolder>(REPO_COMPARATOR) {
 
-    class ItemViewHolder(private val binding: ItemBinding)
-        : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Item){
-            binding.itemHeading.text = item.name
-            binding.itemDescription.text = item.description
+    inner class ItemViewHolder(private val binding: ItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Item) {
+            with(binding) {
+                itemHeading.text = item.name
+                itemDescription.text = item.description
+                itemCard.setOnClickListener {
+                    clickListener(item)
+                }
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val binding = ItemBinding
-            .inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(binding)
     }
 

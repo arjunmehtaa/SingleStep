@@ -4,9 +4,10 @@ import com.example.singlestep.model.Item
 
 fun getSampleItems(): MutableList<Item> {
     val items: MutableList<Item> = mutableListOf()
-    for(i in 0..10) {
+    for (i in 0..10) {
         items.add(
-            Item(i, "Item $i", "This is the description for Item $i"))
+            Item(i, "Item $i", "Please click this card for Item $i details")
+        )
     }
     return items
 }
