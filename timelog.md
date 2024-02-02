@@ -8,4 +8,4 @@
 |2024/01/28| 0.5   |        |        |       |         |      |  Work on project presentation                        |
 |2024/01/29| 1     |  1     | 1      | 1     | 1       | 1    |  Project presentation session                        |
 |2024/01/29| 6     |        |        |       |         |      |  Setup android project template and boilerplate code |
-|2024/01/29|       |        | 4      |       |         |      |  Proposal review and edit                            |
+|2024/02/01|       |        | 4      |       |         |      |  Proposal review and edit                            |
