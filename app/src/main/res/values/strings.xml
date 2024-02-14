@@ -1,8 +1,17 @@
 <resources>
     <string name="app_name">SingleStep</string>
     <string name="hello_world">Hello World</string>
-    <string name="home">Home</string>
-    <string name="result">Result</string>
     <string name="detail">Detail</string>
-    <string name="item_details">Item %1$d details</string>
+    <string name="item_details">Destination: %s\nDates: %s\nBudget: %s\nGuests: %s</string>
+    <string name="single_step">SingleStep</string>
+    <string name="search">Search</string>
+    <string name="number_of_guests">Number of guests</string>
+    <string name="enter_budget">Enter budget</string>
+    <string name="enter_dates">Enter dates</string>
+    <string name="popular_destinations">Popular Destinations</string>
+    <string name="search_by_budget">Search By Budget</string>
+    <string name="budget_text">&lt; $%s</string>
+    <string name="explore">Explore</string>
+    <string name="my_trips">My Trips</string>
+    <string name="enter_destination">Enter destination</string>
 </resources>

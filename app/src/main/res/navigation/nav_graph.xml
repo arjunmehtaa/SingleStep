@@ -3,25 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
-
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.singlestep.ui.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+    app:startDestination="@id/searchNav">
 
     <navigation
-        android:id="@+id/resultNav"
-        app:startDestination="@id/resultFragment">
+        android:id="@+id/searchNav"
+        app:startDestination="@id/searchFragment">
 
         <fragment
-            android:id="@+id/resultFragment"
-            android:name="com.example.singlestep.ui.result.ResultFragment"
-            android:label="fragment_result"
-            tools:layout="@layout/fragment_result">
+            android:id="@+id/searchFragment"
+            android:name="com.example.singlestep.ui.search.SearchFragment"
+            android:label="fragment_home"
+            tools:layout="@layout/fragment_explore">
             <action
-                android:id="@+id/action_resultFragment_to_detailFragment"
+                android:id="@+id/action_searchFragment_to_detailFragment"
                 app:destination="@id/detailFragment" />
         </fragment>
 
@@ -31,10 +25,22 @@
             android:label="fragment_detail"
             tools:layout="@layout/fragment_detail">
             <argument
-                android:name="item"
-                app:argType="com.example.singlestep.model.Item" />
+                android:name="tripParameters"
+                app:argType="com.example.singlestep.model.TripParameters" />
         </fragment>
 
     </navigation>
+
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.example.singlestep.ui.explore.ExploreFragment"
+        android:label="fragment_explore"
+        tools:layout="@layout/fragment_explore" />
+
+    <fragment
+        android:id="@+id/tripsFragment"
+        android:name="com.example.singlestep.ui.mytrips.MyTripsFragment"
+        android:label="fragment_trips"
+        tools:layout="@layout/fragment_my_trips" />
 
 </navigation>

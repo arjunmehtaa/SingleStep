@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/title_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:background="@color/light_orange"
+            android:text="@string/single_step"
+            android:textAlignment="center"
+            android:textSize="32sp"
+            android:textStyle="italic"
+            app:drawableEndCompat="@drawable/icon_step" />
+
+        <EditText
+            android:id="@+id/destination_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_text_view"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/background_border_rounded_top"
+            android:drawableStart="@drawable/icon_location"
+            android:drawablePadding="8dp"
+            android:hint="@string/enter_destination"
+            android:padding="16dp"
+            android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/dates_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_border"
+                android:drawableStart="@drawable/icon_dates"
+                android:drawablePadding="8dp"
+                android:layout_below="@id/destination_edit_text"
+                android:layout_marginHorizontal="16dp"
+                android:hint="@string/enter_dates"
+                android:padding="16dp"
+                android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/budget_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dates_edit_text"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/background_border"
+            android:drawableStart="@drawable/icon_budget"
+            android:drawablePadding="8dp"
+            android:hint="@string/enter_budget"
+            android:padding="16dp"
+            android:inputType="number"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/guests_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/budget_edit_text"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/background_border_rounded_bottom"
+            android:drawableStart="@drawable/icon_guests"
+            android:drawablePadding="8dp"
+            android:hint="@string/number_of_guests"
+            android:inputType="number"
+            android:padding="16dp"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/guests_edit_text"
+            android:layout_margin="16dp"
+            android:text="@string/search" />
+
+        <TextView
+            android:id="@+id/popular_destinations_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search_button"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/popular_destinations"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/popular_destinations_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/popular_destinations_text_view"
+            android:clipToPadding="false"
+            android:paddingHorizontal="8dp" />
+
+        <TextView
+            android:id="@+id/search_by_budget_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/popular_destinations_recycler_view"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/search_by_budget"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_by_budget_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search_by_budget_text_view"
+            android:layout_marginBottom="80dp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="8dp" />
+
+    </RelativeLayout>
+
+</ScrollView>

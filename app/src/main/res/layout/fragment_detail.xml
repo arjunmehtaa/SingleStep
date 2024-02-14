@@ -18,7 +18,7 @@
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/back"
+            android:src="@drawable/icon_back"
             app:tint="@color/material_on_surface_emphasis_high_type" />
 
         <TextView
@@ -33,7 +33,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/subtitle"
+        android:id="@+id/subtitle_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_layout"

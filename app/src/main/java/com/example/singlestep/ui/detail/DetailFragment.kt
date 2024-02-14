@@ -8,7 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.singlestep.R
 import com.example.singlestep.databinding.FragmentDetailBinding
-import com.example.singlestep.model.Item
+import com.example.singlestep.model.TripParameters
+import java.text.NumberFormat
 
 class DetailFragment : Fragment() {
 
@@ -20,14 +21,20 @@ class DetailFragment : Fragment() {
     ): View {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         arguments?.let { bundle ->
-            setupViews(DetailFragmentArgs.fromBundle(bundle).item)
+            setupViews(DetailFragmentArgs.fromBundle(bundle).tripParameters)
         }
         return binding.root
     }
 
-    private fun setupViews(item: Item) {
+    private fun setupViews(tripParameters: TripParameters) {
         with(binding) {
-            subtitle.text = getString(R.string.item_details, item.id)
+            subtitleTextView.text = getString(
+                R.string.item_details,
+                tripParameters.destination,
+                tripParameters.dates,
+                tripParameters.budget,
+                tripParameters.guests
+            )
             backButton.setOnClickListener {
                 activity?.onBackPressedDispatcher?.onBackPressed()
             }
