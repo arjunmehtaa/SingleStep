@@ -13,5 +13,4 @@
 |2024/02/01|       |        | 4      |       |         |      | Proposal review and edit                            |
 |2024/02/01|       |        | 1.5    |       |         | 1    | Pair Proposal review and edit - Andy&Yichun         |
 |2024/01/29| 6     |        |        |       |         |      | Create landing page, add app icon, refactor project |
-
-
+|2024/01/29| 6     |        |        |       |         |      | Add PlacesAutocomplete API, MaterialDatePicker etc. |

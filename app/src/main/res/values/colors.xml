@@ -3,6 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="light_orange">#FEE9E4</color>
-    <color name="light_grey">#818181</color>
+    <color name="light_grey">#EFEFEF</color>
+    <color name="faded_grey">#999999</color>
+    <color name="grey">#818181</color>
     <color name="orange">#EC8C6F</color>
 </resources>

@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import com.example.singlestep.R
 import com.example.singlestep.databinding.FragmentDetailBinding
 import com.example.singlestep.model.TripParameters
-import java.text.NumberFormat
 
 class DetailFragment : Fragment() {
 
@@ -30,6 +29,7 @@ class DetailFragment : Fragment() {
         with(binding) {
             subtitleTextView.text = getString(
                 R.string.item_details,
+                tripParameters.source,
                 tripParameters.destination,
                 tripParameters.dates,
                 tripParameters.budget,

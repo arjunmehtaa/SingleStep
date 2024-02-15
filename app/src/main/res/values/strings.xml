@@ -2,16 +2,20 @@
     <string name="app_name">SingleStep</string>
     <string name="hello_world">Hello World</string>
     <string name="detail">Detail</string>
-    <string name="item_details">Destination: %s\nDates: %s\nBudget: %s\nGuests: %s</string>
+    <string name="item_details">Source: %s\nDestination: %s\nDates: %s\nBudget: %s\nGuests: %s</string>
     <string name="single_step">SingleStep</string>
     <string name="search">Search</string>
     <string name="number_of_guests">Number of guests</string>
     <string name="enter_budget">Enter budget</string>
     <string name="enter_dates">Enter dates</string>
     <string name="popular_destinations">Popular Destinations</string>
-    <string name="search_by_budget">Search By Budget</string>
-    <string name="budget_text">&lt; $%s</string>
+    <string name="budget_suggestion">&lt; $%s</string>
+    <string name="budget_text">$%s</string>
     <string name="explore">Explore</string>
     <string name="my_trips">My Trips</string>
     <string name="enter_destination">Enter destination</string>
+    <string name="suggested_budgets">Suggested Budgets</string>
+    <string name="plan_trip">Plan Trip</string>
+    <string name="enter_start_location">Enter start location</string>
+    <string name="api_key">AIzaSyBIDq3zcHWyLH8ue7ONXuNCuu29WS-MFO4</string>
 </resources>

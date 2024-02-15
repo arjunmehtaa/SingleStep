@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.singlestep.model.Budget
-import com.example.singlestep.model.Destination
+import com.example.singlestep.model.Location
 import com.example.singlestep.utils.Result
 import com.example.singlestep.utils.getSampleBudgets
 import com.example.singlestep.utils.getSampleDestinations
@@ -15,8 +15,8 @@ import kotlinx.coroutines.launch
 class SearchViewModel : ViewModel() {
     private var coroutineExceptionHandler: CoroutineExceptionHandler
 
-    private val _destinationList: MutableLiveData<Result<List<Destination>>> = MutableLiveData()
-    val destinationList: LiveData<Result<List<Destination>>>
+    private val _destinationList: MutableLiveData<Result<List<Location>>> = MutableLiveData()
+    val destinationList: LiveData<Result<List<Location>>>
         get() = _destinationList
 
     private val _budgetList: MutableLiveData<Result<List<Budget>>> = MutableLiveData()

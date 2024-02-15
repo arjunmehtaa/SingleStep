@@ -10,16 +10,21 @@ import com.example.singlestep.databinding.ItemBudgetBinding
 import com.example.singlestep.model.Budget
 import java.text.NumberFormat
 
-class BudgetAdapter : ListAdapter<Budget, BudgetAdapter.BudgetViewHolder>(REPO_COMPARATOR) {
+class BudgetAdapter(
+    val clickListener: (Budget) -> Unit
+) : ListAdapter<Budget, BudgetAdapter.BudgetViewHolder>(REPO_COMPARATOR) {
 
     inner class BudgetViewHolder(private val binding: ItemBudgetBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(budget: Budget) {
             with(binding) {
                 budgetTextView.text = root.context.getString(
-                    R.string.budget_text,
+                    R.string.budget_suggestion,
                     NumberFormat.getIntegerInstance().format(budget.value)
                 )
+                budgetItemCard.setOnClickListener {
+                    clickListener(budget)
+                }
             }
         }
     }

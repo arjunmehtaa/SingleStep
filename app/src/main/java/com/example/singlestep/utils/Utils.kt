@@ -4,35 +4,35 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.widget.EditText
 import com.example.singlestep.model.Budget
-import com.example.singlestep.model.Destination
+import com.example.singlestep.model.Location
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-fun getSampleDestinations(): List<Destination> {
+fun getSampleDestinations(): List<Location> {
     return listOf(
-        Destination(
+        Location(
             "Toronto",
             "https://upload.wikimedia.org/wikipedia/commons/a/a8/CC_2022-06-18_193-Pano_%28cropped%29_01.jpg"
         ),
-        Destination(
+        Location(
             "New York",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/New_york_times_square-terabass.jpg/450px-New_york_times_square-terabass.jpg"
         ),
-        Destination(
+        Location(
             "Paris",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1280px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg"
         ),
-        Destination(
+        Location(
             "Waterloo",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/University_of_Waterloo_William_G._Davis_Computer_Research_Center.jpg/1280px-University_of_Waterloo_William_G._Davis_Computer_Research_Center.jpg"
         ),
-        Destination(
+        Location(
             "London",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/London_Skyline_%28125508655%29.jpeg/1920px-London_Skyline_%28125508655%29.jpeg"
         ),
-        Destination(
+        Location(
             "Dublin",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/GoergeSalmonTrinityCollegeDublin.jpg/1280px-GoergeSalmonTrinityCollegeDublin.jpg"
         )
