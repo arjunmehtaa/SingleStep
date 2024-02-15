@@ -9,7 +9,9 @@ import com.bumptech.glide.Glide
 import com.example.singlestep.databinding.ItemDestinationBinding
 import com.example.singlestep.model.Location
 
-class DestinationAdapter :
+class DestinationAdapter(
+    val clickListener: (Location) -> Unit
+) :
     ListAdapter<Location, DestinationAdapter.DestinationViewHolder>(REPO_COMPARATOR) {
 
     inner class DestinationViewHolder(private val binding: ItemDestinationBinding) :
@@ -17,7 +19,8 @@ class DestinationAdapter :
         fun bind(location: Location) {
             with(binding) {
                 destinationNameTextView.text = location.city
-                Glide.with(root.context).load(location.imageUrl).into(destinationImageView);
+                Glide.with(root.context).load(location.imageUrl).into(destinationImageView)
+                destinationItemCard.setOnClickListener { clickListener(location) }
             }
         }
     }

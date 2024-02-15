@@ -18,7 +18,8 @@ fun setupPlacesAutocompleteFragment(
     prompt: String,
     icon: Int,
     background: Int,
-    placeSelectedListener: (Place) -> Unit
+    placeSelectedListener: (Place) -> Unit,
+    clearButtonClickedListener: () -> Unit
 ) {
     with(fragment) {
         setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME))
@@ -33,19 +34,20 @@ fun setupPlacesAutocompleteFragment(
             }
         })
         view?.background = ContextCompat.getDrawable(context, background)
-        ((view?.findViewById(com.google.android.libraries.places.R.id.places_autocomplete_search_button)) as View).visibility =
-            View.GONE
-        val autocompleteEditText =
-            ((view?.findViewById(com.google.android.libraries.places.R.id.places_autocomplete_search_input)) as EditText)
+        getAutocompleteFragmentSearchButton(this)?.visibility = View.GONE
+        getAutocompleteFragmentClearButton(this)?.setOnClickListener {
+            this.setText("")
+            it.visibility = View.GONE
+            clearButtonClickedListener()
+        }
+
+        val autocompleteEditText = getAutocompleteFragmentEditText(this)
         setupPlacesAutocompleteEditText(context, autocompleteEditText, prompt, icon)
     }
 }
 
 fun setupPlacesAutocompleteEditText(
-    context: Context,
-    editText: EditText,
-    prompt: String,
-    icon: Int
+    context: Context, editText: EditText, prompt: String, icon: Int
 ) {
     with(editText) {
         val dps = resources.displayMetrics.density
@@ -57,4 +59,16 @@ fun setupPlacesAutocompleteEditText(
         setPadding(padding, padding, padding, padding)
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, 0, 0, 0)
     }
+}
+
+fun getAutocompleteFragmentSearchButton(fragment: AutocompleteSupportFragment): View? {
+    return fragment.view?.findViewById<View>(com.google.android.libraries.places.R.id.places_autocomplete_search_button)
+}
+
+fun getAutocompleteFragmentClearButton(fragment: AutocompleteSupportFragment): View? {
+    return fragment.view?.findViewById<View>(com.google.android.libraries.places.R.id.places_autocomplete_clear_button)
+}
+
+fun getAutocompleteFragmentEditText(fragment: AutocompleteSupportFragment): EditText {
+    return fragment.view?.findViewById(com.google.android.libraries.places.R.id.places_autocomplete_search_input) as EditText
 }

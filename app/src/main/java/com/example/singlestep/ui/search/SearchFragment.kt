@@ -20,13 +20,12 @@ import com.example.singlestep.model.TripParameters
 import com.example.singlestep.ui.common.BudgetAdapter
 import com.example.singlestep.ui.common.DestinationAdapter
 import com.example.singlestep.utils.Result
+import com.example.singlestep.utils.getSelectedDateRange
 import com.example.singlestep.utils.placeToLocation
 import com.example.singlestep.utils.setupPlacesAutocompleteFragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.NumberFormat
-import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 class SearchFragment : Fragment() {
@@ -35,8 +34,10 @@ class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var destinationAdapter: DestinationAdapter
     private lateinit var budgetAdapter: BudgetAdapter
-    private lateinit var startLocation: Location
-    private lateinit var destination: Location
+    private var source: Location? = null
+    private var destination: Location? = null
+    private var budget: Double = 0.0
+    private var numGuests: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -65,23 +66,15 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupViews() {
-        with(binding) {
-            destinationAdapter = DestinationAdapter()
-            popularDestinationsRecyclerView.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            popularDestinationsRecyclerView.adapter = destinationAdapter
+        val sourceFragment =
+            childFragmentManager.findFragmentById(R.id.source_fragment) as AutocompleteSupportFragment
 
-            budgetAdapter = BudgetAdapter {
-                budgetEditText.setText(it.value.toString())
-                Toast.makeText(
-                    root.context,
-                    "Autofilled budget from suggestions",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            suggestedBudgetsRecyclerView.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            suggestedBudgetsRecyclerView.adapter = budgetAdapter
+        val destinationFragment =
+            childFragmentManager.findFragmentById(R.id.destination_fragment) as AutocompleteSupportFragment
+
+        setupLocationFragments(sourceFragment, destinationFragment)
+
+        with(binding) {
 
             datePickerEditText.setOnClickListener {
                 datePickerDialog()
@@ -89,57 +82,100 @@ class SearchFragment : Fragment() {
 
             budgetEditText.addTextChangedListener(budgetTextWatcher)
 
-            searchButton.setOnClickListener {
+            removeGuestButton.setOnClickListener {
+                if (numGuests > 0) {
+                    numGuests--
+                    if (numGuests == 0) {
+                        guestsEditText.setText("")
+                    } else {
+                        guestsEditText.setText(getString(R.string.number_of_guests, numGuests))
+                    }
+                    validateFields()
+                }
+            }
+
+            addGuestButton.setOnClickListener {
+                numGuests++
+                guestsEditText.setText(getString(R.string.number_of_guests, numGuests))
+                validateFields()
+            }
+
+            planTripButton.setOnClickListener {
                 val tripParameters = TripParameters(
-                    startLocation,
-                    destination,
-                    datePickerEditText.text.toString(),
-                    budgetEditText.text.toString(),
-                    guestsEditText.text.toString()
+                    source!!, destination!!, datePickerEditText.text.toString(), budget, numGuests
                 )
                 val action =
                     SearchFragmentDirections.actionSearchFragmentToDetailFragment(tripParameters)
                 findNavController(requireView()).navigate(action)
             }
 
-            val startLocationFragment =
-                childFragmentManager.findFragmentById(R.id.start_location_fragment) as AutocompleteSupportFragment
+            destinationAdapter = DestinationAdapter {
+                destinationFragment.setText(it.city)
+                destination = it
+                Toast.makeText(
+                    root.context, getString(R.string.autofill_destination), Toast.LENGTH_SHORT
+                ).show()
+                validateFields()
+            }
+            popularDestinationsRecyclerView.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            popularDestinationsRecyclerView.adapter = destinationAdapter
+
+            budgetAdapter = BudgetAdapter {
+                budgetEditText.setText(it.value.toString())
+                Toast.makeText(
+                    root.context, getString(R.string.autofill_budget), Toast.LENGTH_SHORT
+                ).show()
+            }
+            suggestedBudgetsRecyclerView.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            suggestedBudgetsRecyclerView.adapter = budgetAdapter
+        }
+    }
+
+    private fun setupLocationFragments(
+        sourceFragment: AutocompleteSupportFragment,
+        destinationFragment: AutocompleteSupportFragment
+    ) {
+        with(binding) {
             setupPlacesAutocompleteFragment(
                 root.context,
-                startLocationFragment,
-                "Enter start location",
+                sourceFragment,
+                getString(R.string.enter_start_location),
                 R.drawable.icon_start_location,
                 R.drawable.background_border_rounded_top,
-            ) { place -> startLocation = placeToLocation(place) }
+                placeSelectedListener = {
+                    source = placeToLocation(it)
+                    validateFields()
+                },
+                clearButtonClickedListener = {
+                    source = null
+                    validateFields()
+                }
+            )
 
-            val destinationFragment =
-                childFragmentManager.findFragmentById(R.id.destination_fragment) as AutocompleteSupportFragment
             setupPlacesAutocompleteFragment(
                 root.context,
                 destinationFragment,
-                "Enter destination",
+                getString(R.string.enter_destination),
                 R.drawable.icon_destination,
-                R.drawable.background_border
-            ) { place -> destination = placeToLocation(place) }
+                R.drawable.background_border,
+                placeSelectedListener = {
+                    destination = placeToLocation(it)
+                    validateFields()
+                },
+                clearButtonClickedListener = {
+                    destination = null
+                    validateFields()
+                }
+            )
         }
     }
 
-    private fun datePickerDialog() {
-        val builder = MaterialDatePicker.Builder.dateRangePicker()
-        builder.setTitleText("Select a date range")
-        val datePicker = builder.build()
-        datePicker.addOnPositiveButtonClickListener { selection ->
-            val startDate = selection.first
-            val endDate = selection.second
-            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            val startDateString = sdf.format(Date(startDate))
-            val endDateString = sdf.format(Date(endDate))
-            val selectedDateRange = "$startDateString - $endDateString"
-            binding.datePickerEditText.setText(selectedDateRange)
-        }
-        datePicker.show(parentFragmentManager, "DATE_PICKER")
+    private fun validateFields() {
+        binding.planTripButton.isEnabled =
+            (numGuests > 0 && budget > 0 && binding.datePickerEditText.text.isNotEmpty() && source != null && destination != null)
     }
-
 
     private fun onLoading() {
         Log.i("Loading", "onLoading()")
@@ -157,6 +193,18 @@ class SearchFragment : Fragment() {
         budgetAdapter.submitList(budgets)
     }
 
+    private fun datePickerDialog() {
+        val builder = MaterialDatePicker.Builder.dateRangePicker()
+        builder.setTitleText("Select a date range")
+        val datePicker = builder.build()
+        datePicker.addOnPositiveButtonClickListener { selection ->
+            val selectedDateRange = getSelectedDateRange(selection)
+            binding.datePickerEditText.setText(selectedDateRange)
+            validateFields()
+        }
+        datePicker.show(parentFragmentManager, "DATE_PICKER")
+    }
+
     private val budgetTextWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
             val budgetEditText = binding.budgetEditText
@@ -165,13 +213,16 @@ class SearchFragment : Fragment() {
             if (text.isNotEmpty()) {
                 if (text.toString() == "$") {
                     budgetEditText.setText("")
+                    budget = 0.0
                 } else {
                     val regex = Regex("[^0-9]")
                     val value = regex.replace(text.toString(), "").toDouble()
+                    budget = value
                     val budgetString = NumberFormat.getInstance(Locale.CANADA).format(value)
                     budgetEditText.setText(getString(R.string.budget_text, budgetString))
                     budgetEditText.setSelection(budgetEditText.text.length)
                 }
+                validateFields()
             }
             budgetEditText.addTextChangedListener(this)
         }

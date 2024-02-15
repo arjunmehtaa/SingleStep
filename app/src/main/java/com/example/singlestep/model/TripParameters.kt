@@ -6,6 +6,6 @@ data class TripParameters(
     val source: Location,
     val destination: Location,
     val dates: String,
-    val budget: String,
-    val guests: String
+    val budget: Double,
+    val guests: Int
 ) : Serializable

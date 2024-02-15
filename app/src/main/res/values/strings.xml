@@ -2,10 +2,11 @@
     <string name="app_name">SingleStep</string>
     <string name="hello_world">Hello World</string>
     <string name="detail">Detail</string>
-    <string name="item_details">Source: %s\nDestination: %s\nDates: %s\nBudget: %s\nGuests: %s</string>
+    <string name="item_details">Source: %s\n\nDestination: %s\n\nDates: %s\n\nBudget: %f\n\nGuests: %d</string>
     <string name="single_step">SingleStep</string>
     <string name="search">Search</string>
-    <string name="number_of_guests">Number of guests</string>
+    <string name="number_of_guests_default">0 guest(s)</string>
+    <string name="number_of_guests">%d guest(s)</string>
     <string name="enter_budget">Enter budget</string>
     <string name="enter_dates">Enter dates</string>
     <string name="popular_destinations">Popular Destinations</string>
@@ -17,5 +18,7 @@
     <string name="suggested_budgets">Suggested Budgets</string>
     <string name="plan_trip">Plan Trip</string>
     <string name="enter_start_location">Enter start location</string>
+    <string name="autofill_destination">"Autofilled destination from suggestions"</string>
+    <string name="autofill_budget">"Autofilled budget from suggestions"</string>
     <string name="api_key">AIzaSyBIDq3zcHWyLH8ue7ONXuNCuu29WS-MFO4</string>
 </resources>
