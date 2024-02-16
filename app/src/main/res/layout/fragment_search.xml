@@ -20,7 +20,7 @@
 
         <fragment
             android:id="@+id/source_fragment"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:name="com.example.singlestep.ui.common.autocomplete.SourceAutocompleteFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/title_text_view"
@@ -29,7 +29,7 @@
 
         <fragment
             android:id="@+id/destination_fragment"
-            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:name="com.example.singlestep.ui.common.autocomplete.DestinationAutocompleteFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/source_fragment"

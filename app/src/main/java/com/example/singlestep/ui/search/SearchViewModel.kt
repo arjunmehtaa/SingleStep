@@ -26,6 +26,7 @@ class SearchViewModel : ViewModel() {
     init {
         coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
             _destinationList.value = Result.Failure(exception)
+            _budgetList.value = Result.Failure(exception)
         }
         getDestinationList()
         getBudgetList()

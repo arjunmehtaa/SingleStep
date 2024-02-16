@@ -1,4 +1,4 @@
-package com.example.singlestep.ui.common
+package com.example.singlestep.ui.common.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

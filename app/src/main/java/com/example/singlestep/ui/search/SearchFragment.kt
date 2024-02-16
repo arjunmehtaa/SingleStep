@@ -3,7 +3,6 @@ package com.example.singlestep.ui.search
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +13,14 @@ import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.singlestep.R
 import com.example.singlestep.databinding.FragmentSearchBinding
-import com.example.singlestep.model.Budget
 import com.example.singlestep.model.Location
 import com.example.singlestep.model.TripParameters
-import com.example.singlestep.ui.common.BudgetAdapter
-import com.example.singlestep.ui.common.DestinationAdapter
+import com.example.singlestep.ui.common.adapters.BudgetAdapter
+import com.example.singlestep.ui.common.adapters.DestinationAdapter
 import com.example.singlestep.utils.Result
 import com.example.singlestep.utils.getSelectedDateRange
+import com.example.singlestep.utils.onLoading
+import com.example.singlestep.utils.onLoadingFailure
 import com.example.singlestep.utils.placeToLocation
 import com.example.singlestep.utils.setupPlacesAutocompleteFragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
@@ -53,14 +53,14 @@ class SearchFragment : Fragment() {
             when (result) {
                 Result.Loading -> onLoading()
                 is Result.Failure -> onLoadingFailure()
-                is Result.Success -> onDestinationLoadingSuccess(result.value)
+                is Result.Success -> destinationAdapter.submitList(result.value)
             }
         }
         viewModel.budgetList.observe(viewLifecycleOwner) { result ->
             when (result) {
                 Result.Loading -> onLoading()
                 is Result.Failure -> onLoadingFailure()
-                is Result.Success -> onBudgetLoadingSuccess(result.value)
+                is Result.Success -> budgetAdapter.submitList(result.value)
             }
         }
     }
@@ -137,60 +137,32 @@ class SearchFragment : Fragment() {
         sourceFragment: AutocompleteSupportFragment,
         destinationFragment: AutocompleteSupportFragment
     ) {
-        with(binding) {
-            setupPlacesAutocompleteFragment(
-                root.context,
-                sourceFragment,
-                getString(R.string.enter_start_location),
-                R.drawable.icon_start_location,
-                R.drawable.background_border_rounded_top,
-                placeSelectedListener = {
-                    source = placeToLocation(it)
-                    validateFields()
-                },
-                clearButtonClickedListener = {
-                    source = null
-                    validateFields()
-                }
-            )
+        setupPlacesAutocompleteFragment(sourceFragment,
+            getString(R.string.enter_start_location),
+            placeSelectedListener = {
+                source = placeToLocation(it)
+                validateFields()
+            },
+            clearButtonClickedListener = {
+                source = null
+                validateFields()
+            })
 
-            setupPlacesAutocompleteFragment(
-                root.context,
-                destinationFragment,
-                getString(R.string.enter_destination),
-                R.drawable.icon_destination,
-                R.drawable.background_border,
-                placeSelectedListener = {
-                    destination = placeToLocation(it)
-                    validateFields()
-                },
-                clearButtonClickedListener = {
-                    destination = null
-                    validateFields()
-                }
-            )
-        }
+        setupPlacesAutocompleteFragment(destinationFragment,
+            getString(R.string.enter_destination),
+            placeSelectedListener = {
+                destination = placeToLocation(it)
+                validateFields()
+            },
+            clearButtonClickedListener = {
+                destination = null
+                validateFields()
+            })
     }
 
     private fun validateFields() {
         binding.planTripButton.isEnabled =
             (numGuests > 0 && budget > 0 && binding.datePickerEditText.text.isNotEmpty() && source != null && destination != null)
-    }
-
-    private fun onLoading() {
-        Log.i("Loading", "onLoading()")
-    }
-
-    private fun onLoadingFailure() {
-        Log.i("Loading Failed", "onLoadingFailure()")
-    }
-
-    private fun onDestinationLoadingSuccess(destinations: List<Location>) {
-        destinationAdapter.submitList(destinations)
-    }
-
-    private fun onBudgetLoadingSuccess(budgets: List<Budget>) {
-        budgetAdapter.submitList(budgets)
     }
 
     private fun datePickerDialog() {
