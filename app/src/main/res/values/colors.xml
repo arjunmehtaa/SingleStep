@@ -7,4 +7,6 @@
     <color name="faded_grey">#999999</color>
     <color name="grey">#818181</color>
     <color name="orange">#EC8C6F</color>
+    <color name="yellow">#FFC000</color>
+    <color name="shimmerColor">#C2C2C2</color>
 </resources>

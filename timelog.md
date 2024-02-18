@@ -16,3 +16,4 @@
 | 2024/02/14 | 6     |        |        |       |         |      | Add PlacesAutocomplete API, MaterialDatePicker etc.       |
 | 2024/02/15 | 4     |        |        |       |         |      | Complete SearchFragment (guest counter, suggestions etc.) |
 | 2024/02/15 |       |        | 1      |       |         | 1    | Buddy Team's Evaluation review                            |
+| 2024/02/18 | 6     |        |        |       |         |      | Populate explore page with nearby tourist attractions     |

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/name_text_view"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/background_filled_rounded"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/description_text_view"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name_text_view"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/background_filled_rounded"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/photos_text_view"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description_text_view"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/background_filled_rounded"
+        android:textSize="16sp" />
+
+    <View
+        android:id="@+id/image_1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/photos_text_view"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/background_filled_rounded" />
+
+    <View
+        android:id="@+id/image_2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/photos_text_view"
+        android:layout_marginVertical="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@id/image_1"
+        android:background="@drawable/background_filled_rounded" />
+
+    <View
+        android:id="@+id/image_3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/photos_text_view"
+        android:layout_marginVertical="8dp"
+        android:layout_toEndOf="@id/image_2"
+        android:background="@drawable/background_filled_rounded" />
+
+    <Button
+        android:id="@+id/get_directions_button"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_1"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/shimmerColor" />
+
+    <Button
+        android:id="@+id/book_button"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/get_directions_button"
+        android:layout_toEndOf="@id/get_directions_button"
+        android:backgroundTint="@color/shimmerColor" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/get_directions_button"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/light_grey" />
+
+</RelativeLayout>

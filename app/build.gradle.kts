@@ -50,4 +50,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.google.android.libraries.places:places:3.3.0")
+    implementation("com.amadeus:amadeus-android:1.3.1")
+    implementation("org.jsoup:jsoup:1.11.2")
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
 }

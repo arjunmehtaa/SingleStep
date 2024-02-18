@@ -1,8 +1,10 @@
 package com.example.singlestep.utils
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.View
-import android.widget.EditText
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.PlaceTypes
@@ -32,7 +34,7 @@ fun setupPlacesAutocompleteFragment(
             it.visibility = View.GONE
             clearButtonClickedListener()
         }
-        getAutocompleteFragmentEditText(this).hint = hint
+        this.setHint(hint)
     }
 }
 
@@ -40,6 +42,15 @@ fun getAutocompleteFragmentClearButton(fragment: AutocompleteSupportFragment): V
     return fragment.view?.findViewById<View>(com.google.android.libraries.places.R.id.places_autocomplete_clear_button)
 }
 
-fun getAutocompleteFragmentEditText(fragment: AutocompleteSupportFragment): EditText {
-    return fragment.view?.findViewById(com.google.android.libraries.places.R.id.places_autocomplete_search_input) as EditText
+fun startGoogleMapsNavigation(context: Context, lat: Double, long: Double) {
+    val navigationIntentUri = Uri.parse("google.navigation:q=$lat,$long")
+    val mapIntent = Intent(Intent.ACTION_VIEW, navigationIntentUri)
+    mapIntent.setPackage("com.google.android.apps.maps")
+    context.startActivity(mapIntent)
+}
+
+fun startWebView(context: Context, link: String?) {
+    val intent = Intent(Intent.ACTION_VIEW)
+    intent.setData(Uri.parse(link))
+    context.startActivity(intent)
 }

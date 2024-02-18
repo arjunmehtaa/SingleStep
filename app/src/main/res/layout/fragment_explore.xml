@@ -1,27 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
     <TextView
         android:id="@+id/title_text_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginHorizontal="16dp"
-        android:text="@string/explore"
+        android:layout_marginBottom="8dp"
+        android:text="@string/explore_nearby"
         android:textSize="32sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/subtitle_text_view"
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_text_view"
-        android:layout_margin="16dp"
-        android:textSize="24sp"
-        tools:text="Sample subtitle" />
+        android:paddingTop="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/item_tourist_attraction_shimmer" />
+
+            <include layout="@layout/item_tourist_attraction_shimmer" />
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tourist_attractions_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_text_view"
+        android:layout_marginBottom="72dp"
+        android:clipToPadding="false"
+        android:paddingVertical="16dp"
+        android:scrollbars="vertical" />
 
 </RelativeLayout>

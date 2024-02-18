@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         viewBinding.bottomNavigationView.setupWithNavController(navController)
 
-        val apiKey = getString(R.string.api_key)
+        val apiKey = getString(R.string.places_api_key)
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, apiKey)
         }
