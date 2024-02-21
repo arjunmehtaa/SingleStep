@@ -29,4 +29,6 @@
     <string name="photos">Photos</string>
     <string name="get_directions">Get Directions</string>
     <string name="proceed_to_booking">Proceed to Booking</string>
+    <string name="hotel_section_title">Hotels</string>
+    <string name="test_amadeus_url">https://test.api.amadeus.com</string>
 </resources>

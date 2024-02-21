@@ -53,4 +53,6 @@ dependencies {
     implementation("com.amadeus:amadeus-android:1.3.1")
     implementation("org.jsoup:jsoup:1.11.2")
     implementation("com.facebook.shimmer:shimmer:0.5.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }
