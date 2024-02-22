@@ -12,16 +12,16 @@ data class HotelOffer(
     val self: String
 )
 
-data class Hotel(
-    val type: String,
-    val hotelId: String,
-    val chainCode: String,
-    val dupeId: String,
-    val name: String,
-    val cityCode: String,
-    val latitude: Double,
-    val longitude: Double
-)
+//data class Hotel(
+//    val type: String,
+//    val hotelId: String,
+//    val chainCode: String,
+//    val dupeId: String,
+//    val name: String,
+//    val cityCode: String,
+//    val latitude: Double,
+//    val longitude: Double
+//)
 
 data class Offer(
     val id: String,

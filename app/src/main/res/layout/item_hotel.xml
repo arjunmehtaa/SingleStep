@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -27,5 +26,12 @@
         android:textSize="20sp"
         tools:text="100 CAD total" />
 
+    <ImageView
+        android:id="@+id/hotel_image_view"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/price_text_view"
+        android:layout_marginHorizontal="16dp"
+        android:scaleType="centerCrop" />
 
 </RelativeLayout>

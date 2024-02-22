@@ -24,25 +24,32 @@ interface AmadeusApi {
 
     @FormUrlEncoded
     @POST("/v1/security/oauth2/token")
-    suspend fun getAccessToken(@Field("grant_type") grantType: String = "client_credentials",
-                               @Field("client_id") clientId: String,
-                               @Field("client_secret") clientSecret: String) : Response<AmadeusOAuthResponse>
+    suspend fun getAccessToken(
+        @Field("grant_type") grantType: String = "client_credentials",
+        @Field("client_id") clientId: String,
+        @Field("client_secret") clientSecret: String
+    ): Response<AmadeusOAuthResponse>
 
     @GET("/v1/reference-data/locations/hotels/by-geocode")
-    suspend fun getHotelInfo(@Header("Authorization") auth: String,
-                             @Query("latitude") latitude: Double,
-                             @Query("longitude") longitude: Double,
-                             @Query("radius") radius: Double) : Response<HotelResponse>
+    suspend fun getHotelInfo(
+        @Header("Authorization") auth: String,
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double,
+        @Query("radius") radius: Double
+    ): Response<HotelResponse>
 
     @GET("/v3/shopping/hotel-offers")
-    suspend fun getHotelOffers(@Header("Authorization") auth: String,
-                               @Query("hotelIds") hotelIds: List<String>,
-                               @Query("priceRange") priceRange: String,
-                               @Query("currency") currency: String,
-                               @Query("adults") adults: Int,
-                               @Query("checkInDate") checkInDate: String,
-                               @Query("checkOutDate") checkOutDate: String) : Response<HotelOfferResponse>
+    suspend fun getHotelOffers(
+        @Header("Authorization") auth: String,
+        @Query("hotelIds") hotelIds: List<String>,
+        @Query("priceRange") priceRange: String,
+        @Query("currency") currency: String,
+        @Query("adults") adults: Int,
+        @Query("checkInDate") checkInDate: String,
+        @Query("checkOutDate") checkOutDate: String
+    ): Response<HotelOfferResponse>
 }
+
 class Amadeus(private val context: Context) {
 
     private val amadeus = Amadeus.Builder(context)
@@ -71,7 +78,14 @@ class Amadeus(private val context: Context) {
         return touristAttractionList
     }
 
-    suspend fun getHotelOffers(lat: Double, long: Double, guests: Int, budget: Double, checkInDate: String, checkOutDate: String): List<HotelOffer> {
+    suspend fun getHotelOffers(
+        lat: Double,
+        long: Double,
+        guests: Int,
+        budget: Double,
+        checkInDate: String,
+        checkOutDate: String
+    ): List<HotelOffer> {
         val amadeusApiRetrofit = retrofit.create(AmadeusApi::class.java)
 
         // get client token
@@ -86,8 +100,7 @@ class Amadeus(private val context: Context) {
             oAuthResult.body()?.let {
                 accessToken = it.accessToken
             }
-        }
-        else {
+        } else {
             Log.i("ERROR: ", "error from OAuth API")
             Log.i("ERROR: ", oAuthResult.message())
             throw RuntimeException()
@@ -110,8 +123,7 @@ class Amadeus(private val context: Context) {
                     hid.hotelId
                 }
             }
-        }
-        else {
+        } else {
             Log.i("ERROR: ", "error from list hotels API")
             Log.i("ERROR: ", hotelSearchResult.message())
             throw RuntimeException()
@@ -135,8 +147,7 @@ class Amadeus(private val context: Context) {
             hotelOffersResult.body()?.let {
                 hotelOffersList = it.data
             }
-        }
-        else {
+        } else {
             Log.i("ERROR: ", "error from hotel offers API")
             Log.i("ERROR: ", hotelOffersResult.message())
             throw RuntimeException()
