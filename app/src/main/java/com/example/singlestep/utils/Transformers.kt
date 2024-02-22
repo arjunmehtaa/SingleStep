@@ -6,6 +6,8 @@ import com.google.android.libraries.places.api.model.Place
 fun placeToLocation(place: Place): Location {
     return Location(
         place.name,
-        null
+        null,
+        place.latLng.latitude,
+        place.latLng.longitude
     )
 }

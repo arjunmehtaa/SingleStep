@@ -18,7 +18,7 @@ fun setupPlacesAutocompleteFragment(
     clearButtonClickedListener: () -> Unit
 ) {
     with(fragment) {
-        setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME))
+        setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
         setTypesFilter(listOf(PlaceTypes.CITIES))
         setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
