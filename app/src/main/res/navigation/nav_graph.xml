@@ -21,9 +21,9 @@
 
         <fragment
             android:id="@+id/detailFragment"
-            android:name="com.example.singlestep.ui.detail.DetailFragment"
+            android:name="com.example.singlestep.ui.detail.FlightFragment"
             android:label="fragment_detail"
-            tools:layout="@layout/fragment_detail">
+            tools:layout="@layout/fragment_flight">
             <argument
                 android:name="tripParameters"
                 app:argType="com.example.singlestep.model.TripParameters" />

@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/detail"
+            android:text="Flights"
             android:textSize="36sp"
             android:textStyle="bold" />
 
@@ -38,6 +38,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title_layout"
         android:textSize="24sp"
-        tools:text="Sample subtitle" />
+        tools:text="Available Flights" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/flight_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subtitle_text_view"
+        android:layout_marginBottom="10dp"
+        android:clipToPadding="false"
+        android:paddingVertical="10dp"
+        android:scrollbars="vertical"
+        />
 
 </RelativeLayout>
