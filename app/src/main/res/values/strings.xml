@@ -29,8 +29,12 @@
     <string name="photos">Photos</string>
     <string name="get_directions">Get Directions</string>
     <string name="proceed_to_booking">Proceed to Booking</string>
-    <string name="hotel_section_title">Hotels</string>
     <string name="test_amadeus_url">https://test.api.amadeus.com</string>
+    <string name="hotels">Hotels</string>
+    <string name="debug_tag">Debug: </string>
+    <string name="booking_api_key">35ba2fe984msh47c31ab84324ed7p143d9ejsne0b6c2e4c472</string>
+    <string name="booking_api_host">booking-com18.p.rapidapi.com</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nights_days_guests">%1$d nights, %2$d days • %3$d guests</string>
 </resources>

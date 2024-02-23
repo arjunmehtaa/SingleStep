@@ -19,7 +19,8 @@ data class DisplayName(
 )
 
 data class PriceDisplayInfo(
-    val displayPrice: DisplayPrice
+    val displayPrice: DisplayPrice,
+    val priceBeforeDiscount: PriceBeforeDiscount
 )
 
 data class DisplayPrice(
@@ -30,10 +31,6 @@ data class AmountPerStay(
     val currency: String,
     val amountUnformatted: Double,
     val amountRounded: String
-)
-
-data class StarRating(
-    val value: Double
 )
 
 data class Photo(
@@ -49,6 +46,24 @@ data class AbsoluteUrl(
 )
 
 data class BasicPropertyData(
-    val starRating: StarRating,
-    val photos: Photo
+    val photos: Photo,
+    val location: HotelLocation,
+    val reviews: Reviews
+)
+
+data class HotelLocation(
+    val address: String
+)
+
+data class PriceBeforeDiscount(
+    val amountPerStay: AmountPerStay,
+)
+
+data class Reviews(
+    val totalScoreTextTag: TotalScoreTextTag,
+    val totalScore: Double
+)
+
+data class TotalScoreTextTag(
+    val translation: String
 )

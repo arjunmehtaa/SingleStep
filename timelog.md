@@ -18,4 +18,5 @@
 | 2024/02/15 |       |        | 1      |       |         | 1    | Buddy Team's Evaluation review                            |
 | 2024/02/18 | 6     |        |        |       |         |      | Populate explore page with nearby tourist attractions     |
 | 2024/02/22 | 2     |        |        |       |         |      | Update Hotels API, create models for new API              |
-| 2024/02/22 | 2     |        |        |       | 14      |      | API call and data processing for flight data + fragment   |
+| 2024/02/22 |       |        |        |       | 14      |      | API call and data processing for flight data + fragment   |
+| 2024/02/22 | 4     |        |        |       |         |      | Complete HotelFragment                                    |

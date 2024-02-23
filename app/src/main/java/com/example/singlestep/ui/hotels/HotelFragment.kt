@@ -8,10 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.singlestep.R
 import com.example.singlestep.databinding.FragmentHotelBinding
 import com.example.singlestep.model.Hotel
+import com.example.singlestep.model.TripParameters
 import com.example.singlestep.ui.common.adapters.HotelAdapter
 import com.example.singlestep.utils.Result
+import com.example.singlestep.utils.hideBottomNavigationBar
+import com.example.singlestep.utils.showBottomNavigationBar
 
 class HotelFragment : Fragment() {
 
@@ -24,7 +28,9 @@ class HotelFragment : Fragment() {
     ): View {
         binding = FragmentHotelBinding.inflate(inflater, container, false)
         setupObservers()
-        setupViews()
+        arguments?.let { bundle ->
+            setupViews(HotelFragmentArgs.fromBundle(bundle).tripParameters)
+        }
         return binding.root
     }
 
@@ -32,21 +38,25 @@ class HotelFragment : Fragment() {
         viewModel.hotelList.observe(viewLifecycleOwner) { result ->
             when (result) {
                 Result.Loading -> binding.shimmerLayout.startShimmer()
-                is Result.Failure -> {
-                    Log.i("DEBUG: ", result.throwable.stackTraceToString())
-                }
-
+                is Result.Failure -> Log.i(getString(R.string.debug_tag), result.throwable.stackTraceToString())
                 is Result.Success -> onHotelOffersLoadingSuccess(result.value)
             }
 
         }
     }
 
-    private fun setupViews() {
+    private fun setupViews(tripParameters: TripParameters) {
         with(binding) {
-            hotelAdapter = HotelAdapter()
-            hotelOffersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-            hotelOffersRecyclerView.adapter = hotelAdapter
+            hotelAdapter = HotelAdapter(
+                tripParameters.checkInDate,
+                tripParameters.checkOutDate,
+                tripParameters.guests
+            )
+            hotelsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+            hotelsRecyclerView.adapter = hotelAdapter
+            backButton.setOnClickListener {
+                activity?.onBackPressedDispatcher?.onBackPressed()
+            }
         }
     }
 
@@ -56,5 +66,15 @@ class HotelFragment : Fragment() {
             visibility = View.GONE
         }
         hotelAdapter.submitList(hotels)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        hideBottomNavigationBar(activity)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        showBottomNavigationBar(activity)
     }
 }

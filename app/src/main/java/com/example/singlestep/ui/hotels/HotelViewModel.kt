@@ -20,7 +20,7 @@ class HotelViewModel(
 
     private var coroutineExceptionHandler: CoroutineExceptionHandler
     private val booking = Booking(application.applicationContext)
-    private val location = savedStateHandle.getLiveData<TripParameters>("tripParameters")
+    private val location = savedStateHandle.getLiveData<TripParameters>("tripParameters").value!!
 
     private val _hotelList: MutableLiveData<Result<List<Hotel>>> = MutableLiveData()
     val hotelList: LiveData<Result<List<Hotel>>>
@@ -31,10 +31,12 @@ class HotelViewModel(
             _hotelList.value = Result.Failure(exception)
         }
         getHotels(
-            location.value!!.destination.latitude,
-            location.value!!.destination.longitude,
-            "2024-04-01",
-            "2024-04-05"
+            location.destination.latitude,
+            location.destination.longitude,
+            location.checkInDate.replace("/", "-"),
+            location.checkOutDate.replace("/", "-"),
+            location.budget,
+            location.guests
         )
     }
 
@@ -42,7 +44,9 @@ class HotelViewModel(
         latitude: Double,
         longitude: Double,
         checkInDate: String,
-        checkOutDate: String
+        checkOutDate: String,
+        budget: Double,
+        guests: Int
     ) {
         viewModelScope.launch(coroutineExceptionHandler) {
             _hotelList.value = Result.Loading
@@ -54,8 +58,8 @@ class HotelViewModel(
                         checkInDate,
                         checkOutDate,
                         0,
-                        10000,
-                        2
+                        budget.toInt(),
+                        guests
                     )
                 )
         }

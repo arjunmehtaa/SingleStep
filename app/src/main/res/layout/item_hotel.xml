@@ -1,37 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/hotel_image_card"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:layout_marginHorizontal="16dp"
+        app:cardCornerRadius="12dp">
+
+        <ImageView
+            android:id="@+id/hotel_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/name_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="8dp"
-        android:textSize="24sp"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@id/hotel_image_card"
+        android:singleLine="true"
+        android:textSize="16sp"
         android:textStyle="bold"
-        tools:text="Foo Hotel" />
+        tools:text="The Grand Hotel" />
+
+    <TextView
+        android:id="@+id/address_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name_text_view"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
+        android:layout_toEndOf="@id/hotel_image_card"
+        android:singleLine="true"
+        android:textColor="@color/faded_grey"
+        android:textSize="16sp"
+        tools:text="50 Laurel Park Trail, Waterloo, Ontario" />
+
+    <TextView
+        android:id="@+id/rating_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address_text_view"
+        android:layout_marginEnd="4dp"
+        android:layout_toEndOf="@id/hotel_image_card"
+        android:background="@drawable/background_filled_rounded_orange"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        android:textColor="@color/orange"
+        android:textSize="12sp"
+        tools:text="8.9" />
+
+    <TextView
+        android:id="@+id/rating_keyword_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address_text_view"
+        android:layout_alignBaseline="@id/rating_text_view"
+        android:layout_toEndOf="@id/rating_text_view"
+        android:textColor="@color/orange"
+        android:textSize="12sp"
+        tools:text="Very Good" />
+
+    <TextView
+        android:id="@+id/summary_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/price_text_view"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_toEndOf="@id/hotel_image_card"
+        android:gravity="end"
+        android:singleLine="true"
+        android:textColor="@color/faded_grey"
+        android:textSize="16sp"
+        tools:text="2 nights, 3 days • 2 guests" />
 
     <TextView
         android:id="@+id/price_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/name_text_view"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="8dp"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
+        android:layout_alignBottom="@id/hotel_image_card"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         android:textSize="20sp"
-        tools:text="100 CAD total" />
+        android:textStyle="bold"
+        tools:text="$100" />
 
-    <ImageView
-        android:id="@+id/hotel_image_view"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/price_text_view"
-        android:layout_marginHorizontal="16dp"
-        android:scaleType="centerCrop" />
+    <TextView
+        android:id="@+id/price_before_discount_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/hotel_image_card"
+        android:layout_toStartOf="@id/price_text_view"
+        android:layout_toEndOf="@id/hotel_image_card"
+        android:gravity="end"
+        android:singleLine="true"
+        android:textColor="@color/faded_grey"
+        android:textSize="16sp"
+        tools:text="$120" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/hotel_image_card"
+        android:layout_marginVertical="16dp"
+        android:background="@color/light_grey" />
 
 </RelativeLayout>

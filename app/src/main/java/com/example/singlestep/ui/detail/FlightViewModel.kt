@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import android.util.Log
 import com.amadeus.android.domain.resources.Activity
 import com.example.singlestep.data.Amadeus
 import com.example.singlestep.model.Location
@@ -30,15 +29,15 @@ class FlightViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     private fun getFlightAttractionList() {
-        var mockData = TripParameters(Location("YYZ", null), Location("JFK", null), "2024-06-17 - 2024-07-01", 10000.0, 3)
+        var mockData = TripParameters(Location("YYZ", null, 0.0, 0.0), Location("JFK", null, 0.0, 0.0), "2024/06/17", "2024/07/01", 10000.0, 3)
         viewModelScope.launch(coroutineExceptionHandler) {
             _flightList.value = Result.Loading
 
             var flightResult = amadeus.getFlights(
                 mockData.source.city,
                 mockData.destination.city,
-                mockData.dates.split(" - ")[0],
-                mockData.dates.split(" - ")[1],
+                mockData.checkInDate.replace("/", "-"),
+                mockData.checkOutDate.replace("/", "-"),
                 mockData.guests
             )
             _flightList.value = Result.Success(flightResult)

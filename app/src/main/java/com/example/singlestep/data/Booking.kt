@@ -2,6 +2,7 @@ package com.example.singlestep.data
 
 import android.content.Context
 import android.util.Log
+import com.example.singlestep.R
 import com.example.singlestep.model.Hotel
 import com.example.singlestep.model.HotelBookingResponse
 import getBoundingBox
@@ -25,7 +26,8 @@ interface BookingApi {
         @Query("minPrice") minPrice: Int,
         @Query("maxPrice") maxPrice: Int,
         @Query("checkinDate") checkinDate: String,
-        @Query("checkoutDate") checkoutDate: String
+        @Query("checkoutDate") checkoutDate: String,
+        @Query("currencyCode") currencyCode: String
     ): Response<HotelBookingResponse>
 }
 
@@ -42,15 +44,12 @@ class Booking(private val context: Context) {
         maxPrice: Int,
         guests: Int
     ): List<Hotel> {
-
         val tripAdvisorApiRetrofit = retrofit.create(BookingApi::class.java)
         val boxCoordinates = getBoundingBox(Pair(latitude, longitude), 5.0)
 
-        Log.i("Lat, long is: ", latitude.toString() + ", " + longitude.toString())
-
         val results: Response<HotelBookingResponse> = tripAdvisorApiRetrofit.getHotels(
-            apiKey = "35ba2fe984msh47c31ab84324ed7p143d9ejsne0b6c2e4c472",
-            host = "booking-com18.p.rapidapi.com",
+            apiKey = context.getString(R.string.booking_api_key),
+            host = context.getString(R.string.booking_api_host),
             boxCoordinates[0],
             boxCoordinates[1],
             boxCoordinates[2],
@@ -59,15 +58,12 @@ class Booking(private val context: Context) {
             minPrice,
             maxPrice,
             checkInDate,
-            checkOutDate
+            checkOutDate,
+            "CAD"
         )
-        if (results.isSuccessful) {
-            Log.i("DEBUG: ", results.body().toString())
-        } else {
-            Log.i("ERROR: ", "error from hotel offers API")
+        if (!results.isSuccessful) {
             Log.i("ERROR: ", results.errorBody()!!.string())
         }
-        Log.i("AO:", results.body()!!.data.results.toString())
         return results.body()!!.data.results
     }
 

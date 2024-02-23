@@ -1,48 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@color/white">
 
-    <LinearLayout
-        android:id="@+id/hotel_section_layout"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_alignTop="@id/title_text_view"
+        android:layout_alignBottom="@id/title_text_view"
+        android:paddingStart="16dp"
+        android:paddingEnd="0dp"
+        android:paddingTop="4dp"
+        android:src="@drawable/icon_back"
+        app:tint="@color/material_on_surface_emphasis_high_type"
+        tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/hotel_section_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/hotel_section_title"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@id/back_button"
+        android:text="@string/hotels"
+        android:textSize="32sp"
+        android:textStyle="bold" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/hotel_section_layout"
+        android:layout_below="@id/title_text_view"
         android:paddingTop="16dp">
 
-        <TextView
-            android:id="@+id/dummy_hotels_text_view"
-            android:layout_width="350dp"
-            android:layout_height="60dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/background_filled_rounded"
-            android:textSize="16sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/item_hotel_shimmer" />
+
+            <include layout="@layout/item_hotel_shimmer" />
+
+            <include layout="@layout/item_hotel_shimmer" />
+
+            <include layout="@layout/item_hotel_shimmer" />
+
+        </LinearLayout>
+
     </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/hotel_offers_recycler_view"
+        android:id="@+id/hotels_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/hotel_section_layout"
-        android:layout_marginBottom="72dp"
+        android:layout_below="@id/title_text_view"
         android:clipToPadding="false"
         android:paddingVertical="16dp"
         android:scrollbars="vertical" />

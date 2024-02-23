@@ -101,8 +101,9 @@ class SearchFragment : Fragment() {
             }
 
             planTripButton.setOnClickListener {
+                val dates = datePickerEditText.text.toString().split(" - ")
                 val tripParameters = TripParameters(
-                    source!!, destination!!, datePickerEditText.text.toString(), budget, numGuests
+                    source!!, destination!!, dates[0].trim(), dates[1].trim(), budget, numGuests
                 )
                 val action =
                     SearchFragmentDirections.actionSearchFragmentToHotelFragment(tripParameters)

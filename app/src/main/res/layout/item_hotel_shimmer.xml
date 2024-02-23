@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/hotel_image_card"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/background_filled_rounded" />
+
+    <TextView
+        android:id="@+id/name_text_view"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@id/hotel_image_card"
+        android:background="@drawable/background_filled_rounded"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/address_text_view"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name_text_view"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@id/hotel_image_card"
+        android:background="@drawable/background_filled_rounded" />
+
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/price_text_view"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/background_filled_rounded"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/price_text_view"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/hotel_image_card"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/background_filled_rounded"
+        android:textSize="16sp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/hotel_image_card"
+        android:layout_marginVertical="16dp"
+        android:background="@color/light_grey" />
+
+</RelativeLayout>
