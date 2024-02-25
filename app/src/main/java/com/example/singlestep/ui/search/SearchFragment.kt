@@ -24,6 +24,8 @@ import com.example.singlestep.utils.onLoadingFailure
 import com.example.singlestep.utils.placeToLocation
 import com.example.singlestep.utils.setupPlacesAutocompleteFragment
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.NumberFormat
 import java.util.Locale
@@ -168,6 +170,9 @@ class SearchFragment : Fragment() {
 
     private fun datePickerDialog() {
         val builder = MaterialDatePicker.Builder.dateRangePicker()
+        val dateValidator = DateValidatorPointForward.from(System.currentTimeMillis())
+        val constraintsBuilder = CalendarConstraints.Builder().setValidator(dateValidator)
+        builder.setCalendarConstraints(constraintsBuilder.build())
         builder.setTitleText("Select a date range")
         val datePicker = builder.build()
         datePicker.addOnPositiveButtonClickListener { selection ->
