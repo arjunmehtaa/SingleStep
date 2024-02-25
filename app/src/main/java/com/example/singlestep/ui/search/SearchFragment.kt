@@ -106,7 +106,7 @@ class SearchFragment : Fragment() {
                     source!!, destination!!, dates[0].trim(), dates[1].trim(), budget, numGuests
                 )
                 val action =
-                    SearchFragmentDirections.actionSearchFragmentToHotelFragment(tripParameters)
+                    SearchFragmentDirections.actionSearchFragmentToDetailFragment(tripParameters)
                 findNavController(requireView()).navigate(action)
             }
 

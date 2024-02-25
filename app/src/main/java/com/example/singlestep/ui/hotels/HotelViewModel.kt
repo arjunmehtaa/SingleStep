@@ -1,6 +1,7 @@
 package com.example.singlestep.ui.hotels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,12 +16,13 @@ import kotlinx.coroutines.launch
 
 class HotelViewModel(
     application: Application,
-    savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle // Made savedStateHandle accessible within the class
 ) : AndroidViewModel(application) {
 
     private var coroutineExceptionHandler: CoroutineExceptionHandler
     private val booking = Booking(application.applicationContext)
-    private val location = savedStateHandle.getLiveData<TripParameters>("tripParameters").value!!
+
+    // Removed the immediate use of location from savedStateHandle to avoid NullPointerException
 
     private val _hotelList: MutableLiveData<Result<List<Hotel>>> = MutableLiveData()
     val hotelList: LiveData<Result<List<Hotel>>>
@@ -30,13 +32,16 @@ class HotelViewModel(
         coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
             _hotelList.value = Result.Failure(exception)
         }
+    }
+
+    fun setTripParameters(tripParameters: TripParameters) {
         getHotels(
-            location.destination.latitude,
-            location.destination.longitude,
-            location.checkInDate.replace("/", "-"),
-            location.checkOutDate.replace("/", "-"),
-            location.budget,
-            location.guests
+            tripParameters.destination.latitude,
+            tripParameters.destination.longitude,
+            tripParameters.checkInDate.replace("/", "-"),
+            tripParameters.checkOutDate.replace("/", "-"),
+            tripParameters.budget,
+            tripParameters.guests
         )
     }
 
@@ -49,19 +54,29 @@ class HotelViewModel(
         guests: Int
     ) {
         viewModelScope.launch(coroutineExceptionHandler) {
-            _hotelList.value = Result.Loading
-            _hotelList.value =
-                Result.Success(
-                    booking.getHotels(
-                        latitude,
-                        longitude,
-                        checkInDate,
-                        checkOutDate,
-                        0,
-                        budget.toInt(),
-                        guests
-                    )
+            _hotelList.postValue(Result.Loading)
+            try {
+                val hotels = booking.getHotels(
+                    latitude,
+                    longitude,
+                    checkInDate,
+                    checkOutDate,
+                    0,
+                    budget.toInt(),
+                    guests
                 )
+                if (hotels != null) {
+                    Log.d("HotelViewModel", "Fetched hotels: ${hotels.size}")
+                    _hotelList.postValue(Result.Success(hotels))
+                } else {
+                    Log.e("HotelViewModel", "Failed to fetch hotels or invalid input")
+                    _hotelList.postValue(Result.Failure(NullPointerException("No hotels found or invalid input")))
+                }
+            } catch (e: Exception) {
+                Log.e("HotelViewModel", "Error fetching hotels", e)
+                _hotelList.postValue(Result.Failure(e))
+            }
         }
+
     }
 }

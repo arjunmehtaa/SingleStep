@@ -16,11 +16,21 @@ import com.example.singlestep.utils.getDaysBetween
 class HotelAdapter(
     val checkInDate: String,
     val checkOutDate: String,
-    val guests: Int
+    val guests: Int,
+    private val onClick: (Hotel) -> Unit
 ) : ListAdapter<Hotel, HotelAdapter.HotelOfferViewHolder>(REPO_COMPARATOR) {
 
     inner class HotelOfferViewHolder(private val binding: ItemHotelBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val hotel = getItem(position)
+                    onClick(hotel) // Use the click listener
+                }
+            }
+        }
         fun bind(hotel: Hotel) {
             with(binding) {
 

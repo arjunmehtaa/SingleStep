@@ -17,9 +17,6 @@
             <action
                 android:id="@+id/action_searchFragment_to_detailFragment"
                 app:destination="@id/detailFragment" />
-            <action
-                android:id="@+id/action_searchFragment_to_hotelFragment"
-                app:destination="@id/hotelFragment" />
         </fragment>
 
         <fragment
@@ -30,17 +27,21 @@
             <argument
                 android:name="tripParameters"
                 app:argType="com.example.singlestep.model.TripParameters" />
+            <action
+                android:id="@+id/action_detailFragment_to_hotelFragment"
+                app:destination="@id/hotelFragment" />
         </fragment>
 
         <fragment
             android:id="@+id/hotelFragment"
-            android:name='com.example.singlestep.ui.hotels.HotelFragment'
+            android:name="com.example.singlestep.ui.hotels.HotelFragment"
             android:label="fragment_hotel"
             tools:layout="@layout/fragment_hotel">
             <argument
                 android:name="tripParameters"
                 app:argType="com.example.singlestep.model.TripParameters" />
         </fragment>
+
 
     </navigation>
 
