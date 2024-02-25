@@ -13,8 +13,8 @@
         android:layout_alignTop="@id/title_text_view"
         android:layout_alignBottom="@id/title_text_view"
         android:paddingStart="16dp"
-        android:paddingEnd="0dp"
         android:paddingTop="4dp"
+        android:paddingEnd="0dp"
         android:src="@drawable/icon_back"
         app:tint="@color/material_on_surface_emphasis_high_type"
         tools:ignore="ContentDescription" />

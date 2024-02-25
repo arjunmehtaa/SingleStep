@@ -1,7 +1,6 @@
 package com.example.singlestep.model
 
 import java.io.Serializable
-import java.util.*
 
 data class FlightInfo(
     var id: String = "",

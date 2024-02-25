@@ -31,6 +31,7 @@ class HotelAdapter(
                 }
             }
         }
+
         fun bind(hotel: Hotel) {
             with(binding) {
 
@@ -53,7 +54,8 @@ class HotelAdapter(
                 summaryTextView.text =
                     root.context.getString(R.string.nights_days_guests, days - 1, days, guests)
 
-                val priceBeforeDiscount = hotel.priceDisplayInfo.priceBeforeDiscount.amountPerStay.amountRounded
+                val priceBeforeDiscount =
+                    hotel.priceDisplayInfo.priceBeforeDiscount.amountPerStay.amountRounded
                 if (priceBeforeDiscount.isNotBlank()) {
                     priceBeforeDiscountTextView.text = priceBeforeDiscount
                     priceBeforeDiscountTextView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG

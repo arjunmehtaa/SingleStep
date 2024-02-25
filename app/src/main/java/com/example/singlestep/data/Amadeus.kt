@@ -8,12 +8,9 @@ import com.amadeus.android.domain.resources.Activity
 import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.example.singlestep.R
 import com.example.singlestep.model.FlightInfo
+import com.example.singlestep.model.TicketDetails
 import com.example.singlestep.model.TicketItinerary
 import com.example.singlestep.model.TicketPrices
-import com.example.singlestep.model.TicketDetails
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
 class Amadeus(context: Context) {
 
@@ -37,9 +34,21 @@ class Amadeus(context: Context) {
         return touristAttractionList
     }
 
-    suspend fun getFlights(cityDepart: String, cityDestination: String, dateDepart: String, dateReturn: String, guests: Int): List<FlightInfo> {
+    suspend fun getFlights(
+        cityDepart: String,
+        cityDestination: String,
+        dateDepart: String,
+        dateReturn: String,
+        guests: Int
+    ): List<FlightInfo> {
         val flightList: List<FlightOfferSearch>
-        when (val flights = amadeus.shopping.flightOffersSearch.get(cityDepart, cityDestination, dateDepart, guests, dateReturn)) {
+        when (val flights = amadeus.shopping.flightOffersSearch.get(
+            cityDepart,
+            cityDestination,
+            dateDepart,
+            guests,
+            dateReturn
+        )) {
             is ApiResult.Success -> {
                 flightList = flights.data
             }
@@ -91,9 +100,18 @@ class Amadeus(context: Context) {
                 currItinerary.arrivalTimes.add(segment.arrival!!.at.toString())
                 currItinerary.carrierCodes.add(segment.carrierCode.toString())
             }
-            if (currItinerary.departureLocations.size > 1) {currItinerary.layover = true}
+            if (currItinerary.departureLocations.size > 1) {
+                currItinerary.layover = true
+            }
 
-            flightsInfo.add(FlightInfo((prevID+i).toString(), currTicketDetails, currItinerary, currTicketPrice))
+            flightsInfo.add(
+                FlightInfo(
+                    (prevID + i).toString(),
+                    currTicketDetails,
+                    currItinerary,
+                    currTicketPrice
+                )
+            )
             i++
         }
         return flightsInfo

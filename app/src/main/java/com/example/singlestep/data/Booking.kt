@@ -5,7 +5,7 @@ import android.util.Log
 import com.example.singlestep.R
 import com.example.singlestep.model.Hotel
 import com.example.singlestep.model.HotelBookingResponse
-import getBoundingBox
+import com.example.singlestep.utils.getBoundingBox
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

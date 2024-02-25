@@ -5,12 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.amadeus.android.domain.resources.FlightOfferSearch
-import com.example.singlestep.model.FlightInfo
-import com.bumptech.glide.Glide
-import com.example.singlestep.databinding.ItemDestinationBinding
 import com.example.singlestep.databinding.ItemFlightInfoBinding
-import com.example.singlestep.model.Location
+import com.example.singlestep.model.FlightInfo
 
 class FlightAdapter(
     val clickListener: (FlightInfo) -> Unit
@@ -21,15 +17,20 @@ class FlightAdapter(
         fun bind(flight: FlightInfo) {
             with(binding) {
                 nameTextView.text = flight.details.airlineCode
-                priceTextView.text = flight.prices.currency + " " + flight.prices.totalCost.toString()
+                priceTextView.text =
+                    flight.prices.currency + " " + flight.prices.totalCost.toString()
 
                 val itinerary = flight.itinerary
                 var legs = "OUTBOUND: \n"
                 val legCount = itinerary.departureLocations.size
 
                 for (i in 0..legCount - 1) {
-                    if (i == legCount/2) {legs += "RETURN: \n"}
-                    if (itinerary.departureLocations.size > 2 && i % 2 == 1) {legs += "TRANSFER: "}
+                    if (i == legCount / 2) {
+                        legs += "RETURN: \n"
+                    }
+                    if (itinerary.departureLocations.size > 2 && i % 2 == 1) {
+                        legs += "TRANSFER: "
+                    }
 
                     legs += itinerary.departureLocations[i] + "-" + itinerary.arrivalLocations[i] + "\n" +
                             "Departure: " + itinerary.departureTimes[i] + "\n" + "Arrival: " + itinerary.arrivalTimes[i] + "\n\n"

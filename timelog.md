@@ -21,4 +21,4 @@
 | 2024/02/22 |       |        |        |       | 14      |      | API call and data processing for flight data + fragment   |
 | 2024/02/22 | 4     |        |        |       |         |      | Complete HotelFragment                                    |
 | 2024/02/24 |       |        |        |       |         | 5    | Complete navigation from Search to Flight/Hotel           |
-
+| 2024/02/25 | 2     |        |        |       |         |      | Disable past dates in date picker, clean-up code          |

@@ -1,3 +1,5 @@
+package com.example.singlestep.utils
+
 import kotlin.math.PI
 import kotlin.math.asin
 import kotlin.math.cos
@@ -33,10 +35,10 @@ fun getBoundingBox(centerPoint: Pair<Double, Double>, distance: Double): List<Do
     maxLonLimit = (180).degToRad()
 
     // Earth's radius (km)
-    val R: Double = 6378.1
+    val r: Double = 6378.1
 
     // Angular distance in radians on a great circle
-    val radDist: Double = distance / R
+    val radDist: Double = distance / r
 
     // Center point coordinates (deg)
     val degLat: Double = centerPoint.first

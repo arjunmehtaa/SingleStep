@@ -1,4 +1,4 @@
-package com.example.singlestep.ui.detail
+package com.example.singlestep.ui.flights
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,9 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.amadeus.android.domain.resources.Activity
 import com.example.singlestep.data.Amadeus
+import com.example.singlestep.model.FlightInfo
 import com.example.singlestep.model.Location
 import com.example.singlestep.model.TripParameters
-import com.example.singlestep.model.FlightInfo
 import com.example.singlestep.utils.Result
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -29,7 +29,14 @@ class FlightViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     private fun getFlightAttractionList() {
-        var mockData = TripParameters(Location("YYZ", null, 0.0, 0.0), Location("JFK", null, 0.0, 0.0), "2024/06/17", "2024/07/01", 10000.0, 3)
+        var mockData = TripParameters(
+            Location("YYZ", null, 0.0, 0.0),
+            Location("JFK", null, 0.0, 0.0),
+            "2024/06/17",
+            "2024/07/01",
+            10000.0,
+            3
+        )
         viewModelScope.launch(coroutineExceptionHandler) {
             _flightList.value = Result.Loading
 

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.singlestep.R
 import com.example.singlestep.databinding.FragmentHotelBinding
 import com.example.singlestep.model.Hotel
 import com.example.singlestep.model.TripParameters
@@ -16,7 +15,6 @@ import com.example.singlestep.ui.common.adapters.HotelAdapter
 import com.example.singlestep.utils.Result
 import com.example.singlestep.utils.hideBottomNavigationBar
 import com.example.singlestep.utils.showBottomNavigationBar
-import androidx.navigation.fragment.findNavController
 
 
 class HotelFragment : Fragment() {
@@ -47,9 +45,11 @@ class HotelFragment : Fragment() {
                     Log.d("HotelFragment", "Loading hotels")
                     binding.shimmerLayout.startShimmer()
                 }
+
                 is Result.Failure -> {
                     Log.e("HotelFragment", "Error loading hotels", result.throwable)
                 }
+
                 is Result.Success -> {
                     Log.d("HotelFragment", "Hotels loaded successfully")
                     onHotelOffersLoadingSuccess(result.value)
@@ -57,7 +57,6 @@ class HotelFragment : Fragment() {
             }
         }
     }
-
 
     private fun setupViews(tripParameters: TripParameters) {
         with(binding) {

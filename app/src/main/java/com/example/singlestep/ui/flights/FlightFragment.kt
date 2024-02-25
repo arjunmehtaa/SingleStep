@@ -1,4 +1,4 @@
-package com.example.singlestep.ui.detail
+package com.example.singlestep.ui.flights
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,16 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.amadeus.android.domain.resources.FlightOfferSearch
-import com.example.singlestep.model.FlightInfo
 import com.example.singlestep.databinding.FragmentFlightBinding
+import com.example.singlestep.model.FlightInfo
 import com.example.singlestep.model.TripParameters
 import com.example.singlestep.ui.common.adapters.FlightAdapter
 import com.example.singlestep.utils.Result
 import com.example.singlestep.utils.onLoading
 import com.example.singlestep.utils.onLoadingFailure
-import androidx.navigation.fragment.findNavController
 
 
 class FlightFragment : Fragment() {
@@ -49,7 +48,8 @@ class FlightFragment : Fragment() {
     private fun setupViews(tripParameters: TripParameters) {
         with(binding) {
             flightAdapter = FlightAdapter { flightInfo ->
-                val action = FlightFragmentDirections.actionDetailFragmentToHotelFragment(tripParameters)
+                val action =
+                    FlightFragmentDirections.actionFlightFragmentToHotelFragment(tripParameters)
                 findNavController().navigate(action)
             }
             flightRecyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -60,7 +60,6 @@ class FlightFragment : Fragment() {
             }
         }
     }
-
 
     private fun onFlightLoadingSuccess(attractions: List<FlightInfo>) {
         flightAdapter.submitList(attractions)

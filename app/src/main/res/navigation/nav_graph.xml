@@ -16,19 +16,19 @@
             tools:layout="@layout/fragment_explore">
             <action
                 android:id="@+id/action_searchFragment_to_detailFragment"
-                app:destination="@id/detailFragment" />
+                app:destination="@id/flightFragment" />
         </fragment>
 
         <fragment
-            android:id="@+id/detailFragment"
-            android:name="com.example.singlestep.ui.detail.FlightFragment"
-            android:label="fragment_detail"
+            android:id="@+id/flightFragment"
+            android:name="com.example.singlestep.ui.flights.FlightFragment"
+            android:label="fragment_flight"
             tools:layout="@layout/fragment_flight">
             <argument
                 android:name="tripParameters"
                 app:argType="com.example.singlestep.model.TripParameters" />
             <action
-                android:id="@+id/action_detailFragment_to_hotelFragment"
+                android:id="@+id/action_flightFragment_to_hotelFragment"
                 app:destination="@id/hotelFragment" />
         </fragment>
 
