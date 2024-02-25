@@ -35,6 +35,9 @@ class FlightAdapter(
                             "Departure: " + itinerary.departureTimes[i] + "\n" + "Arrival: " + itinerary.arrivalTimes[i] + "\n\n"
                 }
                 tripLegs.text = legs
+                root.setOnClickListener {
+                    clickListener(flight)
+                }
             }
         }
     }

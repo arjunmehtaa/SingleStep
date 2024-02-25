@@ -16,6 +16,8 @@ import com.example.singlestep.ui.common.adapters.HotelAdapter
 import com.example.singlestep.utils.Result
 import com.example.singlestep.utils.hideBottomNavigationBar
 import com.example.singlestep.utils.showBottomNavigationBar
+import androidx.navigation.fragment.findNavController
+
 
 class HotelFragment : Fragment() {
 
@@ -29,21 +31,33 @@ class HotelFragment : Fragment() {
         binding = FragmentHotelBinding.inflate(inflater, container, false)
         setupObservers()
         arguments?.let { bundle ->
-            setupViews(HotelFragmentArgs.fromBundle(bundle).tripParameters)
+            val tripParameters = HotelFragmentArgs.fromBundle(bundle).tripParameters
+            viewModel.setTripParameters(tripParameters)
+            Log.d("HotelFragment", "Received tripParameters: $tripParameters")
+            setupViews(tripParameters)
         }
+
         return binding.root
     }
 
     private fun setupObservers() {
         viewModel.hotelList.observe(viewLifecycleOwner) { result ->
             when (result) {
-                Result.Loading -> binding.shimmerLayout.startShimmer()
-                is Result.Failure -> Log.i(getString(R.string.debug_tag), result.throwable.stackTraceToString())
-                is Result.Success -> onHotelOffersLoadingSuccess(result.value)
+                Result.Loading -> {
+                    Log.d("HotelFragment", "Loading hotels")
+                    binding.shimmerLayout.startShimmer()
+                }
+                is Result.Failure -> {
+                    Log.e("HotelFragment", "Error loading hotels", result.throwable)
+                }
+                is Result.Success -> {
+                    Log.d("HotelFragment", "Hotels loaded successfully")
+                    onHotelOffersLoadingSuccess(result.value)
+                }
             }
-
         }
     }
+
 
     private fun setupViews(tripParameters: TripParameters) {
         with(binding) {
@@ -51,7 +65,8 @@ class HotelFragment : Fragment() {
                 tripParameters.checkInDate,
                 tripParameters.checkOutDate,
                 tripParameters.guests
-            )
+            ) { hotel ->
+            }
             hotelsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             hotelsRecyclerView.adapter = hotelAdapter
             backButton.setOnClickListener {

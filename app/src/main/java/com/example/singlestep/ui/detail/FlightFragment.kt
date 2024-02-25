@@ -15,6 +15,8 @@ import com.example.singlestep.ui.common.adapters.FlightAdapter
 import com.example.singlestep.utils.Result
 import com.example.singlestep.utils.onLoading
 import com.example.singlestep.utils.onLoadingFailure
+import androidx.navigation.fragment.findNavController
+
 
 class FlightFragment : Fragment() {
 
@@ -46,10 +48,9 @@ class FlightFragment : Fragment() {
 
     private fun setupViews(tripParameters: TripParameters) {
         with(binding) {
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-            flightAdapter = FlightAdapter {
-                //subtitleTextView.text = it.id.toString() + " " + it.price.toString()
+            flightAdapter = FlightAdapter { flightInfo ->
+                val action = FlightFragmentDirections.actionDetailFragmentToHotelFragment(tripParameters)
+                findNavController().navigate(action)
             }
             flightRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             flightRecyclerView.adapter = flightAdapter
@@ -57,10 +58,9 @@ class FlightFragment : Fragment() {
             backButton.setOnClickListener {
                 activity?.onBackPressedDispatcher?.onBackPressed()
             }
-
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
     }
+
 
     private fun onFlightLoadingSuccess(attractions: List<FlightInfo>) {
         flightAdapter.submitList(attractions)
