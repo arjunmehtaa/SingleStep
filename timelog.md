@@ -20,3 +20,5 @@
 | 2024/02/22 | 2     |        |        |       |         |      | Update Hotels API, create models for new API              |
 | 2024/02/22 |       |        |        |       | 14      |      | API call and data processing for flight data + fragment   |
 | 2024/02/22 | 4     |        |        |       |         |      | Complete HotelFragment                                    |
+| 2024/02/24 | 4     |        |        |       |         | 5    | Complete navigation from Search to Flight/Hotel           |
+
