@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.singlestep.databinding.FragmentFlightBinding
+import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.example.singlestep.model.FlightInfo
 import com.example.singlestep.model.TripParameters
 import com.example.singlestep.ui.common.adapters.FlightAdapter
@@ -29,7 +30,8 @@ class FlightFragment : Fragment() {
         binding = FragmentFlightBinding.inflate(inflater, container, false)
         setupObservers()
         arguments?.let { bundle ->
-            // THIS IS WHERE DISPLAY IS CHANGED ( in setupViews )
+            val tripParameters = FlightFragmentArgs.fromBundle(bundle).tripParameters
+            viewModel.getFlightAttractionList(tripParameters)
             setupViews(FlightFragmentArgs.fromBundle(bundle).tripParameters)
         }
         return binding.root
@@ -61,7 +63,7 @@ class FlightFragment : Fragment() {
         }
     }
 
-    private fun onFlightLoadingSuccess(attractions: List<FlightInfo>) {
+    private fun onFlightLoadingSuccess(attractions: List<FlightOfferSearch>) {
         flightAdapter.submitList(attractions)
     }
 }
