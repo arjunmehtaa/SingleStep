@@ -13,8 +13,10 @@ import com.example.singlestep.databinding.FragmentFlightBinding
 import com.example.singlestep.model.TripParameters
 import com.example.singlestep.ui.common.adapters.FlightAdapter
 import com.example.singlestep.utils.Result
+import com.example.singlestep.utils.hideBottomNavigationBar
 import com.example.singlestep.utils.onLoading
 import com.example.singlestep.utils.onLoadingFailure
+import com.example.singlestep.utils.showBottomNavigationBar
 
 class FlightFragment : Fragment() {
 
@@ -61,6 +63,21 @@ class FlightFragment : Fragment() {
     }
 
     private fun onFlightLoadingSuccess(attractions: List<FlightOfferSearch>) {
+        binding.shimmerLayout.apply {
+            stopShimmer()
+            visibility = View.GONE
+        }
         flightAdapter.submitList(attractions)
     }
+
+    override fun onResume() {
+        super.onResume()
+        hideBottomNavigationBar(activity)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        showBottomNavigationBar(activity)
+    }
+
 }
