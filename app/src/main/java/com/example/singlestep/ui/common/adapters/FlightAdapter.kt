@@ -5,22 +5,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.example.singlestep.databinding.ItemFlightInfoBinding
-import com.example.singlestep.model.FlightInfo
 
 class FlightAdapter(
-    val clickListener: (FlightInfo) -> Unit
+    val clickListener: (FlightOfferSearch) -> Unit
 ) :
-    ListAdapter<FlightInfo, FlightAdapter.FlightViewHolder>(REPO_COMPARATOR) {
+    ListAdapter<FlightOfferSearch, FlightAdapter.FlightViewHolder>(REPO_COMPARATOR) {
     inner class FlightViewHolder(private val binding: ItemFlightInfoBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(flight: FlightInfo) {
+        fun bind(flight: FlightOfferSearch) {
             with(binding) {
-                nameTextView.text = flight.details.airlineCode
-                priceTextView.text =
-                    flight.prices.currency + " " + flight.prices.totalCost.toString()
+                nameTextView.text = flight.validatingAirlineCodes.toString()
+                priceTextView.text = "${flight.price!!.currency}  ${flight.price!!.grandTotal}"
 
-                val itinerary = flight.itinerary
+                /*val itinerary = flight.itineraries
                 var legs = "OUTBOUND: \n"
                 val legCount = itinerary.departureLocations.size
 
@@ -35,7 +34,7 @@ class FlightAdapter(
                     legs += itinerary.departureLocations[i] + "-" + itinerary.arrivalLocations[i] + "\n" +
                             "Departure: " + itinerary.departureTimes[i] + "\n" + "Arrival: " + itinerary.arrivalTimes[i] + "\n\n"
                 }
-                tripLegs.text = legs
+                tripLegs.text = legs*/
                 root.setOnClickListener {
                     clickListener(flight)
                 }
@@ -54,11 +53,11 @@ class FlightAdapter(
     }
 
     companion object {
-        private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<FlightInfo>() {
-            override fun areItemsTheSame(oldItem: FlightInfo, newItem: FlightInfo): Boolean =
+        private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<FlightOfferSearch>() {
+            override fun areItemsTheSame(oldItem: FlightOfferSearch, newItem: FlightOfferSearch): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: FlightInfo, newItem: FlightInfo): Boolean =
+            override fun areContentsTheSame(oldItem: FlightOfferSearch, newItem: FlightOfferSearch): Boolean =
                 oldItem == newItem
         }
     }

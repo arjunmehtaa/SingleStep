@@ -30,7 +30,6 @@ class HotelFragment : Fragment() {
         setupObservers()
         arguments?.let { bundle ->
             val tripParameters = HotelFragmentArgs.fromBundle(bundle).tripParameters
-            viewModel.setTripParameters(tripParameters)
             Log.d("HotelFragment", "Received tripParameters: $tripParameters")
             setupViews(tripParameters)
         }

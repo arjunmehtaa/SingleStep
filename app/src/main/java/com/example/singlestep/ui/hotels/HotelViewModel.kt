@@ -16,13 +16,12 @@ import kotlinx.coroutines.launch
 
 class HotelViewModel(
     application: Application,
-    private val savedStateHandle: SavedStateHandle // Made savedStateHandle accessible within the class
+    savedStateHandle: SavedStateHandle
 ) : AndroidViewModel(application) {
 
     private var coroutineExceptionHandler: CoroutineExceptionHandler
     private val booking = Booking(application.applicationContext)
-
-    // Removed the immediate use of location from savedStateHandle to avoid NullPointerException
+    private val location = savedStateHandle.getLiveData<TripParameters>("tripParameters").value!!
 
     private val _hotelList: MutableLiveData<Result<List<Hotel>>> = MutableLiveData()
     val hotelList: LiveData<Result<List<Hotel>>>
@@ -32,16 +31,13 @@ class HotelViewModel(
         coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
             _hotelList.value = Result.Failure(exception)
         }
-    }
-
-    fun setTripParameters(tripParameters: TripParameters) {
         getHotels(
-            tripParameters.destination.latitude,
-            tripParameters.destination.longitude,
-            tripParameters.checkInDate.replace("/", "-"),
-            tripParameters.checkOutDate.replace("/", "-"),
-            tripParameters.budget,
-            tripParameters.guests
+            location.destination.latitude,
+            location.destination.longitude,
+            location.checkInDate.replace("/", "-"),
+            location.checkOutDate.replace("/", "-"),
+            location.budget,
+            location.guests
         )
     }
 
@@ -65,13 +61,8 @@ class HotelViewModel(
                     budget.toInt(),
                     guests
                 )
-                if (hotels != null) {
-                    Log.d("HotelViewModel", "Fetched hotels: ${hotels.size}")
-                    _hotelList.postValue(Result.Success(hotels))
-                } else {
-                    Log.e("HotelViewModel", "Failed to fetch hotels or invalid input")
-                    _hotelList.postValue(Result.Failure(NullPointerException("No hotels found or invalid input")))
-                }
+                // Log.d("HotelViewModel", "Fetched hotels: ${hotels.size}")
+                _hotelList.postValue(Result.Success(hotels))
             } catch (e: Exception) {
                 Log.e("HotelViewModel", "Error fetching hotels", e)
                 _hotelList.postValue(Result.Failure(e))

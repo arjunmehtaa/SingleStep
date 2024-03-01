@@ -6,6 +6,7 @@ import com.amadeus.android.Amadeus
 import com.amadeus.android.ApiResult
 import com.amadeus.android.domain.resources.Activity
 import com.amadeus.android.domain.resources.FlightOfferSearch
+import com.amadeus.android.domain.resources.Location
 import com.example.singlestep.R
 import com.example.singlestep.model.FlightInfo
 import com.example.singlestep.model.TicketDetails
@@ -40,7 +41,7 @@ class Amadeus(context: Context) {
         dateDepart: String,
         dateReturn: String,
         guests: Int
-    ): List<FlightInfo> {
+    ): List<FlightOfferSearch> {
         val flightList: List<FlightOfferSearch>
         when (val flights = amadeus.shopping.flightOffersSearch.get(
             cityDepart,
@@ -59,6 +60,35 @@ class Amadeus(context: Context) {
             }
         }
 
+        return flightList
+    }
+
+    suspend fun getIATA(latitude: Double, longitude: Double): List<Location> {
+        val airportList: List<Location>
+        when (val airports = amadeus.referenceData.locations.airports.get(
+            latitude,
+            longitude,
+            50
+        )) {
+            is ApiResult.Success -> {
+                airportList = airports.data
+            }
+
+            is ApiResult.Error -> {
+                Log.i("ERROR: ", airports.toString())
+                throw RuntimeException()
+            }
+        }
+
+        /*airportList.firstOrNull()?.let { airport ->
+            Log.i("Airports", airport.toString())
+        }*/
+        return airportList
+    }
+
+    private fun parseFlightInfo(flightInfo: FlightOfferSearch, prevID: Int): List<FlightInfo> {
+        // call parsing in "getFlights"
+        /*
         var flightListInfo = mutableListOf<FlightInfo>()
         var prevID = 0
         flightList.forEach { result ->
@@ -67,13 +97,12 @@ class Amadeus(context: Context) {
             flightListInfo.addAll(flightInfo)
         }
 
+        // logging
         for (flight in flightListInfo) {
             Log.i("Flight IDS: ", flight.id)
         }
-        return flightListInfo
-    }
+        */
 
-    private fun parseFlightInfo(flightInfo: FlightOfferSearch, prevID: Int): List<FlightInfo> {
         var flightsInfo = mutableListOf<FlightInfo>()
         var currTicketDetails = TicketDetails()
         var currTicketPrice = TicketPrices()
