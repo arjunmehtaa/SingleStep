@@ -33,7 +33,7 @@ class ExploreViewModel(application: Application) : AndroidViewModel(application)
             _touristAttractionList.value =
                     /* Ideally we would send user's current coordinates */
                 Result.Success(
-                    filterTouristAttractionList(
+                    sortTouristAttractionList(
                         amadeus.getTouristAttractions(
                             41.390205,
                             2.154007
@@ -43,7 +43,7 @@ class ExploreViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    private fun filterTouristAttractionList(results: List<Activity>): List<Activity> {
+    private fun sortTouristAttractionList(results: List<Activity>): List<Activity> {
         return results.sortedByDescending {
             it.description?.length
         }

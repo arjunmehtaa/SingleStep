@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.example.singlestep.databinding.ItemFlightInfoBinding
-import com.example.singlestep.model.FlightInfo
 
 class FlightAdapter(
     val clickListener: (FlightOfferSearch) -> Unit
@@ -18,8 +17,7 @@ class FlightAdapter(
         fun bind(flight: FlightOfferSearch) {
             with(binding) {
                 nameTextView.text = flight.validatingAirlineCodes.toString()
-                priceTextView.text =
-                    flight.price!!.currency.toString() + " " + flight.price!!.grandTotal.toString()
+                priceTextView.text = "${flight.price!!.currency}  ${flight.price!!.grandTotal}"
 
                 /*val itinerary = flight.itineraries
                 var legs = "OUTBOUND: \n"

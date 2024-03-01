@@ -8,15 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.singlestep.databinding.FragmentFlightBinding
 import com.amadeus.android.domain.resources.FlightOfferSearch
-import com.example.singlestep.model.FlightInfo
+import com.example.singlestep.databinding.FragmentFlightBinding
 import com.example.singlestep.model.TripParameters
 import com.example.singlestep.ui.common.adapters.FlightAdapter
 import com.example.singlestep.utils.Result
 import com.example.singlestep.utils.onLoading
 import com.example.singlestep.utils.onLoadingFailure
-
 
 class FlightFragment : Fragment() {
 
@@ -31,8 +29,7 @@ class FlightFragment : Fragment() {
         setupObservers()
         arguments?.let { bundle ->
             val tripParameters = FlightFragmentArgs.fromBundle(bundle).tripParameters
-            viewModel.getFlightAttractionList(tripParameters)
-            setupViews(FlightFragmentArgs.fromBundle(bundle).tripParameters)
+            setupViews(tripParameters)
         }
         return binding.root
     }
@@ -49,7 +46,7 @@ class FlightFragment : Fragment() {
 
     private fun setupViews(tripParameters: TripParameters) {
         with(binding) {
-            flightAdapter = FlightAdapter { flightInfo ->
+            flightAdapter = FlightAdapter {
                 val action =
                     FlightFragmentDirections.actionFlightFragmentToHotelFragment(tripParameters)
                 findNavController().navigate(action)
