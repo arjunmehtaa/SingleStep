@@ -55,13 +55,17 @@ class HotelAdapter(
                     root.context.getString(R.string.nights_days_guests, days - 1, days, guests)
 
                 val priceBeforeDiscount =
-                    hotel.priceDisplayInfo.priceBeforeDiscount.amountPerStay.amountRounded
-                if (priceBeforeDiscount.isNotBlank()) {
-                    priceBeforeDiscountTextView.text = priceBeforeDiscount
+                    hotel.priceDisplayInfo.priceBeforeDiscount.amountPerStay
+                val currentPrice = hotel.priceDisplayInfo.displayPrice.amountPerStay
+                if (priceBeforeDiscount.amountRounded.isNotBlank() && priceBeforeDiscount.amountUnformatted > currentPrice.amountUnformatted) {
+                    priceBeforeDiscountTextView.text = priceBeforeDiscount.amountRounded
                     priceBeforeDiscountTextView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    priceBeforeDiscountTextView.visibility = View.VISIBLE
+                } else {
+                    priceBeforeDiscountTextView.visibility = View.GONE
                 }
 
-                priceTextView.text = hotel.priceDisplayInfo.displayPrice.amountPerStay.amountRounded
+                priceTextView.text = currentPrice.amountRounded
 
                 Glide.with(root.context)
                     .load(hotel.basicPropertyData.photos.main.lowResJpegUrl.absoluteUrl)
