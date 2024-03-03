@@ -15,7 +15,7 @@
             android:label="fragment_home"
             tools:layout="@layout/fragment_explore">
             <action
-                android:id="@+id/action_searchFragment_to_detailFragment"
+                android:id="@+id/action_searchFragment_to_flightFragment"
                 app:destination="@id/flightFragment" />
         </fragment>
 
@@ -39,12 +39,26 @@
             tools:layout="@layout/fragment_hotel">
             <argument
                 android:name="tripParameters"
-                app:argType="com.example.singlestep.model.TripParameters" />
+                app:argType="com.example.singlestep.model.TripParameters"/>
+            <action
+                android:id="@+id/action_hotelFragment_to_summaryFragment"
+                app:destination="@id/summaryFragment" />
         </fragment>
 
-
+        <fragment
+            android:id="@+id/summaryFragment"
+            android:name="com.example.singlestep.ui.summary.SummaryFragment"
+            android:label="fragment_summary"
+            tools:layout="@layout/fragment_summary">
+            <!-- Define arguments expected by SummaryFragment here -->
+            <argument
+                android:name="hotelId"
+                app:argType="string"/>
+            <!-- Add other arguments as needed -->
+        </fragment>
     </navigation>
 
+    <!-- Definitions for ExploreFragment and TripsFragment remain unchanged -->
     <fragment
         android:id="@+id/exploreFragment"
         android:name="com.example.singlestep.ui.explore.ExploreFragment"

@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.example.singlestep.R
 import com.example.singlestep.databinding.FragmentSummaryBinding
-import com.example.singlestep.viewmodel.SharedViewModel
+import com.example.singlestep.viewmodel.SharedViewModel // Correct import statement
 
 class SummaryFragment : Fragment() {
 
@@ -18,8 +17,7 @@ class SummaryFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSummaryBinding.inflate(inflater, container, false)
         return binding.root
@@ -27,27 +25,18 @@ class SummaryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeSelectedFlightInfo()
+        observeSelectedFlight()
     }
 
-    private fun observeSelectedFlightInfo() {
+    private fun observeSelectedFlight() {
         // Observe the selected flight information from the shared ViewModel
-        sharedViewModel.selectedFlightInfo.observe(viewLifecycleOwner) { flightInfo ->
-            flightInfo?.let {
-                // Example of constructing a summary string from various properties
-                val summaryText = StringBuilder()
-                summaryText.append("Airline Code: ${it.details.airlineCode}\n")
-                summaryText.append("Source: ${it.details.source}\n")
-                summaryText.append("Price: ${it.prices.currency} ${it.prices.totalCost}")
-
-                // Update the TextView with this summary information
-                binding.flightNameTextView.text = summaryText.toString()
-            } ?: run {
-                // Handle the case where flightInfo is null
-                binding.flightNameTextView.text = "No flight information available"
-            }
+        sharedViewModel.selectedFlight.observe(viewLifecycleOwner) { flightInfo ->
+            // Constructing a summary string from various properties
+            binding.flightNameTextView.text = "Flight Details"
+            binding.airlineCodeTextView.text = "Airline Code: ${flightInfo.details.airlineCode}"
+            binding.sourceTextView.text = "Source: ${flightInfo.details.source}"
+            binding.priceTextView.text = "Price: ${flightInfo.prices.currency} ${flightInfo.prices.totalCost}"
         }
-
     }
 
     override fun onDestroyView() {

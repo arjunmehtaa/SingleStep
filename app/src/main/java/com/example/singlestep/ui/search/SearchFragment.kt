@@ -104,12 +104,16 @@ class SearchFragment : Fragment() {
 
             planTripButton.setOnClickListener {
                 val dates = datePickerEditText.text.toString().split(" - ")
-                val tripParameters = TripParameters(
-                    source!!, destination!!, dates[0].trim(), dates[1].trim(), budget, numGuests
-                )
-                val action =
-                    SearchFragmentDirections.actionSearchFragmentToDetailFragment(tripParameters)
-                findNavController(requireView()).navigate(action)
+                if(dates.size == 2) {
+                    val tripParameters = TripParameters(
+                        source!!, destination!!, dates[0].trim(), dates[1].trim(), budget, numGuests
+                    )
+                    val action =
+                        SearchFragmentDirections.actionSearchFragmentToFlightFragment(tripParameters)
+                    findNavController(requireView()).navigate(action)
+                } else {
+                    Toast.makeText(context, "Please select valid date range", Toast.LENGTH_LONG).show()
+                }
             }
 
             destinationAdapter = DestinationAdapter {
