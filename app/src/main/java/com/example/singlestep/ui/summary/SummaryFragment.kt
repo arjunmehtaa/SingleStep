@@ -31,10 +31,8 @@ class SummaryFragment : Fragment() {
 
 
     private fun observeSelectedFlight() {
-        // Observe the selected flight information from the shared ViewModel
         sharedViewModel.selectedFlight.observe(viewLifecycleOwner) { flightInfo ->
-            // Constructing a summary string from various properties
-            binding.flightNameTextView.text = "Flight Details"
+            //binding.flightNameTextView.text = "Flight Details"
             binding.airlineCodeTextView.text = "Airline Code: ${flightInfo.details.airlineCode}"
             binding.sourceTextView.text = "Source: ${flightInfo.details.source}"
             binding.priceTextView.text = "Price: ${flightInfo.prices.currency} ${flightInfo.prices.totalCost}"
