@@ -54,7 +54,12 @@
             <argument
                 android:name="hotelId"
                 app:argType="string"/>
-            <!-- Add other arguments as needed -->
+            <argument
+                android:name="hotelName"
+                app:argType="string"/>
+            <argument
+                android:name="hotelAddress"
+                app:argType="string"/>
         </fragment>
     </navigation>
 

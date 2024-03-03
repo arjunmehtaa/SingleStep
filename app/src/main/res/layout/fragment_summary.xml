@@ -24,7 +24,7 @@
                 android:layout_marginBottom="8dp"
                 android:text="Flight Details" />
 
-            <!-- Additional TextViews for displaying more details -->
+            <!-- Existing TextViews for flight details -->
             <TextView
                 android:id="@+id/airlineCodeTextView"
                 android:layout_width="match_parent"
@@ -44,9 +44,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginBottom="16dp" />
 
-            <!-- Add more TextViews or other Views as needed to display additional flight information -->
+            <!-- TextViews for Hotel Details -->
+            <TextView
+                android:id="@+id/hotelNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:text="Hotel Details" />
+
+            <TextView
+                android:id="@+id/hotelAddressTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginBottom="16dp" />
 
         </LinearLayout>
     </ScrollView>

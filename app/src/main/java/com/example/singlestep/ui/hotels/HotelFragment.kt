@@ -59,8 +59,12 @@ class HotelFragment : Fragment() {
                 tripParameters.checkOutDate,
                 tripParameters.guests
             ) { hotel ->
-                Log.d("HotelFragment", "Hotel ID: ${hotel.id}")
-                val action = HotelFragmentDirections.actionHotelFragmentToSummaryFragment("1")
+                Log.d("HotelFragment", "Selected Hotel: ${hotel.displayName.text}")
+                val action = HotelFragmentDirections.actionHotelFragmentToSummaryFragment(
+                    hotelId = "1",
+                    hotelName = hotel.displayName.text,
+                    hotelAddress = hotel.basicPropertyData.location.address
+                )
                 findNavController().navigate(action)
             }
             hotelsRecyclerView.layoutManager = LinearLayoutManager(requireContext())

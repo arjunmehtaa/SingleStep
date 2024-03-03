@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.singlestep.databinding.FragmentSummaryBinding
-import com.example.singlestep.viewmodel.SharedViewModel // Correct import statement
+import com.example.singlestep.viewmodel.SharedViewModel
 
 class SummaryFragment : Fragment() {
 
@@ -26,7 +26,9 @@ class SummaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeSelectedFlight()
+        displayHotelDetails()
     }
+
 
     private fun observeSelectedFlight() {
         // Observe the selected flight information from the shared ViewModel
@@ -37,6 +39,12 @@ class SummaryFragment : Fragment() {
             binding.sourceTextView.text = "Source: ${flightInfo.details.source}"
             binding.priceTextView.text = "Price: ${flightInfo.prices.currency} ${flightInfo.prices.totalCost}"
         }
+    }
+    private fun displayHotelDetails() {
+        val args = SummaryFragmentArgs.fromBundle(requireArguments())
+        // Update UI with hotel details
+        binding.hotelNameTextView.text = "Hotel Name: ${args.hotelName}"
+        binding.hotelAddressTextView.text = "Hotel Address: ${args.hotelAddress}"
     }
 
     override fun onDestroyView() {
