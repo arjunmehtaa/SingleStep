@@ -24,3 +24,5 @@
 | 2024/02/24 |       |        |        |       |         | 5    | Complete navigation from Search to Flight/Hotel           |
 | 2024/02/25 | 2     |        |        |       |         |      | Disable past dates in date picker, clean-up code          |
 | 2024/02/28 |       |        |        |       | 4       |      | Refactor flight data search + grabbing airport codes      |
+| 2024/03/03 |       |        |        |       |         | 9    | Create Summary Fragment & UI modernization & data binding |
+
