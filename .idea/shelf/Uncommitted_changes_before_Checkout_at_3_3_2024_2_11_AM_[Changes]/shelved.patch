@@ -1,0 +1,16 @@
+Index: app/src/main/res/navigation/nav_graph.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<navigation xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/nav_graph\"\r\n    app:startDestination=\"@id/searchNav\">\r\n\r\n    <navigation\r\n        android:id=\"@+id/searchNav\"\r\n        app:startDestination=\"@id/searchFragment\">\r\n\r\n        <fragment\r\n            android:id=\"@+id/searchFragment\"\r\n            android:name=\"com.example.singlestep.ui.search.SearchFragment\"\r\n            android:label=\"fragment_home\"\r\n            tools:layout=\"@layout/fragment_explore\">\r\n            <action\r\n                android:id=\"@+id/action_searchFragment_to_detailFragment\"\r\n                app:destination=\"@id/flightFragment\" />\r\n        </fragment>\r\n\r\n        <fragment\r\n            android:id=\"@+id/flightFragment\"\r\n            android:name=\"com.example.singlestep.ui.flights.FlightFragment\"\r\n            android:label=\"fragment_flight\"\r\n            tools:layout=\"@layout/fragment_flight\">\r\n            <argument\r\n                android:name=\"tripParameters\"\r\n                app:argType=\"com.example.singlestep.model.TripParameters\" />\r\n            <action\r\n                android:id=\"@+id/action_flightFragment_to_hotelFragment\"\r\n                app:destination=\"@id/hotelFragment\" />\r\n        </fragment>\r\n\r\n        <fragment\r\n            android:id=\"@+id/hotelFragment\"\r\n            android:name=\"com.example.singlestep.ui.hotels.HotelFragment\"\r\n            android:label=\"fragment_hotel\"\r\n            tools:layout=\"@layout/fragment_hotel\">\r\n            <argument\r\n                android:name=\"tripParameters\"\r\n                app:argType=\"com.example.singlestep.model.TripParameters\" />\r\n        </fragment>\r\n\r\n\r\n    </navigation>\r\n\r\n    <fragment\r\n        android:id=\"@+id/exploreFragment\"\r\n        android:name=\"com.example.singlestep.ui.explore.ExploreFragment\"\r\n        android:label=\"fragment_explore\"\r\n        tools:layout=\"@layout/fragment_explore\" />\r\n\r\n    <fragment\r\n        android:id=\"@+id/tripsFragment\"\r\n        android:name=\"com.example.singlestep.ui.mytrips.MyTripsFragment\"\r\n        android:label=\"fragment_trips\"\r\n        tools:layout=\"@layout/fragment_my_trips\" />\r\n\r\n</navigation>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/navigation/nav_graph.xml b/app/src/main/res/navigation/nav_graph.xml
+--- a/app/src/main/res/navigation/nav_graph.xml	(revision f6ad9e009fca7e60637681bd2639b9d6e5c8ac6b)
++++ b/app/src/main/res/navigation/nav_graph.xml	(date 1709449804592)
+@@ -1,4 +1,4 @@
+-<?xml version="1.0" encoding="utf-8"?>
++git <?xml version="1.0" encoding="utf-8"?>
+ <navigation xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"

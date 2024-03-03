@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.singlestep.databinding.FragmentHotelBinding
 import com.example.singlestep.model.Hotel
@@ -16,16 +17,13 @@ import com.example.singlestep.utils.Result
 import com.example.singlestep.utils.hideBottomNavigationBar
 import com.example.singlestep.utils.showBottomNavigationBar
 
-
 class HotelFragment : Fragment() {
 
     private val viewModel: HotelViewModel by viewModels()
     private lateinit var binding: FragmentHotelBinding
     private lateinit var hotelAdapter: HotelAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentHotelBinding.inflate(inflater, container, false)
         setupObservers()
         arguments?.let { bundle ->
@@ -33,7 +31,6 @@ class HotelFragment : Fragment() {
             Log.d("HotelFragment", "Received tripParameters: $tripParameters")
             setupViews(tripParameters)
         }
-
         return binding.root
     }
 
@@ -44,11 +41,9 @@ class HotelFragment : Fragment() {
                     Log.d("HotelFragment", "Loading hotels")
                     binding.shimmerLayout.startShimmer()
                 }
-
                 is Result.Failure -> {
                     Log.e("HotelFragment", "Error loading hotels", result.throwable)
                 }
-
                 is Result.Success -> {
                     Log.d("HotelFragment", "Hotels loaded successfully")
                     onHotelOffersLoadingSuccess(result.value)
@@ -64,6 +59,13 @@ class HotelFragment : Fragment() {
                 tripParameters.checkOutDate,
                 tripParameters.guests
             ) { hotel ->
+                Log.d("HotelFragment", "Selected Hotel: ${hotel.displayName.text}")
+                val action = HotelFragmentDirections.actionHotelFragmentToSummaryFragment(
+                    hotelId = "1",
+                    hotelName = hotel.displayName.text,
+                    hotelAddress = hotel.basicPropertyData.location.address
+                )
+                findNavController().navigate(action)
             }
             hotelsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             hotelsRecyclerView.adapter = hotelAdapter

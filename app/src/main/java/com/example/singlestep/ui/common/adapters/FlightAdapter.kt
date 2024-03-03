@@ -9,32 +9,16 @@ import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.example.singlestep.databinding.ItemFlightInfoBinding
 
 class FlightAdapter(
-    val clickListener: (FlightOfferSearch) -> Unit
-) :
-    ListAdapter<FlightOfferSearch, FlightAdapter.FlightViewHolder>(REPO_COMPARATOR) {
-    inner class FlightViewHolder(private val binding: ItemFlightInfoBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    private val clickListener: (FlightOfferSearch) -> Unit
+) : ListAdapter<FlightOfferSearch, FlightAdapter.FlightViewHolder>(REPO_COMPARATOR) {
+
+    inner class FlightViewHolder(private val binding: ItemFlightInfoBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(flight: FlightOfferSearch) {
             with(binding) {
-                nameTextView.text = flight.validatingAirlineCodes.toString()
-                priceTextView.text = "${flight.price!!.currency}  ${flight.price!!.grandTotal}"
+                // Updated line for handling nullable List<String>
+                nameTextView.text = flight.validatingAirlineCodes?.joinToString(separator = ", ") ?: "Unknown Airlines"
+                priceTextView.text = "${flight.price?.currency} ${flight.price?.grandTotal}"
 
-                /*val itinerary = flight.itineraries
-                var legs = "OUTBOUND: \n"
-                val legCount = itinerary.departureLocations.size
-
-                for (i in 0..legCount - 1) {
-                    if (i == legCount / 2) {
-                        legs += "RETURN: \n"
-                    }
-                    if (itinerary.departureLocations.size > 2 && i % 2 == 1) {
-                        legs += "TRANSFER: "
-                    }
-
-                    legs += itinerary.departureLocations[i] + "-" + itinerary.arrivalLocations[i] + "\n" +
-                            "Departure: " + itinerary.departureTimes[i] + "\n" + "Arrival: " + itinerary.arrivalTimes[i] + "\n\n"
-                }
-                tripLegs.text = legs*/
                 root.setOnClickListener {
                     clickListener(flight)
                 }
@@ -42,9 +26,9 @@ class FlightAdapter(
         }
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlightViewHolder {
-        val binding =
-            ItemFlightInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemFlightInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FlightViewHolder(binding)
     }
 

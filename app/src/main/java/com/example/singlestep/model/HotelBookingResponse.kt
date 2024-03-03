@@ -9,6 +9,7 @@ data class Hotels(
 )
 
 data class Hotel(
+    val id: String = "1",
     val displayName: DisplayName,
     val priceDisplayInfo: PriceDisplayInfo,
     val basicPropertyData: BasicPropertyData
