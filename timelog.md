@@ -14,6 +14,7 @@
 | 2024/02/01 |       |        | 1.5    |       |         | 1    | Pair Proposal review and edit - Andy&Yichun               |
 | 2024/02/13 | 6     |        |        |       |         |      | Create landing page, add app icon, refactor project       |
 | 2024/02/14 | 6     |        |        |       |         |      | Add PlacesAutocomplete API, MaterialDatePicker etc.       |
+| 2024/02/15 |       |        |        | 4     |         |      | Buddy Team's Evaluation (D2)                              |
 | 2024/02/15 | 4     |        |        |       |         |      | Complete SearchFragment (guest counter, suggestions etc.) |
 | 2024/02/15 |       |        | 1      |       |         | 1    | Buddy Team's Evaluation review                            |
 | 2024/02/18 | 6     |        |        |       |         |      | Populate explore page with nearby tourist attractions     |
