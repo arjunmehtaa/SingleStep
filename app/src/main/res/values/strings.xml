@@ -21,8 +21,8 @@
     <string name="autofill_destination">"Autofilled destination from suggestions"</string>
     <string name="autofill_budget">"Autofilled budget from suggestions"</string>
     <string name="places_api_key">AIzaSyBIDq3zcHWyLH8ue7ONXuNCuu29WS-MFO4</string>
-    <string name="amadeus_api_key">AaVGdHXLeGcES5uy6NTEkibPhjqwanGN</string>
-    <string name="amadeus_api_secret">zmQnv0tGOsqRbrI0</string>
+    <string name="amadeus_api_key">oUJaHA5yffgpzwa2hs5KcYNGXMc59C6G</string>
+    <string name="amadeus_api_secret">M6USGY8nI0CZuMb6</string>
     <string name="explore_nearby">Explore Nearby</string>
     <string name="view_more">View more…</string>
     <string name="view_less">View less</string>
