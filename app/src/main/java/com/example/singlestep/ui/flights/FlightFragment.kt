@@ -1,6 +1,7 @@
 package com.example.singlestep.ui.flights
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,23 +42,36 @@ class FlightFragment : Fragment() {
     private fun setupObservers() {
         viewModel.flightList.observe(viewLifecycleOwner) { result ->
             when (result) {
-                Result.Loading -> onLoading()
-                is Result.Failure -> onLoadingFailure()
-                is Result.Success -> onFlightLoadingSuccess(result.value)
+
+                Result.Loading -> {
+                    Log.d("FlightFragment", "Loading flights")
+                    binding.shimmerLayout.startShimmer()
+                }
+
+                is Result.Failure -> {
+                    Log.e("FlightFragment", "Error loading flights", result.throwable)
+                }
+
+                is Result.Success -> {
+                    Log.d("FlightFragment", "Flights loaded successfully")
+                    onFlightLoadingSuccess(result.value)
+                }
             }
+
         }
     }
 
     private fun setupViews(tripParameters: TripParameters) {
         with(binding) {
-            flightAdapter = FlightAdapter { selectedFlight ->
+            flightAdapter = FlightAdapter (requireContext()) { selectedFlight ->
                 // Note: Since the navigation to SummaryFragment is now handled in HotelFragment,
                 // you don't need to navigate to SummaryFragment from here.
                 // You can update the sharedViewModel with the selected flight info or perform other actions as needed.
                 val flightInfo = selectedFlight.toFlightInfo()
                 sharedViewModel.selectFlight(flightInfo)
                 // Navigate to the next step in the flow, which could be showing details for the selected flight or going to HotelFragment
-                val action = FlightFragmentDirections.actionFlightFragmentToHotelFragment(tripParameters)
+                val action =
+                    FlightFragmentDirections.actionFlightFragmentToHotelFragment(tripParameters)
                 findNavController().navigate(action)
             }
             flightRecyclerView.layoutManager = LinearLayoutManager(requireContext())

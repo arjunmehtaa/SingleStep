@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/flight_image_card"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="16dp"
+        app:cardCornerRadius="12dp">
+
+        <ImageView
+            android:id="@+id/flight_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/name_text_view"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/flight_image_card"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-12dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="3dp"
+        android:layout_toEndOf="@id/flight_image_card"
+        android:singleLine="true"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        tools:text="Airline Service" />
+
+    <TextView
+        android:id="@+id/price_text_view"
+        android:layout_width="121dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/flight_image_card"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="-6dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="3dp"
+        android:layout_toEndOf="@+id/name_text_view"
+        android:gravity="end"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        tools:text="EUR 2000.00"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/flight_info_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_below="@id/flight_image_card"
+        android:scrollbars="vertical"
+        android:nestedScrollingEnabled="true"
+        app:cardCornerRadius="12dp">
+            <LinearLayout
+                android:id="@+id/flight_info_it1_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/it1_segments_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/it2_segments_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false" />
+            </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/flight_info_card"
+        android:layout_marginVertical="16dp"
+        android:background="@color/light_grey" />
+
+</RelativeLayout>

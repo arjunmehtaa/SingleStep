@@ -5,6 +5,8 @@ import android.util.Log
 import com.amadeus.android.Amadeus
 import com.amadeus.android.ApiResult
 import com.amadeus.android.domain.resources.Activity
+import com.amadeus.android.domain.resources.Airline
+import com.amadeus.android.domain.resources.FlightOffer.Segment
 import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.amadeus.android.domain.resources.Location
 import com.example.singlestep.R
@@ -145,4 +147,24 @@ class Amadeus(context: Context) {
         }
         return flightsInfo
     }
+
+    suspend fun getAirline(code: String): Airline {
+        val airline: Airline
+        when (val airlines = amadeus.referenceData.airlines.get(
+            code
+        )) {
+            is ApiResult.Success -> {
+                airline = airlines.data[0]
+            }
+
+            is ApiResult.Error -> {
+                Log.i("ERROR: ", airlines.toString())
+                throw RuntimeException()
+            }
+        }
+
+        Log.i("Airline", airline.toString())
+        return airline
+    }
+
 }
