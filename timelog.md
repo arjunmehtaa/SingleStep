@@ -25,4 +25,6 @@
 | 2024/02/25 | 2     |        |        |       |         |      | Disable past dates in date picker, clean-up code          |
 | 2024/02/28 |       |        |        |       | 4       |      | Refactor flight data search + grabbing airport codes      |
 | 2024/03/03 |       |        |        |       |         | 9    | Create Summary Fragment & UI modernization & data binding |
+| 2024/03/03 |       |        | 4      |       |         |      | Review Project progress, modify view bindings             |
+| 2024/03/04 |       |        | 8      |       |         |      | Add flight info details and GUI to Flight Fragment        |
 
