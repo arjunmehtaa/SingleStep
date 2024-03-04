@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/flight_info_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="16dp"
+        android:scrollbars="vertical"
+        android:nestedScrollingEnabled="true"
+        app:cardCornerRadius="12dp">
+        <RelativeLayout android:layout_height="match_parent" android:layout_width="match_parent">
+        <TextView
+            android:id="@+id/locations_text_view"
+            android:layout_width="220dp"
+            android:layout_height="35dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="New York - Orlando" />
+
+        <TextView
+            android:id="@+id/guest_text_view"
+            android:layout_width="121dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="-6dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="3dp"
+            android:gravity="end"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            tools:text="1 Guest"
+            />
+        <TextView
+            android:id="@+id/dates_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/guest_text_view"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            tools:text="2024-03-04 - 2024-03-31" />
+        <TextView
+            android:id="@+id/saved_time_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dates_text_view"
+            android:layout_marginBottom="8dp"
+            android:drawablePadding="8dp"
+            android:gravity="end"
+            android:textSize="20sp"
+            android:layout_marginEnd="16dp"
+            android:layout_alignParentEnd="true"
+            tools:text="first created on 2024-03-04 01:54" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

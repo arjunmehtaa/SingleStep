@@ -26,7 +26,10 @@
                 app:title="Summary Details"
                 app:titleTextColor="@android:color/white" />
 
+
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -38,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginBottom="50dp"
             android:padding="16dp">
 
             <!-- Section Title for Flight Details -->
@@ -93,6 +97,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp" />
 
+            <Button
+                android:id="@+id/save_trip_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
