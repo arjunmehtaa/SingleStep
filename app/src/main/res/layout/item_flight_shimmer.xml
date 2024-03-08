@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/airline_image_view"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/background_filled_rounded" />
+
+    <TextView
+        android:id="@+id/name_text_view"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/airline_image_view"
+        android:background="@drawable/background_filled_rounded"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/from_to_text_view"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name_text_view"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/background_filled_rounded"
+        android:textSize="16sp" />
+
+    <View
+        android:id="@+id/flight_from_1_view"
+        android:layout_width="100dp"
+        android:layout_height="16dp"
+        android:layout_below="@id/from_to_text_view"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/background_filled_rounded" />
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="16dp"
+        android:layout_below="@id/from_to_text_view"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/background_filled_rounded" />
+
+    <View
+        android:id="@+id/flight_from_2_view"
+        android:layout_width="100dp"
+        android:layout_height="16dp"
+        android:layout_below="@id/flight_from_1_view"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/background_filled_rounded" />
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="16dp"
+        android:layout_below="@id/flight_from_1_view"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/background_filled_rounded" />
+
+    <TextView
+        android:id="@+id/to_from_text_view"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/flight_from_2_view"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/background_filled_rounded" />
+
+    <View
+        android:id="@+id/flight_from_3_view"
+        android:layout_width="100dp"
+        android:layout_height="16dp"
+        android:layout_below="@id/to_from_text_view"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/background_filled_rounded" />
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="16dp"
+        android:layout_below="@id/to_from_text_view"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/background_filled_rounded" />
+
+    <View
+        android:id="@+id/flight_from_4_view"
+        android:layout_width="100dp"
+        android:layout_height="16dp"
+        android:layout_below="@id/flight_from_3_view"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/background_filled_rounded" />
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="16dp"
+        android:layout_below="@id/flight_from_3_view"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/background_filled_rounded" />
+
+    <TextView
+        android:id="@+id/summary_text_view"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/flight_from_4_view"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/background_filled_rounded"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/price_text_view"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/summary_text_view"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/background_filled_rounded"
+        android:textSize="16sp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/price_text_view"
+        android:layout_marginVertical="16dp"
+        android:background="@color/light_grey" />
+
+</RelativeLayout>

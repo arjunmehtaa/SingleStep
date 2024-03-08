@@ -6,7 +6,6 @@ import com.amadeus.android.Amadeus
 import com.amadeus.android.ApiResult
 import com.amadeus.android.domain.resources.Activity
 import com.amadeus.android.domain.resources.Airline
-import com.amadeus.android.domain.resources.FlightOffer.Segment
 import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.amadeus.android.domain.resources.Location
 import com.example.singlestep.R
@@ -37,20 +36,38 @@ class Amadeus(context: Context) {
         return touristAttractionList
     }
 
+    private suspend fun getAirlineNamesMap(codes: List<String>): HashMap<String, Airline> {
+        val airlinesMap: HashMap<String, Airline> = hashMapOf()
+        when (val airlines = amadeus.referenceData.airlines.get(codes.joinToString(","))) {
+            is ApiResult.Success -> {
+                airlines.data.map {
+                    airlinesMap.put(it.iataCode!!, it)
+                }
+            }
+
+            is ApiResult.Error -> {
+                Log.i("ERROR: ", airlines.toString())
+                throw RuntimeException()
+            }
+        }
+        return airlinesMap
+    }
+
     suspend fun getFlights(
         cityDepart: String,
         cityDestination: String,
         dateDepart: String,
         dateReturn: String,
         guests: Int
-    ): List<FlightOfferSearch> {
+    ): Pair<List<FlightOfferSearch>, HashMap<String, Airline>> {
         val flightList: List<FlightOfferSearch>
         when (val flights = amadeus.shopping.flightOffersSearch.get(
             cityDepart,
             cityDestination,
             dateDepart,
             guests,
-            dateReturn
+            dateReturn,
+            currencyCode = "CAD"
         )) {
             is ApiResult.Success -> {
                 flightList = flights.data
@@ -61,8 +78,15 @@ class Amadeus(context: Context) {
                 throw RuntimeException()
             }
         }
+        val airlineNamesSet: MutableSet<String> = mutableSetOf()
+        flightList.forEach {
+            if (!it.validatingAirlineCodes.isNullOrEmpty()) {
+                airlineNamesSet.addAll(it.validatingAirlineCodes!!)
+            }
+        }
+        val airlineNamesMap = getAirlineNamesMap(airlineNamesSet.toList())
 
-        return flightList
+        return flightList to airlineNamesMap
     }
 
     suspend fun getIATA(latitude: Double, longitude: Double): List<Location> {
@@ -147,24 +171,4 @@ class Amadeus(context: Context) {
         }
         return flightsInfo
     }
-
-    suspend fun getAirline(code: String): Airline {
-        val airline: Airline
-        when (val airlines = amadeus.referenceData.airlines.get(
-            code
-        )) {
-            is ApiResult.Success -> {
-                airline = airlines.data[0]
-            }
-
-            is ApiResult.Error -> {
-                Log.i("ERROR: ", airlines.toString())
-                throw RuntimeException()
-            }
-        }
-
-        Log.i("Airline", airline.toString())
-        return airline
-    }
-
 }

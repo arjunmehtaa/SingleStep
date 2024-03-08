@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.amadeus.android.domain.resources.Airline
 import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.example.singlestep.databinding.FragmentFlightBinding
 import com.example.singlestep.model.TripParameters
@@ -19,7 +20,7 @@ import com.example.singlestep.utils.hideBottomNavigationBar
 import com.example.singlestep.utils.onLoading
 import com.example.singlestep.utils.onLoadingFailure
 import com.example.singlestep.utils.showBottomNavigationBar
-import com.example.singlestep.utils.toFlightInfo // Ensure this util function is correctly defined in your utilities package
+import com.example.singlestep.utils.toFlightInfo
 import com.example.singlestep.viewmodel.SharedViewModel
 
 class FlightFragment : Fragment() {
@@ -28,6 +29,7 @@ class FlightFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var binding: FragmentFlightBinding
     private lateinit var flightAdapter: FlightAdapter
+    private lateinit var airlineNamesMap: HashMap<String, Airline>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentFlightBinding.inflate(inflater, container, false)
@@ -42,7 +44,6 @@ class FlightFragment : Fragment() {
     private fun setupObservers() {
         viewModel.flightList.observe(viewLifecycleOwner) { result ->
             when (result) {
-
                 Result.Loading -> {
                     Log.d("FlightFragment", "Loading flights")
                     binding.shimmerLayout.startShimmer()
@@ -59,21 +60,38 @@ class FlightFragment : Fragment() {
             }
 
         }
+
+        viewModel.airlineNamesMap.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                Result.Loading -> onLoading()
+                is Result.Failure -> onLoadingFailure()
+                is Result.Success -> {
+                    airlineNamesMap = result.value
+                }
+            }
+        }
     }
 
     private fun setupViews(tripParameters: TripParameters) {
         with(binding) {
-            flightAdapter = FlightAdapter (requireContext()) { selectedFlight ->
-                // Note: Since the navigation to SummaryFragment is now handled in HotelFragment,
-                // you don't need to navigate to SummaryFragment from here.
-                // You can update the sharedViewModel with the selected flight info or perform other actions as needed.
-                val flightInfo = selectedFlight.toFlightInfo()
-                sharedViewModel.selectFlight(flightInfo)
-                // Navigate to the next step in the flow, which could be showing details for the selected flight or going to HotelFragment
-                val action =
-                    FlightFragmentDirections.actionFlightFragmentToHotelFragment(tripParameters)
-                findNavController().navigate(action)
-            }
+            flightAdapter = FlightAdapter(
+                tripParameters.source.city,
+                tripParameters.destination.city,
+                tripParameters.guests,
+                airlineNameGetter = {
+                    airlineNamesMap[it]?.businessName
+                },
+                airlineICAOCodeGetter = {
+                    airlineNamesMap[it]?.icaoCode
+                },
+                clickListener = {
+                    val flightInfo = it.toFlightInfo()
+                    sharedViewModel.selectFlight(flightInfo)
+                    val action =
+                        FlightFragmentDirections.actionFlightFragmentToHotelFragment(tripParameters)
+                    findNavController().navigate(action)
+                }
+            )
             flightRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             flightRecyclerView.adapter = flightAdapter
 

@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.amadeus.android.domain.resources.FlightOfferSearch.SearchSegment
+import com.example.singlestep.R
 import com.example.singlestep.databinding.ItemFlightSegmentBinding
+import com.example.singlestep.utils.formatDuration
+import com.example.singlestep.utils.getDateAndMonthName
+import com.example.singlestep.utils.getFormattedTime
 
 class FlightSegmentAdapter(
-//    for navigation
     private val flight: FlightOfferSearch,
     private val clickListener: (FlightOfferSearch) -> Unit
 ):
@@ -23,20 +26,46 @@ class FlightSegmentAdapter(
         fun bind(segment: SearchSegment) {
             with(binding) {
                 val departureTimeText = segment.departure?.at ?: "MMMM DD, YYYYTXX:XX"
-                departureDateTextView.text = departureTimeText.substring(0, departureTimeText.indexOf("T"))
-                departureTimeTextView.text = departureTimeText.substring(departureTimeText.indexOf("T")+1, departureTimeText.length-3)
+                departureAirportDateTextView.text = root.context.getString(
+                    R.string.airport_date,
+                    segment.departure?.iataCode,
+                    getDateAndMonthName(
+                        departureTimeText.substring(
+                            0,
+                            departureTimeText.indexOf("T")
+                        )
+                    )
+                )
+
+                departureTimeTextView.text = getFormattedTime(
+                    departureTimeText.substring(
+                        departureTimeText.indexOf("T") + 1,
+                        departureTimeText.length - 3
+                    )
+                )
+
                 val arrivalTimeText = segment.arrival?.at ?: "MMMM DD, YYYYTXX:XX"
-                arrivalDateTextView.text = arrivalTimeText.substring(0, departureTimeText.indexOf("T"))
-                arrivalTimeTextView.text = arrivalTimeText.substring(departureTimeText.indexOf("T")+1, arrivalTimeText.length-3)
+                arrivalAirportDateTextView.text = root.context.getString(
+                    R.string.airport_date,
+                    segment.arrival?.iataCode,
+                    getDateAndMonthName(arrivalTimeText.substring(0, arrivalTimeText.indexOf("T")))
+                )
 
-                //todo: IATA code to be converted to city names
-                departureCityTextView.text = segment.departure?.iataCode ?: "Departure City"
-                arrivalCityTextView.text = segment.arrival?.iataCode ?: "Departure City"
+                arrivalTimeTextView.text = getFormattedTime(
+                    arrivalTimeText.substring(
+                        departureTimeText.indexOf("T") + 1,
+                        arrivalTimeText.length - 3
+                    )
+                )
 
-                //todo: IATA code to be converted to airline names
-                airlineTextView.text = segment.carrierCode
+                airlineTextView.text =
+                    root.context.getString(
+                        R.string.airline_name,
+                        segment.carrierCode,
+                        segment.number
+                    )
 
-                flightNumberTextView.text = segment.number
+                flightDurationTextView.text = formatDuration(segment.duration)
 
                 root.setOnClickListener {
                     clickListener(flight)

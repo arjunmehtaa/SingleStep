@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.amadeus.android.domain.resources.Airline
 import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.example.singlestep.data.Amadeus
 import com.example.singlestep.model.TripParameters
@@ -26,6 +27,11 @@ class FlightViewModel(
     private val _flightList: MutableLiveData<Result<List<FlightOfferSearch>>> = MutableLiveData()
     val flightList: LiveData<Result<List<FlightOfferSearch>>>
         get() = _flightList
+
+    private val _airlineNamesMap: MutableLiveData<Result<HashMap<String, Airline>>> =
+        MutableLiveData()
+    val airlineNamesMap: LiveData<Result<HashMap<String, Airline>>>
+        get() = _airlineNamesMap
 
     init {
         coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
@@ -64,9 +70,9 @@ class FlightViewModel(
                 tripParameters.checkOutDate.replace("/", "-"),
                 tripParameters.guests
             )
-            Log.i("Flight Results: ", flightResult[0].toString())
 
-            _flightList.value = Result.Success(flightResult)
+            _flightList.value = Result.Success(flightResult.first.subList(0, 10))
+            _airlineNamesMap.value = Result.Success(flightResult.second)
 
         }
     }

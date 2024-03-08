@@ -67,3 +67,8 @@ fun showBottomNavigationBar(activity: Activity?) {
     activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.visibility =
         View.VISIBLE
 }
+
+fun convertToTitleCase(input: String): String {
+    return input.lowercase().split(" ")
+        .joinToString(" ") { it.replaceFirstChar { char -> char.uppercase() } }
+}

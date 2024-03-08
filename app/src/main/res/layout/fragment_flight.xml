@@ -44,11 +44,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/item_tourist_attraction_shimmer" />
+            <include layout="@layout/item_flight_shimmer" />
 
-            <include layout="@layout/item_tourist_attraction_shimmer" />
+            <include layout="@layout/item_flight_shimmer" />
 
-            <include layout="@layout/item_tourist_attraction_shimmer" />
+            <include layout="@layout/item_flight_shimmer" />
 
         </LinearLayout>
 
@@ -57,6 +57,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/flight_recycler_view"
         android:layout_width="match_parent"
+        android:nestedScrollingEnabled="false"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_text_view"
         android:layout_marginBottom="10dp"
