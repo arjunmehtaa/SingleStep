@@ -27,6 +27,7 @@
 | 2024/03/03 |       |        |        |       |         | 9    | Create Summary Fragment & UI modernization & data binding |
 | 2024/03/03 |       |        | 4      |       |         |      | Review Project progress, modify view bindings             |
 | 2024/03/04 |       |        | 8      |       |         |      | Add flight info details and GUI to Flight Fragment        |
+| 2024/03/04 | 1     | 1      | 1      | 1     | 1       | 1    | D3 Demo - in Class                                        |
 | 2024/03/05 |       |        | 5      |       |         |      | GUI & in-progress functions for Save/load trip, demo video|
 | 2024/03/07 |       |        | 2      |       |         | 2    | Review & edit component diagram to conform example syntax |
 
