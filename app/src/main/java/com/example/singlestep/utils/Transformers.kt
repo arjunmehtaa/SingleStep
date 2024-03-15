@@ -6,8 +6,9 @@ import com.google.android.libraries.places.api.model.Place
 fun placeToLocation(place: Place): Location {
     return Location(
         place.name ?: "Unknown", // Fallback to "Unknown" if name is null
-        null, // Assuming image URL isn't available from the Place object
+        null,
         place.latLng!!.latitude,
-        place.latLng!!.longitude
+        place.latLng!!.longitude,
+        place.photoMetadatas?.first()
     )
 }

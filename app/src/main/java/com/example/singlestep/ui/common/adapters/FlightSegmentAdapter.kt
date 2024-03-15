@@ -15,8 +15,8 @@ import com.example.singlestep.utils.getFormattedTime
 
 class FlightSegmentAdapter(
     private val flight: FlightOfferSearch,
-    private val clickListener: (FlightOfferSearch) -> Unit
-):
+//    private val clickListener: (FlightOfferSearch) -> Unit
+) :
     ListAdapter<SearchSegment, FlightSegmentAdapter.FlightSegmentViewHolder>(
         REPO_COMPARATOR
     ) {
@@ -67,9 +67,9 @@ class FlightSegmentAdapter(
 
                 flightDurationTextView.text = formatDuration(segment.duration)
 
-                root.setOnClickListener {
-                    clickListener(flight)
-                }
+//                root.setOnClickListener {
+//                    clickListener(flight)
+//                }
             }
         }
     }
@@ -94,9 +94,12 @@ class FlightSegmentAdapter(
     companion object {
         private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<SearchSegment>() {
             override fun areItemsTheSame(oldItem: SearchSegment, newItem: SearchSegment): Boolean =
-                oldItem.number== newItem.number
+                oldItem.number == newItem.number
 
-            override fun areContentsTheSame(oldItem: SearchSegment, newItem: SearchSegment): Boolean =
+            override fun areContentsTheSame(
+                oldItem: SearchSegment,
+                newItem: SearchSegment
+            ): Boolean =
                 oldItem == newItem
         }
     }

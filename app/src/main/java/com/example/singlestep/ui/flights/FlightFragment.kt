@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,18 +19,19 @@ import com.example.singlestep.utils.hideBottomNavigationBar
 import com.example.singlestep.utils.onLoading
 import com.example.singlestep.utils.onLoadingFailure
 import com.example.singlestep.utils.showBottomNavigationBar
-import com.example.singlestep.utils.toFlightInfo
-import com.example.singlestep.viewmodel.SharedViewModel
 
 class FlightFragment : Fragment() {
 
     private val viewModel: FlightViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var binding: FragmentFlightBinding
     private lateinit var flightAdapter: FlightAdapter
     private lateinit var airlineNamesMap: HashMap<String, Airline>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentFlightBinding.inflate(inflater, container, false)
         setupObservers()
         arguments?.let { bundle ->
@@ -84,11 +84,13 @@ class FlightFragment : Fragment() {
                 airlineICAOCodeGetter = {
                     airlineNamesMap[it]?.icaoCode
                 },
-                clickListener = {
-                    val flightInfo = it.toFlightInfo()
-                    sharedViewModel.selectFlight(flightInfo)
-                    val action =
-                        FlightFragmentDirections.actionFlightFragmentToHotelFragment(tripParameters)
+                clickListener = { flight, airlineName, airlineICAOCode ->
+                    val action = FlightFragmentDirections.actionFlightFragmentToHotelFragment(
+                        tripParameters = tripParameters,
+                        flight = flight,
+                        airlineName = airlineName.orEmpty(),
+                        airlineICAOCode = airlineICAOCode.orEmpty()
+                    )
                     findNavController().navigate(action)
                 }
             )

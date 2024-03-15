@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.example.singlestep.databinding.FragmentHotelBinding
 import com.example.singlestep.model.Hotel
 import com.example.singlestep.model.TripParameters
@@ -23,13 +24,21 @@ class HotelFragment : Fragment() {
     private lateinit var binding: FragmentHotelBinding
     private lateinit var hotelAdapter: HotelAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentHotelBinding.inflate(inflater, container, false)
         setupObservers()
         arguments?.let { bundle ->
-            val tripParameters = HotelFragmentArgs.fromBundle(bundle).tripParameters
+            val args = HotelFragmentArgs.fromBundle(bundle)
+            val tripParameters = args.tripParameters
+            val flight = args.flight
+            val airlineName = args.airlineName
+            val airlineICAOCode = args.airlineICAOCode
             Log.d("HotelFragment", "Received tripParameters: $tripParameters")
-            setupViews(tripParameters)
+            setupViews(tripParameters, flight, airlineName, airlineICAOCode)
         }
         return binding.root
     }
@@ -41,9 +50,11 @@ class HotelFragment : Fragment() {
                     Log.d("HotelFragment", "Loading hotels")
                     binding.shimmerLayout.startShimmer()
                 }
+
                 is Result.Failure -> {
                     Log.e("HotelFragment", "Error loading hotels", result.throwable)
                 }
+
                 is Result.Success -> {
                     Log.d("HotelFragment", "Hotels loaded successfully")
                     onHotelOffersLoadingSuccess(result.value)
@@ -52,7 +63,12 @@ class HotelFragment : Fragment() {
         }
     }
 
-    private fun setupViews(tripParameters: TripParameters) {
+    private fun setupViews(
+        tripParameters: TripParameters,
+        flight: FlightOfferSearch,
+        airlineName: String,
+        airlineICAOCode: String
+    ) {
         with(binding) {
             hotelAdapter = HotelAdapter(
                 tripParameters.checkInDate,
@@ -61,9 +77,11 @@ class HotelFragment : Fragment() {
             ) { hotel ->
                 Log.d("HotelFragment", "Selected Hotel: ${hotel.displayName.text}")
                 val action = HotelFragmentDirections.actionHotelFragmentToSummaryFragment(
-                    hotelId = "1",
-                    hotelName = hotel.displayName.text,
-                    hotelAddress = hotel.basicPropertyData.location.address
+                    tripParameters = tripParameters,
+                    hotel = hotel,
+                    flight = flight,
+                    airlineName = airlineName,
+                    airlineICAOCode = airlineICAOCode
                 )
                 findNavController().navigate(action)
             }

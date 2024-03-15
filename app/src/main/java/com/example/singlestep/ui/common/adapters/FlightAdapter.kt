@@ -1,6 +1,7 @@
 package com.example.singlestep.ui.common.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,10 +19,11 @@ class FlightAdapter(
     private val guests: Int,
     private val airlineNameGetter: (String?) -> String?,
     private val airlineICAOCodeGetter: (String?) -> String?,
-    private val clickListener: (FlightOfferSearch) -> Unit
+    private val clickListener: (FlightOfferSearch, String?, String?) -> Unit
 ) : ListAdapter<FlightOfferSearch, FlightAdapter.FlightViewHolder>(REPO_COMPARATOR) {
 
-    inner class FlightViewHolder(private val binding: ItemFlightBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class FlightViewHolder(private val binding: ItemFlightBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var flightSegmentAdapter1: FlightSegmentAdapter
         private lateinit var flightSegmentAdapter2: FlightSegmentAdapter
@@ -45,31 +47,36 @@ class FlightAdapter(
                 toFromTextView.text = root.context.getString(R.string.flight_from_to, to, from)
                 summaryTextView.text = root.context.getString(R.string.round_trip_guests, guests)
 
-                flightSegmentAdapter1 = FlightSegmentAdapter(flight, clickListener)
+                flightSegmentAdapter1 = FlightSegmentAdapter(flight)
                 it1SegmentsRecyclerView.layoutManager = LinearLayoutManager(root.context)
                 it1SegmentsRecyclerView.adapter = flightSegmentAdapter1
                 flightSegmentAdapter1.submitList(flight.itineraries?.get(0)?.segments)
 
+                val airlineICAOCode = airlineICAOCodeGetter(
+                    flight.validatingAirlineCodes?.get(0)
+                )
                 Glide.with(root.context)
                     .load(
-                        "https://raw.githubusercontent.com/sexym0nk3y/airline-logos/main/logos/${
-                            airlineICAOCodeGetter(
-                                flight.validatingAirlineCodes?.get(0)
-                            )
-                        }.png"
+                        "https://raw.githubusercontent.com/sexym0nk3y/airline-logos/main/logos/${airlineICAOCode}.png"
                     )
                     .into(airlineImageView)
 
                 //for possible two-way flight offer
                 if (!flight.itineraries.isNullOrEmpty() && flight.itineraries!!.size > 1) {
-                    flightSegmentAdapter2 = FlightSegmentAdapter(flight, clickListener)
+                    flightSegmentAdapter2 = FlightSegmentAdapter(flight)
                     it2SegmentsRecyclerView.layoutManager = LinearLayoutManager(root.context)
                     it2SegmentsRecyclerView.adapter = flightSegmentAdapter2
                     flightSegmentAdapter2.submitList(flight.itineraries?.get(1)?.segments)
                 }
 
                 root.setOnClickListener {
-                    clickListener(flight)
+                    clickListener(flight, airlineName, airlineICAOCode)
+                }
+
+                if (adapterPosition == itemCount - 1) {
+                    divider.visibility = View.GONE
+                } else {
+                    divider.visibility = View.VISIBLE
                 }
             }
         }
@@ -86,10 +93,16 @@ class FlightAdapter(
 
     companion object {
         private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<FlightOfferSearch>() {
-            override fun areItemsTheSame(oldItem: FlightOfferSearch, newItem: FlightOfferSearch): Boolean =
+            override fun areItemsTheSame(
+                oldItem: FlightOfferSearch,
+                newItem: FlightOfferSearch
+            ): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: FlightOfferSearch, newItem: FlightOfferSearch): Boolean =
+            override fun areContentsTheSame(
+                oldItem: FlightOfferSearch,
+                newItem: FlightOfferSearch
+            ): Boolean =
                 oldItem == newItem
         }
     }

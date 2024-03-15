@@ -43,4 +43,8 @@
     <string name="round_trip_guests">Round trip • %1$d guests</string>
     <string name="airport_date">%1$s • %2$s</string>
     <string name="airline_name">%1$s %2$s</string>
+    <string name="trip_to">Trip to %1$s</string>
+    <string name="save_to_my_trips">Save to My Trips</string>
+    <string name="selected_hotel">Selected Hotel</string>
+    <string name="selected_flights">Selected Flights</string>
 </resources>

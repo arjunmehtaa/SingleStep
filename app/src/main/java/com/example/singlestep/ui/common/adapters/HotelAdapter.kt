@@ -22,15 +22,6 @@ class HotelAdapter(
 
     inner class HotelOfferViewHolder(private val binding: ItemHotelBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.root.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val hotel = getItem(position)
-                    onClick(hotel) // Use the click listener
-                }
-            }
-        }
 
         fun bind(hotel: Hotel) {
             with(binding) {
@@ -70,6 +61,10 @@ class HotelAdapter(
                 Glide.with(root.context)
                     .load(hotel.basicPropertyData.photos.main.lowResJpegUrl.absoluteUrl)
                     .into(hotelImageView)
+
+                root.setOnClickListener {
+                    onClick(hotel)
+                }
 
                 if (adapterPosition == itemCount - 1) {
                     divider.visibility = View.GONE

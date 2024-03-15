@@ -39,7 +39,16 @@
             tools:layout="@layout/fragment_hotel">
             <argument
                 android:name="tripParameters"
-                app:argType="com.example.singlestep.model.TripParameters"/>
+                app:argType="com.example.singlestep.model.TripParameters" />
+            <argument
+                android:name="flight"
+                app:argType="com.amadeus.android.domain.resources.FlightOfferSearch" />
+            <argument
+                android:name="airlineName"
+                app:argType="string" />
+            <argument
+                android:name="airlineICAOCode"
+                app:argType="string" />
             <action
                 android:id="@+id/action_hotelFragment_to_summaryFragment"
                 app:destination="@id/summaryFragment" />
@@ -50,16 +59,21 @@
             android:name="com.example.singlestep.ui.summary.SummaryFragment"
             android:label="fragment_summary"
             tools:layout="@layout/fragment_summary">
-            <!-- Define arguments expected by SummaryFragment here -->
             <argument
-                android:name="hotelId"
-                app:argType="string"/>
+                android:name="tripParameters"
+                app:argType="com.example.singlestep.model.TripParameters" />
             <argument
-                android:name="hotelName"
-                app:argType="string"/>
+                android:name="hotel"
+                app:argType="com.example.singlestep.model.Hotel" />
             <argument
-                android:name="hotelAddress"
-                app:argType="string"/>
+                android:name="flight"
+                app:argType="com.amadeus.android.domain.resources.FlightOfferSearch" />
+            <argument
+                android:name="airlineName"
+                app:argType="string" />
+            <argument
+                android:name="airlineICAOCode"
+                app:argType="string" />
         </fragment>
     </navigation>
 

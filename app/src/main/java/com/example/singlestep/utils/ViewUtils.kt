@@ -21,7 +21,14 @@ fun setupPlacesAutocompleteFragment(
     clearButtonClickedListener: () -> Unit
 ) {
     with(fragment) {
-        setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
+        setPlaceFields(
+            listOf(
+                Place.Field.ID,
+                Place.Field.NAME,
+                Place.Field.LAT_LNG,
+                Place.Field.PHOTO_METADATAS
+            )
+        )
         setTypesFilter(listOf(PlaceTypes.CITIES))
         setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
@@ -42,7 +49,7 @@ fun setupPlacesAutocompleteFragment(
 }
 
 fun getAutocompleteFragmentClearButton(fragment: AutocompleteSupportFragment): View? {
-    return fragment.view?.findViewById<View>(com.google.android.libraries.places.R.id.places_autocomplete_clear_button)
+    return fragment.view?.findViewById(com.google.android.libraries.places.R.id.places_autocomplete_clear_button)
 }
 
 fun startGoogleMapsNavigation(context: Context, lat: Double, long: Double) {
