@@ -9,10 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.example.singlestep.databinding.FragmentHotelBinding
+import com.example.singlestep.model.Flight
 import com.example.singlestep.model.Hotel
 import com.example.singlestep.model.TripParameters
+import com.example.singlestep.model.TripSummary
 import com.example.singlestep.ui.common.adapters.HotelAdapter
 import com.example.singlestep.utils.Result
 import com.example.singlestep.utils.hideBottomNavigationBar
@@ -65,7 +66,7 @@ class HotelFragment : Fragment() {
 
     private fun setupViews(
         tripParameters: TripParameters,
-        flight: FlightOfferSearch,
+        flight: Flight,
         airlineName: String,
         airlineICAOCode: String
     ) {
@@ -77,11 +78,13 @@ class HotelFragment : Fragment() {
             ) { hotel ->
                 Log.d("HotelFragment", "Selected Hotel: ${hotel.displayName.text}")
                 val action = HotelFragmentDirections.actionHotelFragmentToSummaryFragment(
-                    tripParameters = tripParameters,
-                    hotel = hotel,
-                    flight = flight,
-                    airlineName = airlineName,
-                    airlineICAOCode = airlineICAOCode
+                    TripSummary(
+                        tripParameters = tripParameters,
+                        hotel = hotel,
+                        flight = flight,
+                        airlineName = airlineName,
+                        airlineICAOCode = airlineICAOCode
+                    )
                 )
                 findNavController().navigate(action)
             }

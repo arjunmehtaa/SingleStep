@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amadeus.android.domain.resources.Airline
-import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.example.singlestep.databinding.FragmentFlightBinding
+import com.example.singlestep.model.Flight
 import com.example.singlestep.model.TripParameters
 import com.example.singlestep.ui.common.adapters.FlightAdapter
 import com.example.singlestep.utils.Result
@@ -103,7 +103,7 @@ class FlightFragment : Fragment() {
         }
     }
 
-    private fun onFlightLoadingSuccess(flights: List<FlightOfferSearch>) {
+    private fun onFlightLoadingSuccess(flights: List<Flight>) {
         binding.shimmerLayout.apply {
             stopShimmer()
             visibility = View.GONE

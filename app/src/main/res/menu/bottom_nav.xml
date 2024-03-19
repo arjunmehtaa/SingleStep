@@ -12,7 +12,7 @@
         android:title="@string/explore" />
 
     <item
-        android:id="@+id/tripsFragment"
+        android:id="@+id/myTripsNav"
         android:icon="@drawable/icon_trip"
         android:title="@string/my_trips" />
 

@@ -5,67 +5,42 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.amadeus.android.domain.resources.FlightOfferSearch
-import com.amadeus.android.domain.resources.FlightOfferSearch.SearchSegment
 import com.example.singlestep.R
 import com.example.singlestep.databinding.ItemFlightSegmentBinding
-import com.example.singlestep.utils.formatDuration
-import com.example.singlestep.utils.getDateAndMonthName
-import com.example.singlestep.utils.getFormattedTime
+import com.example.singlestep.model.Flight
+import com.example.singlestep.model.Segment
 
 class FlightSegmentAdapter(
-    private val flight: FlightOfferSearch,
+    private val flight: Flight,
 //    private val clickListener: (FlightOfferSearch) -> Unit
 ) :
-    ListAdapter<SearchSegment, FlightSegmentAdapter.FlightSegmentViewHolder>(
+    ListAdapter<Segment, FlightSegmentAdapter.FlightSegmentViewHolder>(
         REPO_COMPARATOR
     ) {
 
     inner class FlightSegmentViewHolder(private val binding: ItemFlightSegmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(segment: SearchSegment) {
+        fun bind(segment: Segment) {
             with(binding) {
-                val departureTimeText = segment.departure?.at ?: "MMMM DD, YYYYTXX:XX"
                 departureAirportDateTextView.text = root.context.getString(
                     R.string.airport_date,
-                    segment.departure?.iataCode,
-                    getDateAndMonthName(
-                        departureTimeText.substring(
-                            0,
-                            departureTimeText.indexOf("T")
-                        )
-                    )
+                    segment.startAirport,
+                    segment.startDate
                 )
 
-                departureTimeTextView.text = getFormattedTime(
-                    departureTimeText.substring(
-                        departureTimeText.indexOf("T") + 1,
-                        departureTimeText.length - 3
-                    )
-                )
+                departureTimeTextView.text = segment.startTime
 
-                val arrivalTimeText = segment.arrival?.at ?: "MMMM DD, YYYYTXX:XX"
                 arrivalAirportDateTextView.text = root.context.getString(
                     R.string.airport_date,
-                    segment.arrival?.iataCode,
-                    getDateAndMonthName(arrivalTimeText.substring(0, arrivalTimeText.indexOf("T")))
+                    segment.endAirport,
+                    segment.endDate
                 )
 
-                arrivalTimeTextView.text = getFormattedTime(
-                    arrivalTimeText.substring(
-                        departureTimeText.indexOf("T") + 1,
-                        arrivalTimeText.length - 3
-                    )
-                )
+                arrivalTimeTextView.text = segment.endTime
 
-                airlineTextView.text =
-                    root.context.getString(
-                        R.string.airline_name,
-                        segment.carrierCode,
-                        segment.number
-                    )
+                airlineTextView.text = segment.flightCode
 
-                flightDurationTextView.text = formatDuration(segment.duration)
+                flightDurationTextView.text = segment.duration
 
 //                root.setOnClickListener {
 //                    clickListener(flight)
@@ -92,13 +67,13 @@ class FlightSegmentAdapter(
     }
 
     companion object {
-        private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<SearchSegment>() {
-            override fun areItemsTheSame(oldItem: SearchSegment, newItem: SearchSegment): Boolean =
+        private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<Segment>() {
+            override fun areItemsTheSame(oldItem: Segment, newItem: Segment): Boolean =
                 oldItem.number == newItem.number
 
             override fun areContentsTheSame(
-                oldItem: SearchSegment,
-                newItem: SearchSegment
+                oldItem: Segment,
+                newItem: Segment
             ): Boolean =
                 oldItem == newItem
         }

@@ -1,18 +1,20 @@
 package com.example.singlestep.ui.summary
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.bumptech.glide.Glide
 import com.example.singlestep.R
 import com.example.singlestep.databinding.FragmentSummaryBinding
-import com.example.singlestep.model.Hotel
 import com.example.singlestep.model.TripParameters
+import com.example.singlestep.model.TripSummary
 import com.example.singlestep.ui.common.adapters.FlightAdapter
 import com.example.singlestep.ui.common.adapters.HotelAdapter
 import com.example.singlestep.utils.getSampleAIResponse
@@ -37,12 +39,9 @@ class SummaryFragment : Fragment() {
         setupObservers()
         arguments?.let { bundle ->
             val args = SummaryFragmentArgs.fromBundle(bundle)
-            val tripParameters = args.tripParameters
-            val hotel = args.hotel
-            val flight = args.flight
-            val airlineName = args.airlineName
-            val airlineICAOCode = args.airlineICAOCode
-            setupViews(tripParameters, hotel, flight, airlineName, airlineICAOCode)
+            val tripSummary = args.tripSummary
+            val fromMyTrips = args.fromMyTrips
+            setupViews(tripSummary, fromMyTrips)
         }
         return binding.root
     }
@@ -51,46 +50,84 @@ class SummaryFragment : Fragment() {
     }
 
     private fun setupViews(
-        tripParameters: TripParameters,
-        hotel: Hotel,
-        flight: FlightOfferSearch,
-        airlineName: String,
-        airlineICAOCode: String
+        tripSummary: TripSummary,
+        fromMyTrips: Boolean
     ) {
         with(binding) {
 
-            titleTextView.text = getString(R.string.trip_to, tripParameters.destination.city)
+            titleTextView.text =
+                getString(R.string.trip_to, tripSummary.tripParameters.destination.city)
 
-            setupCityImage(tripParameters)
+            setupCityImage(tripSummary.tripParameters)
 
             flightAdapter = FlightAdapter(
-                tripParameters.source.city,
-                tripParameters.destination.city,
-                tripParameters.guests,
+                tripSummary.tripParameters.source.city,
+                tripSummary.tripParameters.destination.city,
+                tripSummary.tripParameters.guests,
                 airlineNameGetter = {
-                    airlineName
+                    tripSummary.airlineName
                 },
                 airlineICAOCodeGetter = {
-                    airlineICAOCode
+                    tripSummary.airlineICAOCode
                 },
                 clickListener = { _, _, _ ->
                 }
             )
             flightRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             flightRecyclerView.adapter = flightAdapter
-            flightAdapter.submitList(listOf(flight))
+            flightAdapter.submitList(listOf(tripSummary.flight))
 
             hotelAdapter = HotelAdapter(
-                tripParameters.checkInDate,
-                tripParameters.checkOutDate,
-                tripParameters.guests
+                tripSummary.tripParameters.checkInDate,
+                tripSummary.tripParameters.checkOutDate,
+                tripSummary.tripParameters.guests
             ) {
             }
             hotelRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             hotelRecyclerView.adapter = hotelAdapter
-            hotelAdapter.submitList(listOf(hotel))
+            hotelAdapter.submitList(listOf(tripSummary.hotel))
 
             tripSummaryTextView.text = getSampleAIResponse()
+
+            if (!fromMyTrips) {
+                saveButton.setOnClickListener {
+                    viewModel.saveToRoomDatabase(tripSummary.toRoomTripSummary())
+                    Toast.makeText(context, "Successfully added to My Trips", Toast.LENGTH_SHORT)
+                        .show()
+                    val action = SummaryFragmentDirections.actionSummaryFragmentToSearchFragment()
+                    findNavController().navigate(action)
+                }
+            } else {
+                removeButton.visibility = View.VISIBLE
+                saveButton.visibility = View.INVISIBLE
+                saveButton.isClickable = false
+                removeButton.setOnClickListener {
+                    val builder = AlertDialog.Builder(context)
+
+                    builder.setTitle("Remove from My Trips")
+                        .setMessage("Are you sure you want to continue? This action cannot be undone.")
+
+                    builder.setPositiveButton("Yes") { dialog, _ ->
+                        viewModel.removeFromRoomDatabase(tripSummary.toRoomTripSummary(true))
+                        Toast.makeText(
+                            context,
+                            "Successfully removed from My Trips",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        val action =
+                            SummaryFragmentDirections.actionSummaryFragmentToMyTripsFragment()
+                        findNavController().navigate(action)
+                        dialog.dismiss()
+                    }
+                    builder.setNegativeButton("No") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    val dialog: AlertDialog = builder.create()
+                    dialog.show()
+                }
+            }
+
+
         }
     }
 
@@ -100,7 +137,11 @@ class SummaryFragment : Fragment() {
             Glide.with(binding.root.context).load(photoUrl).into(binding.cityImageView)
         } else {
             val photoMetadata = tripParameters.destination.photoMetadata
-            if (photoMetadata != null) {
+            val imageBitmap = tripParameters.destination.imageBitmap
+            if (imageBitmap != null) {
+                binding.cityImageView.setImageBitmap(imageBitmap)
+                tripParameters.destination.photoMetadata = null
+            } else if (photoMetadata != null) {
                 val placesClient = Places.createClient(binding.root.context)
                 val photoRequest = FetchPhotoRequest.builder(photoMetadata)
                     .setMaxWidth(1000)
@@ -110,6 +151,7 @@ class SummaryFragment : Fragment() {
                     .addOnSuccessListener { fetchPhotoResponse: FetchPhotoResponse ->
                         val bitmap = fetchPhotoResponse.bitmap
                         binding.cityImageView.setImageBitmap(bitmap)
+                        tripParameters.destination.imageBitmap = bitmap
                     }
             }
         }

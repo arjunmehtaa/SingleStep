@@ -12,8 +12,8 @@
         <fragment
             android:id="@+id/searchFragment"
             android:name="com.example.singlestep.ui.search.SearchFragment"
-            android:label="fragment_home"
-            tools:layout="@layout/fragment_explore">
+            android:label="fragment_search"
+            tools:layout="@layout/fragment_search">
             <action
                 android:id="@+id/action_searchFragment_to_flightFragment"
                 app:destination="@id/flightFragment" />
@@ -42,7 +42,7 @@
                 app:argType="com.example.singlestep.model.TripParameters" />
             <argument
                 android:name="flight"
-                app:argType="com.amadeus.android.domain.resources.FlightOfferSearch" />
+                app:argType="com.example.singlestep.model.Flight" />
             <argument
                 android:name="airlineName"
                 app:argType="string" />
@@ -60,21 +60,24 @@
             android:label="fragment_summary"
             tools:layout="@layout/fragment_summary">
             <argument
-                android:name="tripParameters"
-                app:argType="com.example.singlestep.model.TripParameters" />
+                android:name="tripSummary"
+                app:argType="com.example.singlestep.model.TripSummary" />
             <argument
-                android:name="hotel"
-                app:argType="com.example.singlestep.model.Hotel" />
-            <argument
-                android:name="flight"
-                app:argType="com.amadeus.android.domain.resources.FlightOfferSearch" />
-            <argument
-                android:name="airlineName"
-                app:argType="string" />
-            <argument
-                android:name="airlineICAOCode"
-                app:argType="string" />
+                android:name="fromMyTrips"
+                android:defaultValue="false"
+                app:argType="boolean" />
+            <action
+                android:id="@+id/action_summaryFragment_to_searchFragment"
+                app:destination="@id/searchFragment"
+                app:popUpTo="@id/searchNav"
+                app:popUpToInclusive="true" />
+            <action
+                android:id="@+id/action_summaryFragment_to_myTripsFragment"
+                app:destination="@id/myTripsFragment"
+                app:popUpTo="@id/myTripsNav"
+                app:popUpToInclusive="true" />
         </fragment>
+
     </navigation>
 
     <!-- Definitions for ExploreFragment and TripsFragment remain unchanged -->
@@ -84,10 +87,44 @@
         android:label="fragment_explore"
         tools:layout="@layout/fragment_explore" />
 
-    <fragment
-        android:id="@+id/tripsFragment"
-        android:name="com.example.singlestep.ui.mytrips.MyTripsFragment"
-        android:label="fragment_trips"
-        tools:layout="@layout/fragment_my_trips" />
+    <navigation
+        android:id="@+id/myTripsNav"
+        app:startDestination="@id/myTripsFragment">
+
+        <fragment
+            android:id="@+id/myTripsFragment"
+            android:name="com.example.singlestep.ui.mytrips.MyTripsFragment"
+            android:label="fragment_trips"
+            tools:layout="@layout/fragment_my_trips">
+            <action
+                android:id="@+id/action_myTripsFragment_to_summaryFragment"
+                app:destination="@id/summaryFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/summaryFragment"
+            android:name="com.example.singlestep.ui.summary.SummaryFragment"
+            android:label="fragment_summary"
+            tools:layout="@layout/fragment_summary">
+            <argument
+                android:name="tripSummary"
+                app:argType="com.example.singlestep.model.TripSummary" />
+            <argument
+                android:name="fromMyTrips"
+                android:defaultValue="false"
+                app:argType="boolean" />
+            <action
+                android:id="@+id/action_summaryFragment_to_searchFragment"
+                app:destination="@id/searchFragment"
+                app:popUpTo="@id/searchNav"
+                app:popUpToInclusive="true" />
+            <action
+                android:id="@+id/action_summaryFragment_to_myTripsFragment"
+                app:destination="@id/myTripsFragment"
+                app:popUpTo="@id/myTripsNav"
+                app:popUpToInclusive="true" />
+        </fragment>
+
+    </navigation>
 
 </navigation>

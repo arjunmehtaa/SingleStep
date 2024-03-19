@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.bumptech.glide.Glide
 import com.example.singlestep.R
 import com.example.singlestep.databinding.ItemFlightBinding
+import com.example.singlestep.model.Flight
 import com.example.singlestep.utils.convertToTitleCase
 
 class FlightAdapter(
@@ -19,29 +19,25 @@ class FlightAdapter(
     private val guests: Int,
     private val airlineNameGetter: (String?) -> String?,
     private val airlineICAOCodeGetter: (String?) -> String?,
-    private val clickListener: (FlightOfferSearch, String?, String?) -> Unit
-) : ListAdapter<FlightOfferSearch, FlightAdapter.FlightViewHolder>(REPO_COMPARATOR) {
+    private val clickListener: (Flight, String?, String?) -> Unit
+) : ListAdapter<Flight, FlightAdapter.FlightViewHolder>(REPO_COMPARATOR) {
 
     inner class FlightViewHolder(private val binding: ItemFlightBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var flightSegmentAdapter1: FlightSegmentAdapter
         private lateinit var flightSegmentAdapter2: FlightSegmentAdapter
-        fun bind(flight: FlightOfferSearch) {
+        fun bind(flight: Flight) {
             with(binding) {
                 // Updated line for handling nullable List<String>
-                val airlineName = airlineNameGetter(flight.validatingAirlineCodes?.get(0))
+                val airlineName = airlineNameGetter(flight.airlineCode)
                 if (!airlineName.isNullOrEmpty()) {
                     nameTextView.text = convertToTitleCase(airlineName)
                 } else {
-                    nameTextView.text = flight.validatingAirlineCodes?.get(0)
+                    nameTextView.text = flight.airlineCode
                 }
 
-                priceTextView.text = root.context.getString(
-                    R.string.flight_price,
-                    flight.price?.currency,
-                    flight.price?.grandTotal?.toInt()
-                )
+                priceTextView.text = flight.totalPrice
 
                 fromToTextView.text = root.context.getString(R.string.flight_from_to, from, to)
                 toFromTextView.text = root.context.getString(R.string.flight_from_to, to, from)
@@ -53,7 +49,7 @@ class FlightAdapter(
                 flightSegmentAdapter1.submitList(flight.itineraries?.get(0)?.segments)
 
                 val airlineICAOCode = airlineICAOCodeGetter(
-                    flight.validatingAirlineCodes?.get(0)
+                    flight.airlineCode
                 )
                 Glide.with(root.context)
                     .load(
@@ -92,16 +88,16 @@ class FlightAdapter(
     }
 
     companion object {
-        private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<FlightOfferSearch>() {
+        private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<Flight>() {
             override fun areItemsTheSame(
-                oldItem: FlightOfferSearch,
-                newItem: FlightOfferSearch
+                oldItem: Flight,
+                newItem: Flight
             ): Boolean =
                 oldItem.id == newItem.id
 
             override fun areContentsTheSame(
-                oldItem: FlightOfferSearch,
-                newItem: FlightOfferSearch
+                oldItem: Flight,
+                newItem: Flight
             ): Boolean =
                 oldItem == newItem
         }

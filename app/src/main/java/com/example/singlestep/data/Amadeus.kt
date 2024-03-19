@@ -9,10 +9,8 @@ import com.amadeus.android.domain.resources.Airline
 import com.amadeus.android.domain.resources.FlightOfferSearch
 import com.amadeus.android.domain.resources.Location
 import com.example.singlestep.R
-import com.example.singlestep.model.FlightInfo
-import com.example.singlestep.model.TicketDetails
-import com.example.singlestep.model.TicketItinerary
-import com.example.singlestep.model.TicketPrices
+import com.example.singlestep.model.Flight
+import com.example.singlestep.utils.amadeusFlightListToFlightList
 
 class Amadeus(context: Context) {
 
@@ -59,7 +57,7 @@ class Amadeus(context: Context) {
         dateDepart: String,
         dateReturn: String,
         guests: Int
-    ): Pair<List<FlightOfferSearch>, HashMap<String, Airline>> {
+    ): Pair<List<Flight>, HashMap<String, Airline>> {
         val flightList: List<FlightOfferSearch>
         when (val flights = amadeus.shopping.flightOffersSearch.get(
             cityDepart,
@@ -86,7 +84,7 @@ class Amadeus(context: Context) {
         }
         val airlineNamesMap = getAirlineNamesMap(airlineNamesSet.toList())
 
-        return flightList to airlineNamesMap
+        return amadeusFlightListToFlightList(flightList.subList(0, 10)) to airlineNamesMap
     }
 
     suspend fun getIATA(latitude: Double, longitude: Double): List<Location> {
@@ -110,65 +108,5 @@ class Amadeus(context: Context) {
             Log.i("Airports", airport.toString())
         }*/
         return airportList
-    }
-
-    private fun parseFlightInfo(flightInfo: FlightOfferSearch, prevID: Int): List<FlightInfo> {
-        // call parsing in "getFlights"
-        /*
-        var flightListInfo = mutableListOf<FlightInfo>()
-        var prevID = 0
-        flightList.forEach { result ->
-            val flightInfo = parseFlightInfo(result, prevID)
-            prevID = flightInfo.last().id.toInt()
-            flightListInfo.addAll(flightInfo)
-        }
-
-        // logging
-        for (flight in flightListInfo) {
-            Log.i("Flight IDS: ", flight.id)
-        }
-        */
-
-        var flightsInfo = mutableListOf<FlightInfo>()
-        var currTicketDetails = TicketDetails()
-        var currTicketPrice = TicketPrices()
-        var i = 1
-
-        currTicketDetails.id = flightInfo.id!!.toInt()
-        currTicketDetails.source = flightInfo.source.toString()
-        currTicketDetails.oneWay = flightInfo.oneWay
-        currTicketDetails.lastAccess = flightInfo.lastTicketingDate.toString()
-        currTicketDetails.bookableSeats = flightInfo.numberOfBookableSeats
-        currTicketDetails.airlineCode = flightInfo.validatingAirlineCodes.toString()
-        currTicketDetails.travelerPricing = flightInfo.travelerPricings.toString()
-
-        currTicketPrice.currency = flightInfo?.price!!.currency.toString()
-        currTicketPrice.totalCost = flightInfo?.price!!.grandTotal
-
-        var currItinerary = TicketItinerary()
-        flightInfo.itineraries?.forEach { itinerary ->
-            itinerary.segments?.forEach { segment ->
-                currItinerary.duration = segment.duration.toString()
-                currItinerary.departureLocations.add(segment.departure!!.iataCode.toString())
-                currItinerary.arrivalLocations.add(segment.arrival!!.iataCode.toString())
-                currItinerary.departureTimes.add(segment.departure!!.at.toString())
-                currItinerary.arrivalTimes.add(segment.arrival!!.at.toString())
-                currItinerary.carrierCodes.add(segment.carrierCode.toString())
-            }
-            if (currItinerary.departureLocations.size > 1) {
-                currItinerary.layover = true
-            }
-
-            flightsInfo.add(
-                FlightInfo(
-                    (prevID + i).toString(),
-                    currTicketDetails,
-                    currItinerary,
-                    currTicketPrice
-                )
-            )
-            i++
-        }
-        return flightsInfo
     }
 }

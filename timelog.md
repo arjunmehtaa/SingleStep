@@ -31,4 +31,4 @@
 | 2024/03/05 |       |        | 5      |       |         |      | GUI & in-progress functions for Save/load trip, demo video|
 | 2024/03/07 |       |        | 2      |       |         | 2    | Review & edit component diagram to conform example syntax |
 | 2024/03/15 | 5     |        |        |       |         |      | Design UI for ChatGPT response and Summary page           |
-
+| 2024/03/18 | 6     |        |        |       |         |      | Save My Trips locally in RoomDB                           |

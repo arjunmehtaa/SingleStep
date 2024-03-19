@@ -47,4 +47,5 @@
     <string name="save_to_my_trips">Save to My Trips</string>
     <string name="selected_hotel">Selected Hotel</string>
     <string name="selected_flights">Selected Flights</string>
+    <string name="remove_from_my_trips">Remove from My Trips</string>
 </resources>
