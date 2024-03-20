@@ -61,7 +61,7 @@ class HotelViewModel(
                     budget.toInt(),
                     guests
                 )
-                 Log.d("HotelViewModel", "Fetched hotels: $hotels")
+                Log.d("HotelViewModel", "Fetched hotels: $hotels")
                 _hotelList.postValue(Result.Success(hotels))
             } catch (e: Exception) {
                 Log.e("HotelViewModel", "Error fetching hotels", e)

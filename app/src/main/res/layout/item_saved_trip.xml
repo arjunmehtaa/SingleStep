@@ -42,9 +42,9 @@
         android:layout_toEndOf="@id/city_image_card"
         android:drawablePadding="8dp"
         android:gravity="center"
+        android:singleLine="true"
         android:textColor="@color/faded_grey"
         android:textSize="16sp"
-        android:singleLine="true"
         app:drawableStartCompat="@drawable/icon_dates"
         tools:text="02 Apr - 10 Apr" />
 
@@ -52,8 +52,8 @@
         android:id="@+id/budget_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dates_text_view"
         android:layout_above="@id/guests_text_view"
+        android:layout_below="@id/dates_text_view"
         android:layout_marginEnd="16dp"
         android:layout_toEndOf="@id/city_image_card"
         android:drawablePadding="8dp"
@@ -82,20 +82,20 @@
         android:id="@+id/trip_buttons_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
         android:layout_below="@id/city_image_card"
+        android:layout_marginHorizontal="16dp"
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/remove_trip_button"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/orange"
             android:layout_marginEnd="4dp"
             android:backgroundTint="@color/light_orange"
+            android:text="Remove"
             android:textColor="@color/orange"
-            android:text="Remove"/>
+            app:strokeColor="@color/orange"
+            app:strokeWidth="1dp" />
 
         <Button
             android:id="@+id/view_trip_button"
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:backgroundTint="@color/orange"
-            android:text="View Trip Itinerary"/>
+            android:text="View Trip Itinerary" />
 
     </LinearLayout>
 

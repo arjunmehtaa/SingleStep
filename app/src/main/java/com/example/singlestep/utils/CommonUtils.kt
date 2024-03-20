@@ -1,8 +1,6 @@
 package com.example.singlestep.utils
 
-import java.io.File;
 import android.util.Log
-import java.io.FileWriter
 import java.text.NumberFormat
 import java.util.Locale
 

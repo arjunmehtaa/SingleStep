@@ -43,7 +43,9 @@ fun getFormattedDate(inputDate: String): String {
     val date = LocalDate.parse(inputDate, formatter)
     val dayOfMonth = date.dayOfMonth
     val month = date.month
-    return "${month.toString().substring(0, 3).lowercase().replaceFirstChar { it.uppercase() }} $dayOfMonth"
+    return "${
+        month.toString().substring(0, 3).lowercase().replaceFirstChar { it.uppercase() }
+    } $dayOfMonth"
 }
 
 fun getFormattedTime(timeString: String): String {

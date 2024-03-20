@@ -34,8 +34,8 @@
         android:layout_marginHorizontal="24dp"
         android:background="@color/orange"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -52,10 +52,10 @@
         android:id="@+id/arrival_airport_date_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center|center_vertical"
         android:textColor="@color/faded_grey"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/flight_duration_text_view"
-        android:gravity="center|center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="YYZ • 25 Mar" />
 
@@ -69,10 +69,10 @@
         android:paddingVertical="4dp"
         android:textColor="@color/orange"
         android:textSize="12sp"
-        tools:text="AI 187"
         app:layout_constraintBottom_toTopOf="@+id/flight_trip_main_line"
         app:layout_constraintEnd_toEndOf="@+id/flight_trip_main_line"
-        app:layout_constraintStart_toStartOf="@+id/flight_trip_main_line" />
+        app:layout_constraintStart_toStartOf="@+id/flight_trip_main_line"
+        tools:text="AI 187" />
 
     <TextView
         android:id="@+id/flight_duration_text_view"
@@ -81,9 +81,9 @@
         android:layout_marginTop="6dp"
         android:textColor="@color/orange"
         android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@+id/flight_trip_main_line"
         app:layout_constraintEnd_toEndOf="@+id/flight_trip_main_line"
         app:layout_constraintStart_toStartOf="@+id/flight_trip_main_line"
+        app:layout_constraintTop_toBottomOf="@+id/flight_trip_main_line"
         tools:text="2h 5m" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

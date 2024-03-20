@@ -57,11 +57,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/flight_recycler_view"
         android:layout_width="match_parent"
-        android:nestedScrollingEnabled="false"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_text_view"
         android:layout_marginBottom="10dp"
         android:clipToPadding="false"
+        android:nestedScrollingEnabled="false"
         android:paddingVertical="10dp"
         android:scrollbars="vertical" />
 

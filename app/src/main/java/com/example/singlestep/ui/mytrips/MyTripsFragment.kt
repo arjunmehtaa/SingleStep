@@ -1,7 +1,6 @@
 package com.example.singlestep.ui.mytrips
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,7 +68,7 @@ class MyTripsFragment : Fragment() {
             stopShimmer()
             visibility = View.GONE
         }
-        if(tripSummaries.isEmpty()) {
+        if (tripSummaries.isEmpty()) {
             binding.noSavedTripsLayout.visibility = View.VISIBLE
         } else {
             binding.noSavedTripsLayout.visibility = View.GONE

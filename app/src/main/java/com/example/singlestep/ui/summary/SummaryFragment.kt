@@ -127,7 +127,12 @@ class SummaryFragment : Fragment() {
             val photoMetadata = tripParameters.destination.photoMetadata
             val imageFileUri = tripParameters.destination.imageFileUri
             if (imageFileUri != null) {
-                binding.cityImageView.setImageBitmap(loadBitmapFromFile(requireContext(), imageFileUri))
+                binding.cityImageView.setImageBitmap(
+                    loadBitmapFromFile(
+                        requireContext(),
+                        imageFileUri
+                    )
+                )
             } else if (photoMetadata != null) {
                 val placesClient = Places.createClient(binding.root.context)
                 val photoRequest = FetchPhotoRequest.builder(photoMetadata)

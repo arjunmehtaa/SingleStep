@@ -8,9 +8,7 @@ import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.example.singlestep.R
-import com.example.singlestep.ui.summary.SummaryFragmentDirections
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.PlaceTypes
@@ -84,7 +82,10 @@ fun convertToTitleCase(input: String): String {
         .joinToString(" ") { it.replaceFirstChar { char -> char.uppercase() } }
 }
 
-fun getRemoveTripOnClickListener(context: Context, onPositiveButtonClicked: () -> Unit): View.OnClickListener {
+fun getRemoveTripOnClickListener(
+    context: Context,
+    onPositiveButtonClicked: () -> Unit
+): View.OnClickListener {
     return View.OnClickListener {
         val builder = AlertDialog.Builder(context)
 

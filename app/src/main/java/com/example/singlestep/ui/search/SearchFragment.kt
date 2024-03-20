@@ -28,8 +28,6 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
-import java.text.NumberFormat
-import java.util.Locale
 
 class SearchFragment : Fragment() {
 
@@ -105,7 +103,7 @@ class SearchFragment : Fragment() {
 
             planTripButton.setOnClickListener {
                 val dates = datePickerEditText.text.toString().split(" - ")
-                if(dates.size == 2) {
+                if (dates.size == 2) {
                     val tripParameters = TripParameters(
                         source!!, destination!!, dates[0].trim(), dates[1].trim(), budget, numGuests
                     )
@@ -113,7 +111,8 @@ class SearchFragment : Fragment() {
                         SearchFragmentDirections.actionSearchFragmentToFlightFragment(tripParameters)
                     findNavController(requireView()).navigate(action)
                 } else {
-                    Toast.makeText(context, "Please select valid date range", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Please select valid date range", Toast.LENGTH_LONG)
+                        .show()
                 }
             }
 

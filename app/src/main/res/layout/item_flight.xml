@@ -19,20 +19,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:singleLine="true"
         android:layout_toEndOf="@id/airline_image_view"
-        android:textStyle="bold"
+        android:singleLine="true"
         android:textSize="20sp"
+        android:textStyle="bold"
         tools:text="Airline Service" />
 
     <TextView
         android:id="@+id/from_to_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
         android:layout_below="@id/name_text_view"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="8dp"
+        android:paddingHorizontal="16dp"
         android:textColor="@color/faded_grey"
         android:textSize="16sp"
         tools:text="Toronto to New York" />
@@ -52,9 +52,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/it1_segments_recycler_view"
-        android:paddingHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
+        android:paddingHorizontal="16dp"
         android:textColor="@color/faded_grey"
         android:textSize="16sp"
         tools:text="New York to Toronto" />

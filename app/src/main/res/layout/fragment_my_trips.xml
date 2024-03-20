@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:paddingHorizontal="16dp"
         android:layout_marginBottom="8dp"
+        android:paddingHorizontal="16dp"
         android:text="@string/my_trips"
         android:textSize="32sp"
         android:textStyle="bold" />
@@ -20,9 +20,9 @@
         android:id="@+id/no_saved_trips_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/title_text_view"
         android:layout_marginBottom="200dp"
-        android:visibility="gone"
-        android:layout_below="@id/title_text_view">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/plane_image_view"
@@ -37,21 +37,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/plane_image_view"
-            android:text="@string/your_saved_trips_will_appear_here"
             android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:layout_marginTop="16dp"
             android:layout_marginHorizontal="16dp"
-            android:textSize="16sp"/>
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/your_saved_trips_will_appear_here"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/start_searching_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/your_saved_trips_text_view"
-            android:layout_margin="16dp"
             android:layout_centerHorizontal="true"
-            android:text="@string/start_searching"/>
+            android:layout_margin="16dp"
+            android:text="@string/start_searching" />
 
     </RelativeLayout>
 
@@ -84,9 +84,9 @@
         android:id="@+id/my_trips_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/title_text_view"
         android:layout_marginBottom="72dp"
         android:clipToPadding="false"
-        android:layout_below="@id/title_text_view"
         android:paddingVertical="16dp"
         android:scrollbars="vertical" />
 
