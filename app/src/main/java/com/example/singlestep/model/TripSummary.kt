@@ -22,7 +22,7 @@ data class TripSummary(
             destinationImageUrl = tripParameters.destination.imageUrl,
             destinationLatitude = tripParameters.destination.latitude,
             destinationLongitude = tripParameters.destination.longitude,
-            cityImage = tripParameters.destination.imageBitmap,
+            cityImageFileUri = tripParameters.destination.imageFileUri,
             checkInDate = tripParameters.checkInDate,
             checkOutDate = tripParameters.checkOutDate,
             budget = tripParameters.budget,

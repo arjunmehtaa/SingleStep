@@ -3,6 +3,8 @@ package com.example.singlestep.utils
 import java.io.File;
 import android.util.Log
 import java.io.FileWriter
+import java.text.NumberFormat
+import java.util.Locale
 
 fun onLoading() {
     Log.i("Loading", "onLoading()")
@@ -12,8 +14,9 @@ fun onLoadingFailure() {
     Log.i("Loading Failed", "onLoadingFailure()")
 }
 
-fun writeToFile(filename: String, content: String)
-    = File(filename).writeText(content)
-
-fun readFromFile(filename:String):String
-    = File(filename).readText()
+fun formatBudget(input: String): Pair<Double, String> {
+    val regex = Regex("[^0-9]")
+    val value = regex.replace(input.toString(), "").toDouble()
+    val budgetString = NumberFormat.getInstance(Locale.CANADA).format(value)
+    return value to budgetString
+}

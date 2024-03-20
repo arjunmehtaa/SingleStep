@@ -7,8 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.singlestep.model.RoomTripSummary
 
-@Database(entities = [RoomTripSummary::class], version = 1, exportSchema = false)
-@TypeConverters(RoomTypeConverters::class)
+@Database(entities = [RoomTripSummary::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun tripSummaryDao(): TripSummaryDao
@@ -27,7 +26,7 @@ abstract class AppDatabase : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java, "trips"
-            ).build()
+            ).fallbackToDestructiveMigration().build()
     }
 
 }

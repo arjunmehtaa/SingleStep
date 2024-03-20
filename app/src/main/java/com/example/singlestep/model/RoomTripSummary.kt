@@ -1,6 +1,5 @@
 package com.example.singlestep.model
 
-import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -16,7 +15,7 @@ data class RoomTripSummary(
     val destinationImageUrl: String?,
     val destinationLatitude: Double,
     val destinationLongitude: Double,
-    val cityImage: Bitmap? = null,
+    val cityImageFileUri: String? = null,
     val checkInDate: String,
     val checkOutDate: String,
     val budget: Double,
@@ -57,14 +56,14 @@ data class RoomTripSummary(
                     imageUrl = sourceImageUrl,
                     latitude = sourceLatitude,
                     longitude = sourceLongitude,
-                    imageBitmap = null
+                    imageFileUri = null
                 ),
                 destination = Location(
                     city = destinationCity,
                     imageUrl = destinationImageUrl,
                     latitude = destinationLatitude,
                     longitude = destinationLongitude,
-                    imageBitmap = cityImage
+                    imageFileUri = cityImageFileUri
                 ),
                 checkInDate = checkInDate,
                 checkOutDate = checkOutDate,

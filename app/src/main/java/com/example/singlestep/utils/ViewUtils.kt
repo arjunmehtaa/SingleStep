@@ -1,12 +1,16 @@
 package com.example.singlestep.utils
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.singlestep.R
+import com.example.singlestep.ui.summary.SummaryFragmentDirections
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.PlaceTypes
@@ -78,4 +82,28 @@ fun showBottomNavigationBar(activity: Activity?) {
 fun convertToTitleCase(input: String): String {
     return input.lowercase().split(" ")
         .joinToString(" ") { it.replaceFirstChar { char -> char.uppercase() } }
+}
+
+fun getRemoveTripOnClickListener(context: Context, onPositiveButtonClicked: () -> Unit): View.OnClickListener {
+    return View.OnClickListener {
+        val builder = AlertDialog.Builder(context)
+
+        builder.setTitle("Remove from My Trips")
+            .setMessage("Are you sure you want to continue? This action cannot be undone.")
+
+        builder.setPositiveButton("Yes") { dialog, _ ->
+            onPositiveButtonClicked()
+            Toast.makeText(
+                context,
+                "Successfully removed from My Trips",
+                Toast.LENGTH_SHORT
+            ).show()
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
 }

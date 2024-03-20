@@ -1,6 +1,5 @@
 package com.example.singlestep.ui.summary
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,13 +16,15 @@ import com.example.singlestep.model.TripParameters
 import com.example.singlestep.model.TripSummary
 import com.example.singlestep.ui.common.adapters.FlightAdapter
 import com.example.singlestep.ui.common.adapters.HotelAdapter
+import com.example.singlestep.utils.getRemoveTripOnClickListener
 import com.example.singlestep.utils.getSampleAIResponse
 import com.example.singlestep.utils.hideBottomNavigationBar
 import com.example.singlestep.utils.showBottomNavigationBar
-import com.example.singlestep.viewmodel.SummaryViewModel
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.FetchPhotoRequest
 import com.google.android.libraries.places.api.net.FetchPhotoResponse
+import loadBitmapFromFile
+import saveBitmapToFile
 
 class SummaryFragment : Fragment() {
 
@@ -101,32 +102,19 @@ class SummaryFragment : Fragment() {
                 removeButton.visibility = View.VISIBLE
                 saveButton.visibility = View.INVISIBLE
                 saveButton.isClickable = false
-                removeButton.setOnClickListener {
-                    val builder = AlertDialog.Builder(context)
-
-                    builder.setTitle("Remove from My Trips")
-                        .setMessage("Are you sure you want to continue? This action cannot be undone.")
-
-                    builder.setPositiveButton("Yes") { dialog, _ ->
+                removeButton.setOnClickListener(
+                    getRemoveTripOnClickListener(root.context) {
                         viewModel.removeFromRoomDatabase(tripSummary.toRoomTripSummary(true))
-                        Toast.makeText(
-                            context,
-                            "Successfully removed from My Trips",
-                            Toast.LENGTH_SHORT
-                        ).show()
                         val action =
                             SummaryFragmentDirections.actionSummaryFragmentToMyTripsFragment()
                         findNavController().navigate(action)
-                        dialog.dismiss()
                     }
-                    builder.setNegativeButton("No") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    val dialog: AlertDialog = builder.create()
-                    dialog.show()
-                }
+                )
             }
 
+            backButton.setOnClickListener {
+                activity?.onBackPressedDispatcher?.onBackPressed()
+            }
 
         }
     }
@@ -137,21 +125,21 @@ class SummaryFragment : Fragment() {
             Glide.with(binding.root.context).load(photoUrl).into(binding.cityImageView)
         } else {
             val photoMetadata = tripParameters.destination.photoMetadata
-            val imageBitmap = tripParameters.destination.imageBitmap
-            if (imageBitmap != null) {
-                binding.cityImageView.setImageBitmap(imageBitmap)
-                tripParameters.destination.photoMetadata = null
+            val imageFileUri = tripParameters.destination.imageFileUri
+            if (imageFileUri != null) {
+                binding.cityImageView.setImageBitmap(loadBitmapFromFile(requireContext(), imageFileUri))
             } else if (photoMetadata != null) {
                 val placesClient = Places.createClient(binding.root.context)
                 val photoRequest = FetchPhotoRequest.builder(photoMetadata)
-                    .setMaxWidth(1000)
-                    .setMaxHeight(300)
+                    .setMaxWidth(500)
+                    .setMaxHeight(250)
                     .build()
                 placesClient.fetchPhoto(photoRequest)
                     .addOnSuccessListener { fetchPhotoResponse: FetchPhotoResponse ->
                         val bitmap = fetchPhotoResponse.bitmap
                         binding.cityImageView.setImageBitmap(bitmap)
-                        tripParameters.destination.imageBitmap = bitmap
+                        val file = saveBitmapToFile(requireContext(), bitmap)
+                        tripParameters.destination.imageFileUri = file?.absolutePath
                     }
             }
         }

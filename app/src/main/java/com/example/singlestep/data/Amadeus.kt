@@ -83,8 +83,10 @@ class Amadeus(context: Context) {
             }
         }
         val airlineNamesMap = getAirlineNamesMap(airlineNamesSet.toList())
-
-        return amadeusFlightListToFlightList(flightList.subList(0, 10)) to airlineNamesMap
+        if (flightList.size > 10) {
+            return amadeusFlightListToFlightList(flightList.subList(0, 10)) to airlineNamesMap
+        }
+        return amadeusFlightListToFlightList(flightList) to airlineNamesMap
     }
 
     suspend fun getIATA(latitude: Double, longitude: Double): List<Location> {

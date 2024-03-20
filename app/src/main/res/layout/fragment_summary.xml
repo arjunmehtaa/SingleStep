@@ -6,14 +6,29 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/title_text_view"
+        android:layout_alignBottom="@id/title_text_view"
+        android:paddingStart="16dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="0dp"
+        android:src="@drawable/icon_back"
+        app:tint="@color/material_on_surface_emphasis_high_type"
+        tools:ignore="ContentDescription" />
+
     <TextView
         android:id="@+id/title_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_toEndOf="@id/back_button"
         android:layout_alignParentTop="true"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
+        android:singleLine="true"
         android:textSize="32sp"
         android:textStyle="bold"
         tools:text="Trip to New York" />

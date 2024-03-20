@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/from_to_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:singleLine="true"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:text="Chicago to New York" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/city_image_card"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/from_to_text_view"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="12dp">
+
+        <ImageView
+            android:id="@+id/city_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/dates_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/city_image_card"
+        android:layout_marginVertical="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@id/city_image_card"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:textColor="@color/faded_grey"
+        android:textSize="16sp"
+        android:singleLine="true"
+        app:drawableStartCompat="@drawable/icon_dates"
+        tools:text="02 Apr - 10 Apr" />
+
+    <TextView
+        android:id="@+id/budget_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dates_text_view"
+        android:layout_above="@id/guests_text_view"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@id/city_image_card"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:textColor="@color/faded_grey"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/icon_budget"
+        tools:text="$1000" />
+
+    <TextView
+        android:id="@+id/guests_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/city_image_card"
+        android:layout_marginVertical="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@id/city_image_card"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:textColor="@color/faded_grey"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/icon_guests"
+        tools:text="2 guests" />
+
+    <LinearLayout
+        android:id="@+id/trip_buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_below="@id/city_image_card"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/remove_trip_button"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/orange"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="@color/light_orange"
+            android:textColor="@color/orange"
+            android:text="Remove"/>
+
+        <Button
+            android:id="@+id/view_trip_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="@color/orange"
+            android:text="View Trip Itinerary"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/trip_buttons_layout"
+        android:layout_marginVertical="16dp"
+        android:background="@color/light_grey" />
+
+</RelativeLayout>

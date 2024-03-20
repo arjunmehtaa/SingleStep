@@ -1,6 +1,7 @@
 package com.example.singlestep.ui.mytrips
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.singlestep.databinding.FragmentMyTripsBinding
+import com.example.singlestep.model.TripSummary
 import com.example.singlestep.ui.common.adapters.SavedTripAdapter
 import com.example.singlestep.utils.Result
-import com.example.singlestep.utils.onLoading
 import com.example.singlestep.utils.onLoadingFailure
 
 class MyTripsFragment : Fragment() {
@@ -32,26 +33,48 @@ class MyTripsFragment : Fragment() {
     private fun setupObservers() {
         viewModel.tripSummaryList.observe(viewLifecycleOwner) { result ->
             when (result) {
-                Result.Loading -> onLoading()
+                Result.Loading -> binding.shimmerLayout.startShimmer()
                 is Result.Failure -> onLoadingFailure()
-                is Result.Success -> tripAdapter.submitList(result.value)
+                is Result.Success -> onTripsLoadingSuccess(result.value)
             }
         }
     }
 
     private fun setupViews() {
         with(binding) {
-            tripAdapter = SavedTripAdapter() {
-                val action =
-                    MyTripsFragmentDirections.actionMyTripsFragmentToSummaryFragment(it, true)
-                findNavController().navigate(action)
-            }
+            tripAdapter = SavedTripAdapter(
+                tripClickListener = {
+                    val action =
+                        MyTripsFragmentDirections.actionMyTripsFragmentToSummaryFragment(it, true)
+                    findNavController().navigate(action)
+                },
+                removeTripClickListener = {
+                    shimmerLayout.visibility = View.VISIBLE
+                    shimmerLayout.startShimmer()
+                    viewModel.removeFromRoomDatabase(it.toRoomTripSummary(true))
+                    viewModel.getTripSummaryList()
+                }
+            )
             myTripsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             myTripsRecyclerView.adapter = tripAdapter
-            titleTextView.setOnClickListener {
-                viewModel.deleteAll()
+
+            startSearchingButton.setOnClickListener {
+                activity?.onBackPressedDispatcher?.onBackPressed()
             }
         }
+    }
+
+    private fun onTripsLoadingSuccess(tripSummaries: List<TripSummary>) {
+        binding.shimmerLayout.apply {
+            stopShimmer()
+            visibility = View.GONE
+        }
+        if(tripSummaries.isEmpty()) {
+            binding.noSavedTripsLayout.visibility = View.VISIBLE
+        } else {
+            binding.noSavedTripsLayout.visibility = View.GONE
+        }
+        tripAdapter.submitList(tripSummaries)
     }
 
     override fun onResume() {

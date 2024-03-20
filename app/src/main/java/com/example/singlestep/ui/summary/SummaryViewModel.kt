@@ -1,6 +1,7 @@
-package com.example.singlestep.viewmodel
+package com.example.singlestep.ui.summary
 
 import android.app.Application
+import android.graphics.Bitmap
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,9 +10,10 @@ import com.example.singlestep.data.room.AppDatabase
 import com.example.singlestep.model.RoomTripSummary
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import saveBitmapToFile
 
 class SummaryViewModel(
-    application: Application
+    private val application: Application
 ) : AndroidViewModel(application) {
     private var dao = AppDatabase.getDatabase(application.applicationContext).tripSummaryDao()
 
@@ -36,6 +38,12 @@ class SummaryViewModel(
     fun removeFromRoomDatabase(roomTripSummary: RoomTripSummary) {
         viewModelScope.launch(Dispatchers.IO) {
             dao.delete(roomTripSummary)
+        }
+    }
+
+    fun saveBitmapInFile(bitmap: Bitmap) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val file = saveBitmapToFile(application.applicationContext, bitmap)
         }
     }
 

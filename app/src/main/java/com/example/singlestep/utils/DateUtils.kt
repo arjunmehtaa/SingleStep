@@ -38,6 +38,14 @@ fun getDateAndMonthName(dateString: String): String {
     return parsedDate.format(outputFormatter).substring(0, 6)
 }
 
+fun getFormattedDate(inputDate: String): String {
+    val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd", Locale.ENGLISH)
+    val date = LocalDate.parse(inputDate, formatter)
+    val dayOfMonth = date.dayOfMonth
+    val month = date.month
+    return "${month.toString().substring(0, 3).lowercase().replaceFirstChar { it.uppercase() }} $dayOfMonth"
+}
+
 fun getFormattedTime(timeString: String): String {
     val parsedTime = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HH:mm"))
     val outputFormatter = DateTimeFormatter.ofPattern("hh:mm a")

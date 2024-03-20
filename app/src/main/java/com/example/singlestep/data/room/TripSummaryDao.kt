@@ -17,7 +17,4 @@ interface TripSummaryDao {
 
     @Delete
     fun delete(roomTripSummary: RoomTripSummary)
-
-    @Query("DELETE FROM roomtripsummary")
-    fun deleteAll()
 }

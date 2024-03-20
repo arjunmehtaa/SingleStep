@@ -1,12 +1,12 @@
 package com.example.singlestep.ui.mytrips
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.singlestep.data.room.AppDatabase
+import com.example.singlestep.model.RoomTripSummary
 import com.example.singlestep.model.TripSummary
 import com.example.singlestep.utils.Result
 import com.example.singlestep.utils.roomTripSummaryListToTripSummaryList
@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 class MyTripsViewModel(
     application: Application
 ) : AndroidViewModel(application) {
+
     private var coroutineExceptionHandler: CoroutineExceptionHandler
     private var dao = AppDatabase.getDatabase(application.applicationContext).tripSummaryDao()
 
@@ -35,13 +36,12 @@ class MyTripsViewModel(
         viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
             _tripSummaryList.postValue(Result.Loading)
             _tripSummaryList.postValue(Result.Success(roomTripSummaryListToTripSummaryList(dao.getAll())))
-            Log.i("ROOMREAD", dao.getAll().toString())
         }
     }
 
-    fun deleteAll() {
+    fun removeFromRoomDatabase(roomTripSummary: RoomTripSummary) {
         viewModelScope.launch(Dispatchers.IO) {
-            dao.deleteAll()
+            dao.delete(roomTripSummary)
         }
     }
 }

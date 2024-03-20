@@ -39,8 +39,8 @@ class FlightAdapter(
 
                 priceTextView.text = flight.totalPrice
 
-                fromToTextView.text = root.context.getString(R.string.flight_from_to, from, to)
-                toFromTextView.text = root.context.getString(R.string.flight_from_to, to, from)
+                fromToTextView.text = root.context.getString(R.string.from_to, from, to)
+                toFromTextView.text = root.context.getString(R.string.from_to, to, from)
                 summaryTextView.text = root.context.getString(R.string.round_trip_guests, guests)
 
                 flightSegmentAdapter1 = FlightSegmentAdapter(flight)

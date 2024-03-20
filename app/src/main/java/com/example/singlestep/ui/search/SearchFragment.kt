@@ -18,6 +18,7 @@ import com.example.singlestep.model.TripParameters
 import com.example.singlestep.ui.common.adapters.BudgetAdapter
 import com.example.singlestep.ui.common.adapters.DestinationAdapter
 import com.example.singlestep.utils.Result
+import com.example.singlestep.utils.formatBudget
 import com.example.singlestep.utils.getSelectedDateRange
 import com.example.singlestep.utils.onLoading
 import com.example.singlestep.utils.onLoadingFailure
@@ -197,11 +198,9 @@ class SearchFragment : Fragment() {
                     budgetEditText.setText("")
                     budget = 0.0
                 } else {
-                    val regex = Regex("[^0-9]")
-                    val value = regex.replace(text.toString(), "").toDouble()
-                    budget = value
-                    val budgetString = NumberFormat.getInstance(Locale.CANADA).format(value)
-                    budgetEditText.setText(getString(R.string.budget_text, budgetString))
+                    val formattedBudget = formatBudget(text.toString())
+                    budget = formattedBudget.first
+                    budgetEditText.setText(getString(R.string.budget_text, formattedBudget.second))
                     budgetEditText.setSelection(budgetEditText.text.length)
                 }
                 validateFields()
