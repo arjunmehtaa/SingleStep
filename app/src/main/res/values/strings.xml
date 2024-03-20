@@ -1,9 +1,5 @@
 <resources>
     <string name="app_name">SingleStep</string>
-    <string name="hello_world">Hello World</string>
-    <string name="detail">Detail</string>
-    <string name="item_details">Source: %s\n\nDestination: %s\n\nDates: %s\n\nBudget: %f\n\nGuests: %d</string>
-    <string name="single_step">SingleStep</string>
     <string name="search">Search</string>
     <string name="number_of_guests_default">0 guest(s)</string>
     <string name="number_of_guests">%d guest(s)</string>
@@ -29,21 +25,14 @@
     <string name="photos">Photos</string>
     <string name="get_directions">Get Directions</string>
     <string name="book_now">Book Now</string>
-    <string name="test_amadeus_url">https://test.api.amadeus.com</string>
     <string name="hotels">Hotels</string>
-    <string name="debug_tag">Debug: </string>
     <string name="booking_api_key">35ba2fe984msh47c31ab84324ed7p143d9ejsne0b6c2e4c472</string>
     <string name="booking_api_host">booking-com18.p.rapidapi.com</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nights_days_guests">%1$d nights, %2$d days • %3$d guests</string>
-    <string name="dates_guests">%1$s - %2$s • %3$d guests</string>
     <string name="flights">Flights</string>
-    <string name="flight_price">%1$s %2$d</string>
     <string name="from_to">%1$s to %2$s</string>
     <string name="round_trip_guests">Round trip • %1$d guests</string>
     <string name="airport_date">%1$s • %2$s</string>
-    <string name="airline_name">%1$s %2$s</string>
     <string name="date_range">%1$s - %2$s</string>
     <string name="trip_to">Trip to %1$s</string>
     <string name="save_to_my_trips">Save to My Trips</string>
@@ -52,4 +41,6 @@
     <string name="remove_from_my_trips">Remove from My Trips</string>
     <string name="your_saved_trips_will_appear_here">Your saved trips will appear here</string>
     <string name="start_searching">Start Searching</string>
+    <string name="view_itinerary">View Itinerary</string>
+    <string name="remove_trip">Remove Trip</string>
 </resources>

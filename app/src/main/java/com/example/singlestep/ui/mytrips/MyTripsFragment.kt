@@ -70,8 +70,10 @@ class MyTripsFragment : Fragment() {
         }
         if (tripSummaries.isEmpty()) {
             binding.noSavedTripsLayout.visibility = View.VISIBLE
+            binding.myTripsRecyclerView.visibility = View.GONE
         } else {
             binding.noSavedTripsLayout.visibility = View.GONE
+            binding.myTripsRecyclerView.visibility = View.VISIBLE
         }
         tripAdapter.submitList(tripSummaries)
     }

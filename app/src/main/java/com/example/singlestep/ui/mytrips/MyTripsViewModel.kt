@@ -42,6 +42,7 @@ class MyTripsViewModel(
     fun removeFromRoomDatabase(roomTripSummary: RoomTripSummary) {
         viewModelScope.launch(Dispatchers.IO) {
             dao.delete(roomTripSummary)
+            getTripSummaryList()
         }
     }
 }

@@ -18,11 +18,11 @@ class BudgetAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(budget: Budget) {
             with(binding) {
-                budgetTextView.text = root.context.getString(
+                budgetButton.text = root.context.getString(
                     R.string.budget_suggestion,
                     NumberFormat.getIntegerInstance().format(budget.value)
                 )
-                budgetItemCard.setOnClickListener {
+                budgetButton.setOnClickListener {
                     clickListener(budget)
                 }
             }
