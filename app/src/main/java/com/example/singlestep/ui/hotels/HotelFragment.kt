@@ -1,5 +1,8 @@
 package com.example.singlestep.ui.hotels
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -120,6 +123,18 @@ class HotelFragment : Fragment() {
         binding.shimmerLayout.visibility = View.GONE
         binding.failedHotelsLayout.visibility = View.VISIBLE
         binding.hotelsErrorTextView.text = getString(R.string.hotels_failed_response)
+        checkIfConnectionRestored()
+    }
+
+    private fun checkIfConnectionRestored() {
+        val connectivityManager =
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        connectivityManager.registerDefaultNetworkCallback(object :
+            ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                viewModel.getHotels()
+            }
+        })
     }
 
     override fun onResume() {

@@ -1,5 +1,8 @@
 package com.example.singlestep.ui.explore
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -71,5 +74,17 @@ class ExploreFragment : Fragment() {
         binding.shimmerLayout.visibility = View.GONE
         binding.failedAttractionsLayout.visibility = View.VISIBLE
         binding.exploreErrorTextView.text = getString(R.string.explore_failed_response)
+        checkIfConnectionRestored()
+    }
+
+    private fun checkIfConnectionRestored() {
+        val connectivityManager =
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        connectivityManager.registerDefaultNetworkCallback(object :
+            ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                viewModel.getTouristAttractionList()
+            }
+        })
     }
 }

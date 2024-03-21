@@ -60,7 +60,6 @@ class Amadeus(context: Context) {
         maxPricePerGuest: Int,
     ): Pair<List<Flight>, HashMap<String, Airline>> {
         val flightList: List<FlightOfferSearch>
-        Log.i("FLIGHTSDEBUG:", maxPricePerGuest.toString())
         when (val flights = amadeus.shopping.flightOffersSearch.get(
             cityDepart,
             cityDestination,

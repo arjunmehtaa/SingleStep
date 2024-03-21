@@ -1,5 +1,8 @@
 package com.example.singlestep.ui.flights
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -128,6 +131,18 @@ class FlightFragment : Fragment() {
         binding.shimmerLayout.visibility = View.GONE
         binding.failedFlightsLayout.visibility = View.VISIBLE
         binding.flightsErrorTextView.text = getString(R.string.flights_failed_response)
+        checkIfConnectionRestored()
+    }
+
+    private fun checkIfConnectionRestored() {
+        val connectivityManager =
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        connectivityManager.registerDefaultNetworkCallback(object :
+            ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                viewModel.getFlightAttractionList()
+            }
+        })
     }
 
     override fun onResume() {

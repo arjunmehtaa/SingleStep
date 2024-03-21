@@ -21,7 +21,8 @@ class HotelViewModel(
 
     private var coroutineExceptionHandler: CoroutineExceptionHandler
     private val booking = Booking(application.applicationContext)
-    private val location = savedStateHandle.getLiveData<TripParameters>("tripParameters").value!!
+    private val tripParameters =
+        savedStateHandle.getLiveData<TripParameters>("tripParameters").value!!
 
     private val _hotelList: MutableLiveData<Result<List<Hotel>>> = MutableLiveData()
     val hotelList: LiveData<Result<List<Hotel>>>
@@ -31,35 +32,21 @@ class HotelViewModel(
         coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
             _hotelList.value = Result.Failure(exception)
         }
-        getHotels(
-            location.destination.latitude,
-            location.destination.longitude,
-            location.checkInDate.replace("/", "-"),
-            location.checkOutDate.replace("/", "-"),
-            location.remainingBudget,
-            location.guests
-        )
+        getHotels()
     }
 
-    private fun getHotels(
-        latitude: Double,
-        longitude: Double,
-        checkInDate: String,
-        checkOutDate: String,
-        budget: Double,
-        guests: Int
-    ) {
+    fun getHotels() {
         viewModelScope.launch(coroutineExceptionHandler) {
             _hotelList.postValue(Result.Loading)
             try {
                 val hotels = booking.getHotels(
-                    latitude,
-                    longitude,
-                    checkInDate,
-                    checkOutDate,
+                    tripParameters.destination.latitude,
+                    tripParameters.destination.longitude,
+                    tripParameters.checkInDate.replace("/", "-"),
+                    tripParameters.checkOutDate.replace("/", "-"),
                     0,
-                    budget.toInt(),
-                    guests
+                    tripParameters.remainingBudget.toInt(),
+                    tripParameters.guests
                 )
 //                Log.d("HotelViewModel", "Fetched hotels: $hotels")
                 _hotelList.postValue(Result.Success(hotels))

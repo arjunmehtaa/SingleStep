@@ -27,7 +27,7 @@ class ExploreViewModel(application: Application) : AndroidViewModel(application)
         getTouristAttractionList()
     }
 
-    private fun getTouristAttractionList() {
+    fun getTouristAttractionList() {
         viewModelScope.launch(coroutineExceptionHandler) {
             _touristAttractionList.value = Result.Loading
             _touristAttractionList.value =

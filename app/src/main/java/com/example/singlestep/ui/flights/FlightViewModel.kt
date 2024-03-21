@@ -21,7 +21,8 @@ class FlightViewModel(
 
     private var coroutineExceptionHandler: CoroutineExceptionHandler
     private val amadeus = Amadeus(application.applicationContext)
-    private val location = savedStateHandle.getLiveData<TripParameters>("tripParameters").value!!
+    private val tripParameters =
+        savedStateHandle.getLiveData<TripParameters>("tripParameters").value!!
 
     private val _flightList: MutableLiveData<Result<List<Flight>>> = MutableLiveData()
     val flightList: LiveData<Result<List<Flight>>>
@@ -36,10 +37,10 @@ class FlightViewModel(
         coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
             _flightList.value = Result.Failure(exception)
         }
-        getFlightAttractionList(location)
+        getFlightAttractionList()
     }
 
-    private fun getFlightAttractionList(tripParameters: TripParameters) {
+    fun getFlightAttractionList() {
         /*var mockData = TripParameters(
             Location("YYZ", null, 0.0, 0.0),
             Location("JFK", null, 0.0, 0.0),
@@ -53,8 +54,11 @@ class FlightViewModel(
         viewModelScope.launch(coroutineExceptionHandler) {
             _flightList.value = Result.Loading
 
-            val airportDepart =
-                amadeus.getIATA(tripParameters.source.latitude, tripParameters.source.longitude)
+            val airportDepart = amadeus.getIATA(
+                tripParameters.source.latitude,
+                tripParameters.source.longitude
+            )
+
             val airportArrive = amadeus.getIATA(
                 tripParameters.destination.latitude,
                 tripParameters.destination.longitude
