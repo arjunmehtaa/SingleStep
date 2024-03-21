@@ -56,16 +56,19 @@ class Amadeus(context: Context) {
         cityDestination: String,
         dateDepart: String,
         dateReturn: String,
-        guests: Int
+        guests: Int,
+        maxPricePerGuest: Int,
     ): Pair<List<Flight>, HashMap<String, Airline>> {
         val flightList: List<FlightOfferSearch>
+        Log.i("FLIGHTSDEBUG:", maxPricePerGuest.toString())
         when (val flights = amadeus.shopping.flightOffersSearch.get(
             cityDepart,
             cityDestination,
             dateDepart,
             guests,
             dateReturn,
-            currencyCode = "CAD"
+            currencyCode = "CAD",
+            maxPrice = maxPricePerGuest
         )) {
             is ApiResult.Success -> {
                 flightList = flights.data

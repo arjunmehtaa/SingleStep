@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amadeus.android.domain.resources.Activity
+import com.example.singlestep.R
 import com.example.singlestep.databinding.FragmentExploreBinding
 import com.example.singlestep.ui.common.adapters.TouristAttractionAdapter
 import com.example.singlestep.utils.Result
-import com.example.singlestep.utils.onLoadingFailure
 
 class ExploreFragment : Fragment() {
 
@@ -31,8 +31,8 @@ class ExploreFragment : Fragment() {
     private fun setupObservers() {
         viewModel.touristAttractionList.observe(viewLifecycleOwner) { result ->
             when (result) {
-                Result.Loading -> binding.shimmerLayout.startShimmer()
-                is Result.Failure -> onLoadingFailure()
+                Result.Loading -> onAttractionsLoading()
+                is Result.Failure -> onAttractionsLoadingFailure()
                 is Result.Success -> onAttractionsLoadingSuccess(result.value)
             }
         }
@@ -48,11 +48,28 @@ class ExploreFragment : Fragment() {
         }
     }
 
+    private fun onAttractionsLoading() {
+        binding.shimmerLayout.startShimmer()
+        binding.shimmerLayout.visibility = View.VISIBLE
+        binding.failedAttractionsLayout.visibility = View.GONE
+    }
+
     private fun onAttractionsLoadingSuccess(attractions: List<Activity>) {
-        binding.shimmerLayout.apply {
-            stopShimmer()
-            visibility = View.GONE
-        }
+        binding.shimmerLayout.stopShimmer()
+        binding.shimmerLayout.visibility = View.GONE
         touristAttractionAdapter.submitList(attractions)
+        if (attractions.isEmpty()) {
+            binding.failedAttractionsLayout.visibility = View.VISIBLE
+            binding.exploreErrorTextView.text = getString(R.string.explore_empty_response)
+        } else {
+            binding.failedAttractionsLayout.visibility = View.GONE
+        }
+    }
+
+    private fun onAttractionsLoadingFailure() {
+        binding.shimmerLayout.stopShimmer()
+        binding.shimmerLayout.visibility = View.GONE
+        binding.failedAttractionsLayout.visibility = View.VISIBLE
+        binding.exploreErrorTextView.text = getString(R.string.explore_failed_response)
     }
 }

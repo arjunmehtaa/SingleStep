@@ -7,12 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.singlestep.R
 import com.example.singlestep.databinding.ItemFlightSegmentBinding
-import com.example.singlestep.model.Flight
 import com.example.singlestep.model.Segment
 
 class FlightSegmentAdapter(
-    private val flight: Flight,
-//    private val clickListener: (FlightOfferSearch) -> Unit
+    private val clickListener: () -> Unit
 ) :
     ListAdapter<Segment, FlightSegmentAdapter.FlightSegmentViewHolder>(
         REPO_COMPARATOR
@@ -42,9 +40,9 @@ class FlightSegmentAdapter(
 
                 flightDurationTextView.text = segment.duration
 
-//                root.setOnClickListener {
-//                    clickListener(flight)
-//                }
+                root.setOnClickListener {
+                    clickListener()
+                }
             }
         }
     }

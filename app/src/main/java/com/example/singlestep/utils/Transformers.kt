@@ -13,7 +13,6 @@ fun placeToLocation(place: Place): Location {
     return Location(
         place.name ?: "Unknown", // Fallback to "Unknown" if name is null
         null, place.latLng!!.latitude, place.latLng!!.longitude, place.photoMetadatas?.first()
-//        , null
     )
 }
 
@@ -24,6 +23,7 @@ fun amadeusFlightListToFlightList(flightOfferSearchList: List<FlightOfferSearch>
             Flight(
                 id = it.id,
                 airlineCode = it.validatingAirlineCodes?.get(0),
+                rawPrice = it.price?.grandTotal ?: 0.0,
                 totalPrice = "${it.price?.currency} ${it.price?.grandTotal?.toInt()}",
                 itineraries = amadeusItineraryListToItineraryList(it.itineraries)
             )

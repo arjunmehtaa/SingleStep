@@ -28,27 +28,35 @@ class SavedTripAdapter(
                     tripSummary.tripParameters.source.city,
                     tripSummary.tripParameters.destination.city
                 )
+
                 datesTextView.text = root.context.getString(
                     R.string.date_range,
                     getFormattedDate(tripSummary.tripParameters.checkInDate),
                     getFormattedDate(tripSummary.tripParameters.checkOutDate),
                 )
+
                 budgetTextView.text = root.context.getString(
-                    R.string.budget_text,
-                    formatBudget(tripSummary.tripParameters.budget.toInt().toString()).second
+                    R.string.budget_text, formatBudget(
+                        tripSummary.tripParameters.originalBudget.toInt().toString()
+                    ).second
                 )
-                guestsTextView.text = root.context.getString(
-                    R.string.number_of_guests,
-                    tripSummary.tripParameters.guests
-                )
+
+                tripSummary.tripParameters.guests.let { numberOfGuests ->
+                    guestsTextView.text = root.context.getString(
+                        if (numberOfGuests > 1) R.string.num_guests_multiple
+                        else R.string.num_guests,
+                        numberOfGuests
+                    )
+                }
+
                 viewTripButton.setOnClickListener {
                     tripClickListener(tripSummary)
                 }
-                removeTripButton.setOnClickListener(
-                    getRemoveTripOnClickListener(root.context) {
-                        removeTripClickListener(tripSummary)
-                    }
-                )
+
+                removeTripButton.setOnClickListener(getRemoveTripOnClickListener(root.context) {
+                    removeTripClickListener(tripSummary)
+                })
+
                 val photoUrl = tripSummary.tripParameters.destination.imageUrl
                 if (photoUrl != null) {
                     Glide.with(binding.root.context).load(photoUrl).into(binding.cityImageView)

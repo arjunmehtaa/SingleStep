@@ -64,7 +64,17 @@ class Booking(private val context: Context) {
         if (!results.isSuccessful) {
             Log.i("ERROR: ", results.errorBody()!!.string())
         }
-        return results.body()!!.data.results
+        val resultBody = results.body()
+        if (resultBody != null) {
+            return filterHotels(resultBody.data.results, maxPrice)
+        }
+        return listOf()
+    }
+
+    private fun filterHotels(hotels: List<Hotel>, maxPrice: Int): List<Hotel> {
+        return hotels.filter {
+            it.priceDisplayInfo.displayPrice.amountPerStay.amountUnformatted <= maxPrice
+        }
     }
 
 }

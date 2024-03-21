@@ -85,7 +85,7 @@
                 android:drawableStart="@drawable/icon_guests"
                 android:drawablePadding="8dp"
                 android:focusableInTouchMode="false"
-                android:hint="@string/number_of_guests_default"
+                android:hint="@string/num_guests_default"
                 android:inputType="number"
                 android:padding="16dp"
                 android:textColorHint="@color/faded_grey"
@@ -156,7 +156,7 @@
             android:layout_below="@id/suggested_budgets_text_view"
             android:layout_marginBottom="80dp"
             android:clipToPadding="false"
-            android:paddingHorizontal="8dp" />
+            android:paddingHorizontal="12dp" />
 
     </RelativeLayout>
 

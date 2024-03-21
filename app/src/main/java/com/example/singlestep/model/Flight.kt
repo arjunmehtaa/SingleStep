@@ -7,6 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class Flight(
     val id: String?,
     val airlineCode: String?,
+    val rawPrice: Double = 0.0,
     val totalPrice: String,
     val itineraries: List<Itinerary>,
 ) : Parcelable

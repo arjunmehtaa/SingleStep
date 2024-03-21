@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amadeus.android.domain.resources.Airline
+import com.example.singlestep.R
 import com.example.singlestep.databinding.FragmentFlightBinding
 import com.example.singlestep.model.Flight
 import com.example.singlestep.model.TripParameters
@@ -44,19 +45,9 @@ class FlightFragment : Fragment() {
     private fun setupObservers() {
         viewModel.flightList.observe(viewLifecycleOwner) { result ->
             when (result) {
-                Result.Loading -> {
-                    Log.d("FlightFragment", "Loading flights")
-                    binding.shimmerLayout.startShimmer()
-                }
-
-                is Result.Failure -> {
-                    Log.e("FlightFragment", "Error loading flights", result.throwable)
-                }
-
-                is Result.Success -> {
-                    Log.d("FlightFragment", "Flights loaded successfully")
-                    onFlightLoadingSuccess(result.value)
-                }
+                Result.Loading -> onFlightsLoading()
+                is Result.Failure -> onFlightsLoadingFailure(result)
+                is Result.Success -> onFlightsLoadingSuccess(result.value)
             }
 
         }
@@ -85,6 +76,8 @@ class FlightFragment : Fragment() {
                     airlineNamesMap[it]?.icaoCode
                 },
                 clickListener = { flight, airlineName, airlineICAOCode ->
+                    tripParameters.remainingBudget =
+                        tripParameters.originalBudget.minus(flight.rawPrice)
                     val action = FlightFragmentDirections.actionFlightFragmentToHotelFragment(
                         tripParameters = tripParameters,
                         flight = flight,
@@ -97,18 +90,44 @@ class FlightFragment : Fragment() {
             flightRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             flightRecyclerView.adapter = flightAdapter
 
+            remainingBudgetTextview.text = getString(
+                R.string.remaining_budget,
+                "CAD",
+                tripParameters.originalBudget.toInt().toString()
+            )
+
             backButton.setOnClickListener {
                 activity?.onBackPressedDispatcher?.onBackPressed()
             }
         }
     }
 
-    private fun onFlightLoadingSuccess(flights: List<Flight>) {
-        binding.shimmerLayout.apply {
-            stopShimmer()
-            visibility = View.GONE
-        }
+    private fun onFlightsLoading() {
+        Log.d("FlightFragment", "Loading flights")
+        binding.shimmerLayout.startShimmer()
+        binding.shimmerLayout.visibility = View.VISIBLE
+        binding.failedFlightsLayout.visibility = View.GONE
+    }
+
+    private fun onFlightsLoadingSuccess(flights: List<Flight>) {
+        Log.d("FlightFragment", "Flights loaded successfully")
+        binding.shimmerLayout.stopShimmer()
+        binding.shimmerLayout.visibility = View.GONE
         flightAdapter.submitList(flights)
+        if (flights.isEmpty()) {
+            binding.failedFlightsLayout.visibility = View.VISIBLE
+            binding.flightsErrorTextView.text = getString(R.string.flights_empty_response)
+        } else {
+            binding.failedFlightsLayout.visibility = View.GONE
+        }
+    }
+
+    private fun onFlightsLoadingFailure(result: Result.Failure) {
+        Log.e("FlightFragment", "Error loading flights", result.throwable)
+        binding.shimmerLayout.stopShimmer()
+        binding.shimmerLayout.visibility = View.GONE
+        binding.failedFlightsLayout.visibility = View.VISIBLE
+        binding.flightsErrorTextView.text = getString(R.string.flights_failed_response)
     }
 
     override fun onResume() {

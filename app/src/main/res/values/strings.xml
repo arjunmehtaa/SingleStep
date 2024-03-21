@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">SingleStep</string>
     <string name="search">Search</string>
-    <string name="number_of_guests_default">0 guest(s)</string>
-    <string name="number_of_guests">%d guest(s)</string>
+    <string name="num_guests_default">0 guests</string>
+    <string name="num_guests">%d guest</string>
+    <string name="num_guests_multiple">%d guests</string>
     <string name="enter_budget">Enter budget</string>
     <string name="enter_dates">Enter dates</string>
     <string name="popular_destinations">Popular Destinations</string>
@@ -40,7 +41,14 @@
     <string name="selected_flights">Selected Flights</string>
     <string name="remove_from_my_trips">Remove from My Trips</string>
     <string name="your_saved_trips_will_appear_here">Your saved trips will appear here</string>
+    <string name="explore_failed_response">Unable to fetch nearby tourist attractions\n\nPlease check your internet connection and ensure that location services are turned on</string>
+    <string name="explore_empty_response">No nearby tourist attractions found</string>
+    <string name="flights_failed_response">Unable to fetch flights at the moment\n\nPlease check your internet connection and try again</string>
+    <string name="flights_empty_response">Oops! We couldn\'t find any flights that match your criteria. Don\'t worry though, here are some tips to improve your search:\n\n1. Try increasing your budget to unlock more options\n\n2. Choose cities with airports within a 50km radius for better results</string>
+    <string name="hotels_failed_response">Unable to fetch hotels at the moment\n\nPlease check your internet connection and try again</string>
+    <string name="hotels_empty_response">Oops! We couldn\'t find any hotels that match your criteria. Don\'t worry though, here are some tips to improve your search:\n\n1. Try increasing your budget to unlock more options\n\n2. Choose cities with hotels within a 50km radius for better results</string>
     <string name="start_searching">Start Searching</string>
+    <string name="remaining_budget">Budget Remaining: %1$s %2$s</string>
     <string name="view_itinerary">View Itinerary</string>
     <string name="remove_trip">Remove Trip</string>
 </resources>

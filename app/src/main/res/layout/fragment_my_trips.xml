@@ -18,17 +18,17 @@
 
     <RelativeLayout
         android:id="@+id/no_saved_trips_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/title_text_view"
-        android:layout_marginBottom="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingBottom="76dp"
         android:visibility="gone">
 
         <ImageView
             android:id="@+id/plane_image_view"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/icon_flight"
             tools:ignore="ContentDescription" />
 
@@ -85,7 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/title_text_view"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="76dp"
         android:clipToPadding="false"
         android:paddingVertical="16dp"
         android:scrollbars="vertical" />

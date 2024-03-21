@@ -89,7 +89,16 @@ class SearchFragment : Fragment() {
                     if (numGuests == 0) {
                         guestsEditText.setText("")
                     } else {
-                        guestsEditText.setText(getString(R.string.number_of_guests, numGuests))
+                        if (numGuests == 1) {
+                            guestsEditText.setText(getString(R.string.num_guests, numGuests))
+                        } else {
+                            guestsEditText.setText(
+                                getString(
+                                    R.string.num_guests_multiple,
+                                    numGuests
+                                )
+                            )
+                        }
                     }
                     validateFields()
                 }
@@ -97,7 +106,11 @@ class SearchFragment : Fragment() {
 
             addGuestButton.setOnClickListener {
                 numGuests++
-                guestsEditText.setText(getString(R.string.number_of_guests, numGuests))
+                if (numGuests == 1) {
+                    guestsEditText.setText(getString(R.string.num_guests, numGuests))
+                } else {
+                    guestsEditText.setText(getString(R.string.num_guests_multiple, numGuests))
+                }
                 validateFields()
             }
 
@@ -105,7 +118,13 @@ class SearchFragment : Fragment() {
                 val dates = datePickerEditText.text.toString().split(" - ")
                 if (dates.size == 2) {
                     val tripParameters = TripParameters(
-                        source!!, destination!!, dates[0].trim(), dates[1].trim(), budget, numGuests
+                        source!!,
+                        destination!!,
+                        dates[0].trim(),
+                        dates[1].trim(),
+                        budget,
+                        budget,
+                        numGuests
                     )
                     val action =
                         SearchFragmentDirections.actionSearchFragmentToFlightFragment(tripParameters)

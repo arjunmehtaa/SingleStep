@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -40,9 +41,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_text_view"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="76dp"
         android:clipToPadding="false"
         android:paddingVertical="16dp"
         android:scrollbars="vertical" />
+
+    <RelativeLayout
+        android:id="@+id/failed_attractions_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingBottom="76dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/explore_off_image_view"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_fail_explore"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/explore_error_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/explore_off_image_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/explore_failed_response"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

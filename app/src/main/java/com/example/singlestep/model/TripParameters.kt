@@ -9,6 +9,7 @@ data class TripParameters(
     val destination: Location,
     val checkInDate: String,
     val checkOutDate: String,
-    val budget: Double,
+    val originalBudget: Double,
+    var remainingBudget: Double,
     val guests: Int
 ) : Parcelable

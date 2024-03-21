@@ -18,7 +18,8 @@ data class RoomTripSummary(
     val cityImageFileUri: String? = null,
     val checkInDate: String,
     val checkOutDate: String,
-    val budget: Double,
+    val originalBudget: Double,
+    val remainingBudget: Double,
     val guests: Int,
 
     /* Flattened Hotel */
@@ -37,6 +38,7 @@ data class RoomTripSummary(
     /* Flattened Flight */
     val flightId: String?,
     val flightAirlineCode: String?,
+    val flightRawPrice: Double,
     val flightTotalPrice: String,
     val flightItinerary1: String,
     val flightItinerary2: String,
@@ -67,7 +69,8 @@ data class RoomTripSummary(
                 ),
                 checkInDate = checkInDate,
                 checkOutDate = checkOutDate,
-                budget = budget,
+                originalBudget = originalBudget,
+                remainingBudget = remainingBudget,
                 guests = guests
             ),
             hotel = Hotel(
@@ -104,6 +107,7 @@ data class RoomTripSummary(
             flight = Flight(
                 id = flightId,
                 airlineCode = flightAirlineCode,
+                rawPrice = flightRawPrice,
                 totalPrice = flightTotalPrice,
                 itineraries = listOf(
                     Itinerary(deserializeSegments(flightItinerary1)),

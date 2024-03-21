@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.singlestep.R
 import com.example.singlestep.databinding.FragmentHotelBinding
 import com.example.singlestep.model.Flight
 import com.example.singlestep.model.Hotel
@@ -38,7 +39,7 @@ class HotelFragment : Fragment() {
             val flight = args.flight
             val airlineName = args.airlineName
             val airlineICAOCode = args.airlineICAOCode
-            Log.d("HotelFragment", "Received tripParameters: $tripParameters")
+//            Log.d("HotelFragment", "Received tripParameters: $tripParameters")
             setupViews(tripParameters, flight, airlineName, airlineICAOCode)
         }
         return binding.root
@@ -47,19 +48,9 @@ class HotelFragment : Fragment() {
     private fun setupObservers() {
         viewModel.hotelList.observe(viewLifecycleOwner) { result ->
             when (result) {
-                Result.Loading -> {
-                    Log.d("HotelFragment", "Loading hotels")
-                    binding.shimmerLayout.startShimmer()
-                }
-
-                is Result.Failure -> {
-                    Log.e("HotelFragment", "Error loading hotels", result.throwable)
-                }
-
-                is Result.Success -> {
-                    Log.d("HotelFragment", "Hotels loaded successfully")
-                    onHotelOffersLoadingSuccess(result.value)
-                }
+                Result.Loading -> onHotelsLoading()
+                is Result.Failure -> onHotelsLoadingFailure(result)
+                is Result.Success -> onHotelsLoadingSuccess(result.value)
             }
         }
     }
@@ -90,18 +81,45 @@ class HotelFragment : Fragment() {
             }
             hotelsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             hotelsRecyclerView.adapter = hotelAdapter
+
+            remainingBudgetTextview.text = getString(
+                R.string.remaining_budget,
+                "CAD",
+                tripParameters.remainingBudget.toInt().toString()
+            )
+
             backButton.setOnClickListener {
                 activity?.onBackPressedDispatcher?.onBackPressed()
             }
         }
     }
 
-    private fun onHotelOffersLoadingSuccess(hotels: List<Hotel>) {
-        binding.shimmerLayout.apply {
-            stopShimmer()
-            visibility = View.GONE
-        }
+    private fun onHotelsLoading() {
+        Log.d("HotelFragment", "Loading hotels")
+        binding.shimmerLayout.startShimmer()
+        binding.shimmerLayout.visibility = View.VISIBLE
+        binding.failedHotelsLayout.visibility = View.GONE
+    }
+
+    private fun onHotelsLoadingSuccess(hotels: List<Hotel>) {
+        Log.d("HotelFragment", "Hotels loaded successfully")
+        binding.shimmerLayout.stopShimmer()
+        binding.shimmerLayout.visibility = View.GONE
         hotelAdapter.submitList(hotels)
+        if (hotels.isEmpty()) {
+            binding.failedHotelsLayout.visibility = View.VISIBLE
+            binding.hotelsErrorTextView.text = getString(R.string.hotels_empty_response)
+        } else {
+            binding.failedHotelsLayout.visibility = View.GONE
+        }
+    }
+
+    private fun onHotelsLoadingFailure(result: Result.Failure) {
+        Log.e("HotelFragment", "Error loading hotels", result.throwable)
+        binding.shimmerLayout.stopShimmer()
+        binding.shimmerLayout.visibility = View.GONE
+        binding.failedHotelsLayout.visibility = View.VISIBLE
+        binding.hotelsErrorTextView.text = getString(R.string.hotels_failed_response)
     }
 
     override fun onResume() {

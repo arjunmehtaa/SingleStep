@@ -1,7 +1,6 @@
 package com.example.singlestep.ui.flights
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -50,7 +49,7 @@ class FlightViewModel(
             3
         )*/
 
-        Log.i("trip parameters: ", tripParameters.toString())
+//        Log.i("trip parameters: ", tripParameters.toString())
         viewModelScope.launch(coroutineExceptionHandler) {
             _flightList.value = Result.Loading
 
@@ -60,20 +59,25 @@ class FlightViewModel(
                 tripParameters.destination.latitude,
                 tripParameters.destination.longitude
             )
-            Log.i("depart: ", airportDepart.toString())
-            Log.i("arrival: ", airportArrive.toString())
+//            Log.i("depart: ", airportDepart.toString())
+//            Log.i("arrival: ", airportArrive.toString())
 
-            val flightResult = amadeus.getFlights(
-                airportDepart[0].iataCode.toString(),
-                airportArrive[0].iataCode.toString(),
-                tripParameters.checkInDate.replace("/", "-"),
-                tripParameters.checkOutDate.replace("/", "-"),
-                tripParameters.guests
-            )
+            if (airportDepart.isEmpty() || airportArrive.isEmpty()) {
+                _flightList.value = Result.Success(listOf())
+            } else {
+                val flightResult = amadeus.getFlights(
+                    airportDepart[0].iataCode.toString(),
+                    airportArrive[0].iataCode.toString(),
+                    tripParameters.checkInDate.replace("/", "-"),
+                    tripParameters.checkOutDate.replace("/", "-"),
+                    tripParameters.guests,
+                    maxPricePerGuest = tripParameters.originalBudget.div(tripParameters.guests)
+                        .toInt()
+                )
 
-            _flightList.value = Result.Success(flightResult.first)
-            _airlineNamesMap.value = Result.Success(flightResult.second)
-
+                _flightList.value = Result.Success(flightResult.first)
+                _airlineNamesMap.value = Result.Success(flightResult.second)
+            }
         }
     }
 

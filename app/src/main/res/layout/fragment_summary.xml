@@ -94,25 +94,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/chosen_flights_text_view"
-                android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
-                android:paddingVertical="16dp"
                 android:scrollbars="vertical" />
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/flight_recycler_view"
-                android:layout_marginBottom="16dp"
-                android:background="@color/light_grey" />
 
             <TextView
                 android:id="@+id/chosen_hotel_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/divider2"
+                android:layout_below="@id/flight_recycler_view"
                 android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/selected_hotel"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -122,10 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/chosen_hotel_text_view"
-                android:layout_marginBottom="8dp"
-                android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
-                android:paddingVertical="16dp"
                 android:scrollbars="vertical" />
 
         </RelativeLayout>

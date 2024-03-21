@@ -1,7 +1,6 @@
 package com.example.singlestep.ui.common.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,11 +42,6 @@ class FlightAdapter(
                 toFromTextView.text = root.context.getString(R.string.from_to, to, from)
                 summaryTextView.text = root.context.getString(R.string.round_trip_guests, guests)
 
-                flightSegmentAdapter1 = FlightSegmentAdapter(flight)
-                it1SegmentsRecyclerView.layoutManager = LinearLayoutManager(root.context)
-                it1SegmentsRecyclerView.adapter = flightSegmentAdapter1
-                flightSegmentAdapter1.submitList(flight.itineraries?.get(0)?.segments)
-
                 val airlineICAOCode = airlineICAOCodeGetter(
                     flight.airlineCode
                 )
@@ -57,9 +51,18 @@ class FlightAdapter(
                     )
                     .into(airlineImageView)
 
+                flightSegmentAdapter1 = FlightSegmentAdapter() {
+                    clickListener(flight, airlineName, airlineICAOCode)
+                }
+                it1SegmentsRecyclerView.layoutManager = LinearLayoutManager(root.context)
+                it1SegmentsRecyclerView.adapter = flightSegmentAdapter1
+                flightSegmentAdapter1.submitList(flight.itineraries?.get(0)?.segments)
+
                 //for possible two-way flight offer
                 if (!flight.itineraries.isNullOrEmpty() && flight.itineraries!!.size > 1) {
-                    flightSegmentAdapter2 = FlightSegmentAdapter(flight)
+                    flightSegmentAdapter2 = FlightSegmentAdapter() {
+                        clickListener(flight, airlineName, airlineICAOCode)
+                    }
                     it2SegmentsRecyclerView.layoutManager = LinearLayoutManager(root.context)
                     it2SegmentsRecyclerView.adapter = flightSegmentAdapter2
                     flightSegmentAdapter2.submitList(flight.itineraries?.get(1)?.segments)
@@ -67,12 +70,6 @@ class FlightAdapter(
 
                 root.setOnClickListener {
                     clickListener(flight, airlineName, airlineICAOCode)
-                }
-
-                if (adapterPosition == itemCount - 1) {
-                    divider.visibility = View.GONE
-                } else {
-                    divider.visibility = View.VISIBLE
                 }
             }
         }

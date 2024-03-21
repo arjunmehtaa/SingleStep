@@ -32,12 +32,23 @@
         android:textSize="32sp"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/remaining_budget_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_text_view"
+        android:background="@color/light_orange"
+        android:gravity="center"
+        android:paddingVertical="8dp"
+        android:textColor="@color/orange"
+        android:textSize="14sp"
+        tools:text="Budget Remaining: CAD 960" />
+
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title_text_view"
-        android:paddingTop="16dp">
+        android:layout_below="@id/remaining_budget_textview">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,11 +69,40 @@
         android:id="@+id/flight_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title_text_view"
+        android:layout_below="@id/remaining_budget_textview"
         android:layout_marginBottom="10dp"
         android:clipToPadding="false"
         android:nestedScrollingEnabled="false"
-        android:paddingVertical="10dp"
         android:scrollbars="vertical" />
+
+    <RelativeLayout
+        android:id="@+id/failed_flights_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/flights_off_image_view"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_fail_flights"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/flights_error_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/flights_off_image_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/flights_empty_response"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -22,10 +22,16 @@
         android:layout_below="@id/name_text_view"
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="8dp"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        android:textSize="20sp"
+        android:background="@drawable/background_filled_rounded_orange"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:paddingVertical="4dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="12dp"
+        android:textColor="@color/orange"
+        android:textSize="12sp"
         app:drawableLeftCompat="@drawable/icon_star"
+        app:drawableTint="@color/orange"
         tools:text="4.6" />
 
     <TextView
@@ -34,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/rating_text_view"
         android:layout_marginHorizontal="16dp"
-        android:textColor="@color/grey"
+        android:textColor="@color/faded_grey"
         android:textSize="16sp"
         tools:text="50 Laurel Park Trail, Waterloo, Ontario" />
 
@@ -45,7 +51,7 @@
         android:layout_below="@id/description_text_view"
         android:layout_marginHorizontal="16dp"
         android:text="@string/view_more"
-        android:textColor="@color/grey"
+        android:textColor="@color/faded_grey"
         android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="gone" />

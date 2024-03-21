@@ -65,12 +65,6 @@ class HotelAdapter(
                 root.setOnClickListener {
                     onClick(hotel)
                 }
-
-                if (adapterPosition == itemCount - 1) {
-                    divider.visibility = View.GONE
-                } else {
-                    divider.visibility = View.VISIBLE
-                }
             }
         }
     }

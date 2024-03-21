@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.singlestep.model.RoomTripSummary
 
-@Database(entities = [RoomTripSummary::class], version = 2, exportSchema = false)
+@Database(entities = [RoomTripSummary::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun tripSummaryDao(): TripSummaryDao
