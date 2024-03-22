@@ -37,3 +37,4 @@
 | 2024/03/18 | 6     |        |        |       |         |      | Save My Trips locally in RoomDB                           |
 | 2024/03/19 | 6     |        |        |       |         |      | Create UI for My Trips page                               |
 | 2024/03/19 | 4     |        |        |       |         |      | Account for edge cases, create UI for error states        |
+| 2024/03/21 |       |        | 2.5    |       |         |      | Draft Pipeline & Filters architecture style example (D3)  |
