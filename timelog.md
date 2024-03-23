@@ -25,13 +25,13 @@
 | 2024/02/23 |       | 10     |        |       |         |      | API Call for fetching hotel data                          |
 | 2024/02/24 |       |        |        |       |         | 5    | Complete navigation from Search to Flight/Hotel           |
 | 2024/02/25 | 2     |        |        |       |         |      | Disable past dates in date picker, clean-up code          |
-| 2024/02/28 |       |        |        |       | 4       |      | Refactor flight data search + grabbing airport codes      |
+| 2024/02/28 |       |        |        |       | 12      |      | Refactor flight data search + grabbing airport codes      |
 | 2024/03/03 |       |        |        |       |         | 9    | Create Summary Fragment & UI modernization & data binding |
 | 2024/03/03 |       |        | 4      |       |         |      | Review Project progress, modify view bindings             |
 | 2024/03/04 |       |        | 8      |       |         |      | Add flight info details and GUI to Flight Fragment        |
 | 2024/03/04 | 1     | 1      | 1      | 1     | 1       | 1    | D3 Demo - in Class                                        |
 | 2024/03/05 |       |        | 5      |       |         |      | GUI & in-progress functions for Save/load trip, demo video|
-| 2024/03/06 |       | 10     |        | 10    |         |      | Singlestep Prototype Document (D3)                        |
+| 2024/03/06 |       | 10     |        | 10    | 5       |      | Singlestep Prototype Document (D3)                        |
 | 2024/03/07 |       |        | 2      |       |         | 2    | Review & edit component diagram to conform example syntax |
 | 2024/03/15 | 5     |        |        |       |         |      | Design UI for ChatGPT response and Summary page           |
 | 2024/03/18 | 6     |        |        |       |         |      | Save My Trips locally in RoomDB                           |
