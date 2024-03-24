@@ -34,7 +34,10 @@
 | 2024/03/06 |       | 10     |        | 10    | 5       |      | Singlestep Prototype Document (D3)                        |
 | 2024/03/07 |       |        | 2      |       |         | 2    | Review & edit component diagram to conform example syntax |
 | 2024/03/15 | 5     |        |        |       |         |      | Design UI for ChatGPT response and Summary page           |
+| 2024/03/17 | 1     | 1      | 1      | 1     | 1       | 1    | Group Meeting on progress - Discord                       |
 | 2024/03/18 | 6     |        |        |       |         |      | Save My Trips locally in RoomDB                           |
 | 2024/03/19 | 6     |        |        |       |         |      | Create UI for My Trips page                               |
 | 2024/03/19 | 4     |        |        |       |         |      | Account for edge cases, create UI for error states        |
-| 2024/03/21 |       |        | 2.5    |       |         |      | Draft Pipeline & Filters architecture style example (D3)  |
+| 2024/03/21 |       |        | 2.5    |       |         |      | Draft Pipeline & Filters architecture style example (D4)  |
+| 2024/03/22 |       |        | 3.5    |       |         | 6    | Client-Server and Layer architecture style (D4) &Review   |
+
