@@ -47,6 +47,7 @@
     <string name="flights_empty_response">Oops! We couldn\'t find any flights that match your criteria. Don\'t worry though, here are some tips to improve your search:\n\n1. Try increasing your budget to unlock more options\n\n2. Choose cities with airports within a 50km radius for better results</string>
     <string name="hotels_failed_response">Unable to fetch hotels at the moment\n\nPlease check your internet connection and try again</string>
     <string name="hotels_empty_response">Oops! We couldn\'t find any hotels that match your criteria. Don\'t worry though, here are some tips to improve your search:\n\n1. Try increasing your budget to unlock more options\n\n2. Choose cities with hotels within a 50km radius for better results</string>
+    <string name="assistant_failed_response">Unable to generate itinerary at the moment. Please try again later!</string>
     <string name="start_searching">Start Searching</string>
     <string name="remaining_budget">Budget Remaining: %1$s %2$s</string>
     <string name="view_itinerary">View Itinerary</string>
