@@ -58,6 +58,30 @@ class HotelFragment : Fragment() {
         }
     }
 
+    private fun setupAssistantObserver(
+        tripParameters: TripParameters,
+        hotel: Hotel,
+        flight: Flight,
+        airlineName: String,
+        airlineICAOCode: String,
+    ) {
+        viewModel.getItineraryString(hotel)
+        viewModel.itineraryString.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                Result.Loading -> onAssistantLoading()
+                is Result.Failure -> onAssistantLoadingFailure(result)
+                is Result.Success -> onAssistantLoadingSuccess(
+                    hotel = hotel,
+                    tripParameters = tripParameters,
+                    flight = flight,
+                    airlineName = airlineName,
+                    airlineICAOCode = airlineICAOCode,
+                    itineraryString = result.value
+                )
+            }
+        }
+    }
+
     private fun setupViews(
         tripParameters: TripParameters,
         flight: Flight,
@@ -71,16 +95,13 @@ class HotelFragment : Fragment() {
                 tripParameters.guests
             ) { hotel ->
                 Log.d("HotelFragment", "Selected Hotel: ${hotel.displayName.text}")
-                val action = HotelFragmentDirections.actionHotelFragmentToSummaryFragment(
-                    TripSummary(
-                        tripParameters = tripParameters,
-                        hotel = hotel,
-                        flight = flight,
-                        airlineName = airlineName,
-                        airlineICAOCode = airlineICAOCode
-                    )
+                setupAssistantObserver(
+                    tripParameters = tripParameters,
+                    hotel = hotel,
+                    flight = flight,
+                    airlineName = airlineName,
+                    airlineICAOCode = airlineICAOCode
                 )
-                findNavController().navigate(action)
             }
             hotelsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             hotelsRecyclerView.adapter = hotelAdapter
@@ -135,6 +156,45 @@ class HotelFragment : Fragment() {
                 viewModel.getHotels()
             }
         })
+    }
+
+    private fun onAssistantLoading() {
+        Log.d("HotelFragment", "Loading hotels")
+        binding.shimmerLayout.startShimmer()
+        binding.hotelsRecyclerView.visibility = View.GONE
+        binding.shimmerLayout.visibility = View.VISIBLE
+        binding.failedHotelsLayout.visibility = View.GONE
+    }
+
+    private fun onAssistantLoadingSuccess(
+        tripParameters: TripParameters,
+        hotel: Hotel,
+        flight: Flight,
+        airlineName: String,
+        airlineICAOCode: String,
+        itineraryString: String,
+    ) {
+        binding.hotelsRecyclerView.visibility = View.VISIBLE
+        val action = HotelFragmentDirections.actionHotelFragmentToSummaryFragment(
+            TripSummary(
+                tripParameters = tripParameters,
+                hotel = hotel,
+                flight = flight,
+                airlineName = airlineName,
+                airlineICAOCode = airlineICAOCode,
+                itinerarySummary = itineraryString,
+            )
+        )
+        findNavController().navigate(action)
+    }
+
+    private fun onAssistantLoadingFailure(result: Result.Failure) {
+        Log.e("HotelFragment", "Error loading hotels", result.throwable)
+        binding.shimmerLayout.stopShimmer()
+        binding.shimmerLayout.visibility = View.GONE
+        binding.hotelsRecyclerView.visibility = View.GONE
+        binding.failedHotelsLayout.visibility = View.VISIBLE
+        binding.hotelsErrorTextView.text = getString(R.string.assistant_failed_response)
     }
 
     override fun onResume() {

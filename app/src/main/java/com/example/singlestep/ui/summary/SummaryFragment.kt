@@ -1,10 +1,12 @@
 package com.example.singlestep.ui.summary
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -88,7 +90,7 @@ class SummaryFragment : Fragment() {
             hotelRecyclerView.adapter = hotelAdapter
             hotelAdapter.submitList(listOf(tripSummary.hotel))
 
-            tripSummaryTextView.text = getSampleAIResponse()
+            tripSummaryTextView.text = Html.fromHtml(tripSummary.itinerarySummary, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
             if (!fromMyTrips) {
                 saveButton.setOnClickListener {

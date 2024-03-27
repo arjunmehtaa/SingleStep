@@ -10,7 +10,8 @@ data class TripSummary(
     val hotel: Hotel,
     val flight: Flight,
     val airlineName: String,
-    val airlineICAOCode: String
+    val airlineICAOCode: String,
+    val itinerarySummary: String,
 ) : Parcelable {
     fun toRoomTripSummary(shouldIncludeId: Boolean = false): RoomTripSummary {
         val roomTripSummary = RoomTripSummary(
@@ -46,7 +47,8 @@ data class TripSummary(
             flightItinerary1 = serializeSegments(flight.itineraries[0].segments),
             flightItinerary2 = serializeSegments(flight.itineraries[1].segments),
             airlineName = airlineName,
-            airlineICAOCode = airlineICAOCode
+            airlineICAOCode = airlineICAOCode,
+            itinerarySummary = itinerarySummary,
         )
         if (shouldIncludeId && id != null) {
             roomTripSummary.id = id

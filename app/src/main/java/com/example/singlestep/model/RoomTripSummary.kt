@@ -44,7 +44,8 @@ data class RoomTripSummary(
     val flightItinerary2: String,
 
     val airlineName: String,
-    val airlineICAOCode: String
+    val airlineICAOCode: String,
+    val itinerarySummary: String,
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
@@ -115,7 +116,8 @@ data class RoomTripSummary(
                 )
             ),
             airlineName = airlineName,
-            airlineICAOCode = airlineICAOCode
+            airlineICAOCode = airlineICAOCode,
+            itinerarySummary = itinerarySummary,
         )
     }
 
