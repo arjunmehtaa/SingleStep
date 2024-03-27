@@ -1,7 +1,11 @@
 package com.example.singlestep.ui.summary
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.Network
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,15 +22,15 @@ import com.example.singlestep.model.TripParameters
 import com.example.singlestep.model.TripSummary
 import com.example.singlestep.ui.common.adapters.FlightAdapter
 import com.example.singlestep.ui.common.adapters.HotelAdapter
+import com.example.singlestep.utils.Result
 import com.example.singlestep.utils.getRemoveTripOnClickListener
-import com.example.singlestep.utils.getSampleAIResponse
 import com.example.singlestep.utils.hideBottomNavigationBar
+import com.example.singlestep.utils.loadBitmapFromFile
+import com.example.singlestep.utils.saveBitmapToFile
 import com.example.singlestep.utils.showBottomNavigationBar
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.FetchPhotoRequest
 import com.google.android.libraries.places.api.net.FetchPhotoResponse
-import loadBitmapFromFile
-import saveBitmapToFile
 
 class SummaryFragment : Fragment() {
 
@@ -50,6 +54,13 @@ class SummaryFragment : Fragment() {
     }
 
     private fun setupObservers() {
+        viewModel.itineraryString.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                Result.Loading -> onItineraryLoading()
+                is Result.Failure -> onItineraryLoadingFailure(result)
+                is Result.Success -> onItineraryLoadingSuccess(result.value)
+            }
+        }
     }
 
     private fun setupViews(
@@ -90,8 +101,6 @@ class SummaryFragment : Fragment() {
             hotelRecyclerView.adapter = hotelAdapter
             hotelAdapter.submitList(listOf(tripSummary.hotel))
 
-            tripSummaryTextView.text = Html.fromHtml(tripSummary.itinerarySummary, HtmlCompat.FROM_HTML_MODE_LEGACY)
-
             if (!fromMyTrips) {
                 saveButton.setOnClickListener {
                     viewModel.saveToRoomDatabase(tripSummary.toRoomTripSummary())
@@ -118,6 +127,52 @@ class SummaryFragment : Fragment() {
                 activity?.onBackPressedDispatcher?.onBackPressed()
             }
 
+        }
+    }
+
+    private fun onItineraryLoading() {
+        Log.d("SummaryFragment", "Loading itinerary")
+        binding.shimmerLayout.startShimmer()
+        binding.shimmerLayout.visibility = View.VISIBLE
+        binding.failedSummaryLayout.visibility = View.GONE
+        binding.summaryLayout.visibility = View.GONE
+    }
+
+    private fun onItineraryLoadingSuccess(itinerary: String) {
+        Log.d("SummaryFragment", "Itinerary loaded successfully")
+        binding.shimmerLayout.stopShimmer()
+        binding.shimmerLayout.visibility = View.GONE
+        binding.tripSummaryTextView.text =
+            Html.fromHtml(itinerary, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        if (itinerary.isBlank()) {
+            binding.failedSummaryLayout.visibility = View.VISIBLE
+            binding.summaryErrorTextView.text = getString(R.string.summary_empty_response)
+        } else {
+            binding.failedSummaryLayout.visibility = View.GONE
+            binding.summaryLayout.visibility = View.VISIBLE
+        }
+    }
+
+    private fun onItineraryLoadingFailure(result: Result.Failure) {
+        Log.e("SummaryFragment", "Error loading itinerary", result.throwable)
+        binding.shimmerLayout.stopShimmer()
+        binding.shimmerLayout.visibility = View.GONE
+        binding.summaryLayout.visibility = View.GONE
+        binding.failedSummaryLayout.visibility = View.VISIBLE
+        binding.summaryErrorTextView.text = getString(R.string.summary_failed_response)
+        checkIfConnectionRestored()
+    }
+
+    private fun checkIfConnectionRestored() {
+        if (!viewModel.itineraryString.isInitialized || viewModel.itineraryString.value == null) {
+            val connectivityManager =
+                requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            connectivityManager.registerDefaultNetworkCallback(object :
+                ConnectivityManager.NetworkCallback() {
+                override fun onAvailable(network: Network) {
+                    viewModel.getItineraryString()
+                }
+            })
         }
     }
 

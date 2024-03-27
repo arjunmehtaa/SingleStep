@@ -32,7 +32,7 @@ class Assistant {
         totalBudget: Double,
     ): String {
         val assistantRetrofit = retrofit.create(AssistantApi::class.java)
-        val requestBody: AssistantRequest = AssistantRequest(
+        val requestBody = AssistantRequest(
             tripLocation = tripLocation,
             arrivalTime = arrivalTime,
             departureTime = departureTime,

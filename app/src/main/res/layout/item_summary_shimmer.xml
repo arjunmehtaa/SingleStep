@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/title_text_view"
+    android:visibility="visible">
+
+    <View
+        android:id="@+id/image_shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/background_filled_rounded" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_shimmer"
+        android:orientation="vertical">
+
+        <include layout="@layout/item_day_shimmer" />
+
+        <include layout="@layout/item_day_shimmer" />
+
+        <include layout="@layout/item_day_shimmer" />
+
+        <include layout="@layout/item_day_shimmer" />
+
+    </LinearLayout>
+
+</RelativeLayout>

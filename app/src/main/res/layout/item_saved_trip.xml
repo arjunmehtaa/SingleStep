@@ -92,10 +92,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/light_orange"
+            android:backgroundTint="@color/theme_color_light"
             android:text="@string/remove_trip"
-            android:textColor="@color/orange"
-            app:strokeColor="@color/orange"
+            android:textColor="@color/theme_color"
+            app:strokeColor="@color/theme_color"
             app:strokeWidth="1dp" />
 
         <Button
@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/orange"
+            android:backgroundTint="@color/theme_color"
             android:text="@string/view_itinerary" />
 
     </LinearLayout>

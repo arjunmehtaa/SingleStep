@@ -197,7 +197,7 @@ class SearchFragment : Fragment() {
         val constraintsBuilder = CalendarConstraints.Builder().setValidator(dateValidator)
         builder.setCalendarConstraints(constraintsBuilder.build())
         builder.setTitleText("Select a date range")
-        val datePicker = builder.build()
+        val datePicker = builder.setTheme(R.style.AppTheme_DatePicker).build()
         datePicker.addOnPositiveButtonClickListener { selection ->
             val selectedDateRange = getSelectedDateRange(selection)
             binding.datePickerEditText.setText(selectedDateRange)

@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.example.singlestep.data.Assistant
 import com.example.singlestep.data.Booking
 import com.example.singlestep.model.Hotel
 import com.example.singlestep.model.TripParameters
@@ -22,17 +21,12 @@ class HotelViewModel(
 
     private var coroutineExceptionHandler: CoroutineExceptionHandler
     private val booking = Booking(application.applicationContext)
-    private val assistant = Assistant()
     private val tripParameters =
         savedStateHandle.getLiveData<TripParameters>("tripParameters").value!!
 
     private val _hotelList: MutableLiveData<Result<List<Hotel>>> = MutableLiveData()
-    private val _itineraryString: MutableLiveData<Result<String>> = MutableLiveData()
     val hotelList: LiveData<Result<List<Hotel>>>
         get() = _hotelList
-
-    val itineraryString: LiveData<Result<String>>
-        get() = _itineraryString
 
     init {
         coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
@@ -59,25 +53,6 @@ class HotelViewModel(
             } catch (e: Exception) {
                 Log.e("HotelViewModel", "Error fetching hotels", e)
                 _hotelList.postValue(Result.Failure(e))
-            }
-        }
-    }
-
-    fun getItineraryString(hotel: Hotel) {
-        viewModelScope.launch(coroutineExceptionHandler) {
-            _itineraryString.postValue(Result.Loading)
-            try {
-                val itineraryString = assistant.getItineraryString(
-                    tripLocation = tripParameters.destination.city,
-                    arrivalTime = tripParameters.checkInDate.replace("/", "-"),
-                    departureTime = tripParameters.checkOutDate.replace("/", "-"),
-                    hotelAddress = hotel.basicPropertyData.location.address,
-                    totalBudget = tripParameters.remainingBudget,
-                )
-                _itineraryString.postValue(Result.Success(itineraryString))
-            } catch (e: Exception) {
-                Log.e("HotelViewModel", "Error generating itinerary string", e)
-                _itineraryString.postValue(Result.Failure(e))
             }
         }
     }

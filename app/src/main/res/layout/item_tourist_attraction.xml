@@ -28,10 +28,10 @@
         android:paddingVertical="4dp"
         android:paddingStart="8dp"
         android:paddingEnd="12dp"
-        android:textColor="@color/orange"
+        android:textColor="@color/theme_color"
         android:textSize="12sp"
         app:drawableLeftCompat="@drawable/icon_star"
-        app:drawableTint="@color/orange"
+        app:drawableTint="@color/theme_color"
         tools:text="4.6" />
 
     <TextView
@@ -90,10 +90,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/light_orange"
+            android:backgroundTint="@color/theme_color_light"
             android:text="@string/get_directions"
-            android:textColor="@color/orange"
-            app:strokeColor="@color/orange"
+            android:textColor="@color/theme_color"
+            app:strokeColor="@color/theme_color"
             app:strokeWidth="1dp" />
 
         <Button

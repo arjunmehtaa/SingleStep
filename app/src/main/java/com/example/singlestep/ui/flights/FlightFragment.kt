@@ -135,14 +135,16 @@ class FlightFragment : Fragment() {
     }
 
     private fun checkIfConnectionRestored() {
-        val connectivityManager =
-            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        connectivityManager.registerDefaultNetworkCallback(object :
-            ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) {
-                viewModel.getFlightAttractionList()
-            }
-        })
+        if (flightAdapter.itemCount == 0) {
+            val connectivityManager =
+                requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            connectivityManager.registerDefaultNetworkCallback(object :
+                ConnectivityManager.NetworkCallback() {
+                override fun onAvailable(network: Network) {
+                    viewModel.getFlightAttractionList()
+                }
+            })
+        }
     }
 
     override fun onResume() {

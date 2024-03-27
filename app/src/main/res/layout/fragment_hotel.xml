@@ -37,10 +37,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_text_view"
-        android:background="@color/light_orange"
+        android:background="@color/theme_color_light"
         android:gravity="center"
         android:paddingVertical="8dp"
-        android:textColor="@color/orange"
+        android:textColor="@color/theme_color"
         android:textSize="14sp"
         tools:text="Budget Remaining: CAD 960" />
 

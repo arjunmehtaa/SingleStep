@@ -11,7 +11,7 @@ data class TripSummary(
     val flight: Flight,
     val airlineName: String,
     val airlineICAOCode: String,
-    val itinerarySummary: String,
+    var itinerarySummary: String,
 ) : Parcelable {
     fun toRoomTripSummary(shouldIncludeId: Boolean = false): RoomTripSummary {
         val roomTripSummary = RoomTripSummary(
@@ -39,7 +39,7 @@ data class TripSummary(
             hotelPhotoUrl = hotel.basicPropertyData.photos.main.lowResJpegUrl.absoluteUrl,
             hotelAddress = hotel.basicPropertyData.location.address,
             hotelScore = hotel.basicPropertyData.reviews.totalScore,
-            hotelScoreTag = hotel.basicPropertyData.reviews.totalScoreTextTag.translation,
+            hotelScoreTag = hotel.basicPropertyData.reviews.totalScoreTextTag?.translation,
             flightId = flight.id,
             flightAirlineCode = flight.airlineCode,
             flightRawPrice = flight.rawPrice,

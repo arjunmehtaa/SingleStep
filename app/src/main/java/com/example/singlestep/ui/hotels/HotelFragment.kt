@@ -42,7 +42,6 @@ class HotelFragment : Fragment() {
             val flight = args.flight
             val airlineName = args.airlineName
             val airlineICAOCode = args.airlineICAOCode
-//            Log.d("HotelFragment", "Received tripParameters: $tripParameters")
             setupViews(tripParameters, flight, airlineName, airlineICAOCode)
         }
         return binding.root
@@ -54,30 +53,6 @@ class HotelFragment : Fragment() {
                 Result.Loading -> onHotelsLoading()
                 is Result.Failure -> onHotelsLoadingFailure(result)
                 is Result.Success -> onHotelsLoadingSuccess(result.value)
-            }
-        }
-    }
-
-    private fun setupAssistantObserver(
-        tripParameters: TripParameters,
-        hotel: Hotel,
-        flight: Flight,
-        airlineName: String,
-        airlineICAOCode: String,
-    ) {
-        viewModel.getItineraryString(hotel)
-        viewModel.itineraryString.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                Result.Loading -> onAssistantLoading()
-                is Result.Failure -> onAssistantLoadingFailure(result)
-                is Result.Success -> onAssistantLoadingSuccess(
-                    hotel = hotel,
-                    tripParameters = tripParameters,
-                    flight = flight,
-                    airlineName = airlineName,
-                    airlineICAOCode = airlineICAOCode,
-                    itineraryString = result.value
-                )
             }
         }
     }
@@ -95,13 +70,17 @@ class HotelFragment : Fragment() {
                 tripParameters.guests
             ) { hotel ->
                 Log.d("HotelFragment", "Selected Hotel: ${hotel.displayName.text}")
-                setupAssistantObserver(
-                    tripParameters = tripParameters,
-                    hotel = hotel,
-                    flight = flight,
-                    airlineName = airlineName,
-                    airlineICAOCode = airlineICAOCode
+                val action = HotelFragmentDirections.actionHotelFragmentToSummaryFragment(
+                    TripSummary(
+                        tripParameters = tripParameters,
+                        hotel = hotel,
+                        flight = flight,
+                        airlineName = airlineName,
+                        airlineICAOCode = airlineICAOCode,
+                        itinerarySummary = ""
+                    )
                 )
+                findNavController().navigate(action)
             }
             hotelsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             hotelsRecyclerView.adapter = hotelAdapter
@@ -148,53 +127,16 @@ class HotelFragment : Fragment() {
     }
 
     private fun checkIfConnectionRestored() {
-        val connectivityManager =
-            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        connectivityManager.registerDefaultNetworkCallback(object :
-            ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) {
-                viewModel.getHotels()
-            }
-        })
-    }
-
-    private fun onAssistantLoading() {
-        Log.d("HotelFragment", "Loading hotels")
-        binding.shimmerLayout.startShimmer()
-        binding.hotelsRecyclerView.visibility = View.GONE
-        binding.shimmerLayout.visibility = View.VISIBLE
-        binding.failedHotelsLayout.visibility = View.GONE
-    }
-
-    private fun onAssistantLoadingSuccess(
-        tripParameters: TripParameters,
-        hotel: Hotel,
-        flight: Flight,
-        airlineName: String,
-        airlineICAOCode: String,
-        itineraryString: String,
-    ) {
-        binding.hotelsRecyclerView.visibility = View.VISIBLE
-        val action = HotelFragmentDirections.actionHotelFragmentToSummaryFragment(
-            TripSummary(
-                tripParameters = tripParameters,
-                hotel = hotel,
-                flight = flight,
-                airlineName = airlineName,
-                airlineICAOCode = airlineICAOCode,
-                itinerarySummary = itineraryString,
-            )
-        )
-        findNavController().navigate(action)
-    }
-
-    private fun onAssistantLoadingFailure(result: Result.Failure) {
-        Log.e("HotelFragment", "Error loading hotels", result.throwable)
-        binding.shimmerLayout.stopShimmer()
-        binding.shimmerLayout.visibility = View.GONE
-        binding.hotelsRecyclerView.visibility = View.GONE
-        binding.failedHotelsLayout.visibility = View.VISIBLE
-        binding.hotelsErrorTextView.text = getString(R.string.assistant_failed_response)
+        if (hotelAdapter.itemCount == 0) {
+            val connectivityManager =
+                requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            connectivityManager.registerDefaultNetworkCallback(object :
+                ConnectivityManager.NetworkCallback() {
+                override fun onAvailable(network: Network) {
+                    viewModel.getHotels()
+                }
+            })
+        }
     }
 
     override fun onResume() {

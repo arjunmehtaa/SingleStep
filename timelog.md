@@ -40,4 +40,4 @@
 | 2024/03/19 | 4     |        |        |       |         |      | Account for edge cases, create UI for error states        |
 | 2024/03/21 |       |        | 2.5    |       |         |      | Draft Pipeline & Filters architecture style example (D4)  |
 | 2024/03/22 |       |        | 3.5    |       |         | 6    | Client-Server and Layer architecture style (D4) &Review   |
-
+| 2024/03/19 | 4     |        |        |       |         |      | Update UI, move itinerary loading to SummaryFragment      |

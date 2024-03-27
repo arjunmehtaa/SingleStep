@@ -12,7 +12,7 @@ import com.example.singlestep.model.TripSummary
 import com.example.singlestep.utils.formatBudget
 import com.example.singlestep.utils.getFormattedDate
 import com.example.singlestep.utils.getRemoveTripOnClickListener
-import loadBitmapFromFile
+import com.example.singlestep.utils.loadBitmapFromFile
 
 class SavedTripAdapter(
     private val tripClickListener: (TripSummary) -> Unit,

@@ -33,7 +33,7 @@ class HotelAdapter(
                 val reviews = hotel.basicPropertyData.reviews
                 if (reviews.totalScore != 0.0) {
                     ratingTextView.text = reviews.totalScore.toString()
-                    ratingKeywordTextView.text = reviews.totalScoreTextTag.translation
+                    ratingKeywordTextView.text = reviews.totalScoreTextTag?.translation
                     ratingTextView.visibility = View.VISIBLE
                     ratingKeywordTextView.visibility = View.VISIBLE
                 } else {

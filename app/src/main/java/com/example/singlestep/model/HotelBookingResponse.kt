@@ -77,11 +77,11 @@ data class PriceBeforeDiscount(
 
 @Parcelize
 data class Reviews(
-    val totalScoreTextTag: TotalScoreTextTag,
+    val totalScoreTextTag: TotalScoreTextTag?,
     val totalScore: Double
 ) : Parcelable
 
 @Parcelize
 data class TotalScoreTextTag(
-    val translation: String
+    val translation: String?
 ) : Parcelable

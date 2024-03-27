@@ -2,14 +2,19 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.SingleStep" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/orange</item>
-        <item name="colorContainer">@color/orange</item>
+        <item name="colorPrimary">@color/theme_color</item>
+        <item name="colorContainer">@color/theme_color</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/light_orange</item>
+        <item name="android:color">@color/theme_color_light</item>
+    </style>
+
+    <style name="AppTheme.DatePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorSurface">@color/white</item>
     </style>
 
     <style name="Theme.SingleStep" parent="Base.Theme.SingleStep" />

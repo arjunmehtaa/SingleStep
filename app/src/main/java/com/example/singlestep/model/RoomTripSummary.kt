@@ -33,7 +33,7 @@ data class RoomTripSummary(
     val hotelPhotoUrl: String,
     val hotelAddress: String,
     val hotelScore: Double,
-    val hotelScoreTag: String,
+    val hotelScoreTag: String?,
 
     /* Flattened Flight */
     val flightId: String?,
