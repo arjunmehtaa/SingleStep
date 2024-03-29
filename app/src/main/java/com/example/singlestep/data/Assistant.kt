@@ -2,12 +2,14 @@ package com.example.singlestep.data
 
 import android.util.Log
 import com.example.singlestep.model.AssistantRequest
+import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
+import java.util.concurrent.TimeUnit
 
 interface AssistantApi {
     @POST("/generate-itinerary-freeform")
@@ -19,7 +21,14 @@ interface AssistantApi {
 class Assistant {
     // using localhost for now, change if deployed
     // needs additional ScalarsConverterFactory to convert raw HTML response
-    private val retrofit = Retrofit.Builder().baseUrl("http://10.0.2.2:8080")
+
+    private val client = OkHttpClient.Builder()
+        .readTimeout(30, TimeUnit.SECONDS)
+        .build()
+
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("http://10.0.2.2:8080")
+        .client(client)
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .build()

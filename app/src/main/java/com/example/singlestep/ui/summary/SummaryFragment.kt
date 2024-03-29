@@ -43,22 +43,22 @@ class SummaryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentSummaryBinding.inflate(inflater, container, false)
-        setupObservers()
         arguments?.let { bundle ->
             val args = SummaryFragmentArgs.fromBundle(bundle)
             val tripSummary = args.tripSummary
             val fromMyTrips = args.fromMyTrips
+            setupObservers(tripSummary)
             setupViews(tripSummary, fromMyTrips)
         }
         return binding.root
     }
 
-    private fun setupObservers() {
+    private fun setupObservers(tripSummary: TripSummary) {
         viewModel.itineraryString.observe(viewLifecycleOwner) { result ->
             when (result) {
                 Result.Loading -> onItineraryLoading()
-                is Result.Failure -> onItineraryLoadingFailure(result)
-                is Result.Success -> onItineraryLoadingSuccess(result.value)
+                is Result.Failure -> onItineraryLoadingFailure(result, tripSummary)
+                is Result.Success -> onItineraryLoadingSuccess(result.value, tripSummary)
             }
         }
     }
@@ -102,6 +102,7 @@ class SummaryFragment : Fragment() {
             hotelAdapter.submitList(listOf(tripSummary.hotel))
 
             if (!fromMyTrips) {
+                viewModel.getItinerary()
                 saveButton.setOnClickListener {
                     viewModel.saveToRoomDatabase(tripSummary.toRoomTripSummary())
                     Toast.makeText(context, "Successfully added to My Trips", Toast.LENGTH_SHORT)
@@ -110,6 +111,7 @@ class SummaryFragment : Fragment() {
                     findNavController().navigate(action)
                 }
             } else {
+                onItineraryLoadingSuccess(tripSummary.itinerarySummary, tripSummary)
                 removeButton.visibility = View.VISIBLE
                 saveButton.visibility = View.INVISIBLE
                 saveButton.isClickable = false
@@ -138,8 +140,9 @@ class SummaryFragment : Fragment() {
         binding.summaryLayout.visibility = View.GONE
     }
 
-    private fun onItineraryLoadingSuccess(itinerary: String) {
+    private fun onItineraryLoadingSuccess(itinerary: String, tripSummary: TripSummary) {
         Log.d("SummaryFragment", "Itinerary loaded successfully")
+        tripSummary.itinerarySummary = itinerary
         binding.shimmerLayout.stopShimmer()
         binding.shimmerLayout.visibility = View.GONE
         binding.tripSummaryTextView.text =
@@ -153,27 +156,27 @@ class SummaryFragment : Fragment() {
         }
     }
 
-    private fun onItineraryLoadingFailure(result: Result.Failure) {
+    private fun onItineraryLoadingFailure(result: Result.Failure, tripSummary: TripSummary) {
         Log.e("SummaryFragment", "Error loading itinerary", result.throwable)
         binding.shimmerLayout.stopShimmer()
         binding.shimmerLayout.visibility = View.GONE
         binding.summaryLayout.visibility = View.GONE
         binding.failedSummaryLayout.visibility = View.VISIBLE
         binding.summaryErrorTextView.text = getString(R.string.summary_failed_response)
-        checkIfConnectionRestored()
+        checkIfConnectionRestored(tripSummary)
     }
 
-    private fun checkIfConnectionRestored() {
-        if (!viewModel.itineraryString.isInitialized || viewModel.itineraryString.value == null) {
-            val connectivityManager =
-                requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            connectivityManager.registerDefaultNetworkCallback(object :
-                ConnectivityManager.NetworkCallback() {
-                override fun onAvailable(network: Network) {
-                    viewModel.getItineraryString()
+    private fun checkIfConnectionRestored(tripSummary: TripSummary) {
+        val connectivityManager =
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        connectivityManager.registerDefaultNetworkCallback(object :
+            ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                if (tripSummary.itinerarySummary.isBlank()) {
+                    viewModel.getItinerary()
                 }
-            })
-        }
+            }
+        })
     }
 
     private fun setupCityImage(tripParameters: TripParameters) {

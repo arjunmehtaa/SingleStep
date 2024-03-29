@@ -37,10 +37,9 @@ class SummaryViewModel(
         coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
             _itineraryString.value = Result.Failure(exception)
         }
-        getItineraryString()
     }
 
-    fun getItineraryString() {
+    fun getItinerary() {
         viewModelScope.launch(coroutineExceptionHandler) {
             _itineraryString.postValue(Result.Loading)
             try {
