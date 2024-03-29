@@ -41,3 +41,7 @@
 | 2024/03/21 |       |        | 2.5    |       |         |      | Draft Pipeline & Filters architecture style example (D4)  |
 | 2024/03/22 |       |        | 3.5    |       |         | 6    | Client-Server and Layer architecture style (D4) &Review   |
 | 2024/03/19 | 4     |        |        |       |         |      | Update UI, move itinerary loading to SummaryFragment      |
+| 2024/03/27 |       |        | 3      |       |         |      | Draft & make diagrams for Examples of Design Patterns (D5)|
+| 2024/03/28 |       |        | 3      |       |         |      | Write Usages of Design Patterns on Examples (D5)          |
+| 2024/03/28 |       |        |        |       |         | 3    | Compilation of the D5 - Review and submission             |
+
