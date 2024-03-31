@@ -29,19 +29,19 @@
 | 2024/03/03 |       |        |        |       |         | 9    | Create Summary Fragment & UI modernization & data binding |
 | 2024/03/03 |       |        | 4      |       |         |      | Review Project progress, modify view bindings             |
 | 2024/03/04 |       |        | 8      |       |         |      | Add flight info details and GUI to Flight Fragment        |
-| 2024/03/04 | 1     | 1      | 1      | 1     | 1       | 1    | D3 Demo - in Class                                        |
+| 2024/03/04 | 1     | 1      | 1      | 1     | 3       | 1    | D3 Demo - in Class                                        |
 | 2024/03/05 |       |        | 5      |       |         |      | GUI & in-progress functions for Save/load trip, demo video|
 | 2024/03/06 |       | 10     |        | 10    | 5       |      | Singlestep Prototype Document (D3)                        |
 | 2024/03/07 |       |        | 2      |       |         | 2    | Review & edit component diagram to conform example syntax |
 | 2024/03/15 | 5     |        |        |       |         |      | Design UI for ChatGPT response and Summary page           |
 | 2024/03/17 | 1     | 1      | 1      | 1     | 1       | 1    | Group Meeting on progress - Discord                       |
 | 2024/03/18 | 6     |        |        |       |         |      | Save My Trips locally in RoomDB                           |
-| 2024/03/19 | 6     |        |        |       |         |      | Create UI for My Trips page                               |
+| 2024/03/19 | 6     |        |        |       | 10      |      | Create UI for My Trips page                               |
 | 2024/03/19 | 4     |        |        |       |         |      | Account for edge cases, create UI for error states        |
-| 2024/03/21 |       |        | 2.5    |       |         |      | Draft Pipeline & Filters architecture style example (D4)  |
-| 2024/03/22 |       |        | 3.5    |       |         | 6    | Client-Server and Layer architecture style (D4) &Review   |
-| 2024/03/19 | 4     |        |        |       |         |      | Update UI, move itinerary loading to SummaryFragment      |
+| 2024/03/21 |       |        | 2.5    |       | 2       |      | Draft Pipeline & Filters architecture style example (D4)  |
+| 2024/03/22 |       |        | 3.5    |       | 2       | 6    | Client-Server and Layer architecture style (D4) &Review   |
+| 2024/03/19 | 4     |        |        |       | 5       |      | Update UI, move itinerary loading to SummaryFragment      |
 | 2024/03/27 |       |        | 3      |       |         |      | Draft & make diagrams for Examples of Design Patterns (D5)|
 | 2024/03/28 |       |        | 3      |       |         |      | Write Usages of Design Patterns on Examples (D5)          |
-| 2024/03/28 |       |        |        |       |         | 3    | Compilation of the D5 - Review and submission             |
-
+| 2024/03/28 |       |        |        |       | 2       | 3    | Compilation of the D5 - Review and submission             |
+| 2024/03/28 |       |        |        |       | 5       | 3    | Preparing presentation slides and scripts                 |
