@@ -1,6 +1,7 @@
 package com.example.singlestep.ui.explore
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,27 +25,33 @@ class ExploreViewModel(application: Application) : AndroidViewModel(application)
         coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
             _touristAttractionList.value = Result.Failure(exception)
         }
-        getTouristAttractionList()
     }
 
-    fun getTouristAttractionList() {
+    fun getTouristAttractionList(latitude: Double, longitude: Double) {
         viewModelScope.launch(coroutineExceptionHandler) {
             _touristAttractionList.value = Result.Loading
+            Log.i("DEBUG: ", "MAKING CALL TO PAID API WITH LAT $latitude, LONG $longitude");
             _touristAttractionList.value =
                     /* Ideally we would send user's current coordinates */
                 Result.Success(
-                    sortTouristAttractionList(
+                    sortAndFilterTouristAttractionList(
                         amadeus.getTouristAttractions(
-                            41.390205,
-                            2.154007
+                            latitude,
+                            longitude
                         )
                     )
                 )
         }
     }
 
-    private fun sortTouristAttractionList(results: List<Activity>): List<Activity> {
-        return results.sortedByDescending {
+    private fun sortAndFilterTouristAttractionList(results: List<Activity>): List<Activity> {
+        val filteredList = results.groupBy { it.name }
+            .mapValues { (_, objects) ->
+                objects.maxByOrNull { it.rating?.toDouble() ?: Double.MIN_VALUE }
+            }
+            .values
+            .filterNotNull()
+        return filteredList.sortedByDescending {
             it.description?.length
         }
     }

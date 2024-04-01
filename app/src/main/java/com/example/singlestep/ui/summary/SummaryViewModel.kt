@@ -52,7 +52,7 @@ class SummaryViewModel(
                 )
                 _itineraryString.postValue(Result.Success(itineraryString))
             } catch (e: Exception) {
-                Log.e("HotelViewModel", "Error generating itinerary string", e)
+                Log.e("SummaryViewModel", "Error generating itinerary string", e)
                 _itineraryString.postValue(Result.Failure(e))
             }
         }

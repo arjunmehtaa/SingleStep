@@ -17,11 +17,12 @@ class Amadeus(context: Context) {
     private val amadeus = Amadeus.Builder(context)
         .setClientId(context.getString(R.string.amadeus_api_key))
         .setClientSecret(context.getString(R.string.amadeus_api_secret))
+        .setHostName(Amadeus.Builder.Hosts.PRODUCTION)
         .build()
 
     suspend fun getTouristAttractions(lat: Double, long: Double): List<Activity> {
         val touristAttractionList: List<Activity>
-        when (val touristAttractions = amadeus.shopping.activities.get(lat, long)) {
+        when (val touristAttractions = amadeus.shopping.activities.get(lat, long, 15)) {
             is ApiResult.Success -> {
                 touristAttractionList = touristAttractions.data
             }

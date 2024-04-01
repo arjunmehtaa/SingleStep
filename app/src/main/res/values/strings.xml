@@ -18,8 +18,8 @@
     <string name="autofill_destination">"Autofilled destination from suggestions"</string>
     <string name="autofill_budget">"Autofilled budget from suggestions"</string>
     <string name="places_api_key">AIzaSyBIDq3zcHWyLH8ue7ONXuNCuu29WS-MFO4</string>
-    <string name="amadeus_api_key">oUJaHA5yffgpzwa2hs5KcYNGXMc59C6G</string>
-    <string name="amadeus_api_secret">M6USGY8nI0CZuMb6</string>
+    <string name="amadeus_api_key">wYjWuMqgy3RHQXX5vZifusiu9aMg2cRg</string>
+    <string name="amadeus_api_secret">rBsoLAGsssT5KAhs</string>
     <string name="explore_nearby">Explore Nearby</string>
     <string name="view_more">View more…</string>
     <string name="view_less">View less</string>
@@ -49,6 +49,7 @@
     <string name="hotels_empty_response">Oops! We couldn\'t find any hotels that match your criteria. Don\'t worry though, here are some tips to improve your search:\n\n1. Try increasing your budget to unlock more options\n\n2. Choose cities with hotels within a 50km radius for better results</string>
     <string name="summary_failed_response">Unable to generate itinerary at the moment\n\nPlease check your internet connection and try again</string>
     <string name="summary_empty_response">Oops! We couldn\'t create an itinerary with the passed trip parameters. Change the parameters and try again</string>
+    <string name="explore_enable_location">Enable location permission to explore tourist attractions and activities near you!</string>
     <string name="start_searching">Start Searching</string>
     <string name="remaining_budget">Budget Remaining: %1$s %2$s</string>
     <string name="view_itinerary">View Itinerary</string>
