@@ -17,9 +17,6 @@
     <string name="enter_start_location">Enter start location</string>
     <string name="autofill_destination">"Autofilled destination from suggestions"</string>
     <string name="autofill_budget">"Autofilled budget from suggestions"</string>
-    <string name="places_api_key">AIzaSyBIDq3zcHWyLH8ue7ONXuNCuu29WS-MFO4</string>
-    <string name="amadeus_api_key">wYjWuMqgy3RHQXX5vZifusiu9aMg2cRg</string>
-    <string name="amadeus_api_secret">rBsoLAGsssT5KAhs</string>
     <string name="explore_nearby">Explore Nearby</string>
     <string name="view_more">View more…</string>
     <string name="view_less">View less</string>
@@ -27,8 +24,6 @@
     <string name="get_directions">Get Directions</string>
     <string name="book_now">Book Now</string>
     <string name="hotels">Hotels</string>
-    <string name="booking_api_key">35ba2fe984msh47c31ab84324ed7p143d9ejsne0b6c2e4c472</string>
-    <string name="booking_api_host">booking-com18.p.rapidapi.com</string>
     <string name="nights_days_guests">%1$d nights, %2$d days • %3$d guests</string>
     <string name="flights">Flights</string>
     <string name="from_to">%1$s to %2$s</string>
@@ -54,4 +49,11 @@
     <string name="remaining_budget">Budget Remaining: %1$s %2$s</string>
     <string name="view_itinerary">View Itinerary</string>
     <string name="remove_trip">Remove Trip</string>
+
+    <!-- API KEYS-->
+    <string name="places_api_key">YOUR_API_KEY_HERE</string>
+    <string name="amadeus_api_key">YOUR_API_KEY_HERE</string>
+    <string name="amadeus_api_secret">YOUR_API_SECRET_HERE</string>
+    <string name="booking_api_key">YOUR_API_KEY_HERE</string>
+    <string name="booking_api_host">booking-com18.p.rapidapi.com</string>
 </resources>
