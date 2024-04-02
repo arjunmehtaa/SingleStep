@@ -1,0 +1,6 @@
+Flask==3.0.2
+instructor==0.4.8
+openai==1.12.0
+flask_cors==3.0.10
+pydantic==2.6.2
+python-dotenv
