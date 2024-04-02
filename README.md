@@ -18,16 +18,14 @@ This project was developed as part of the *SE2: Software Design and Architecture
 SingleStep is an AI powered trip-planning app that leverages OPEN AI's GPT3.5-Turbo model to craft personalized day-by-day trip itineraries. It also allows users to seamlessly search for flights, hotels, and nearby tourist attractions.
 
 <p float="left">
-  <img src="images/1.jpg" width="18%" />
-  <img src="images/2.jpg" width="18%" />
-  <img src="images/3.jpg" width="18%" />
-  <img src="images/4.jpg" width="18%" />
-  <img src="images/5.jpg" width="18%" />
-  <img src="images/6.jpg" width="18%" />
-  <img src="images/7.jpg" width="18%" />
-  <img src="images/8.jpg" width="18%" />
-  <img src="images/9.jpg" width="18%" />
-  <img src="images/10.jpg" width="18%" />
+  <img src="images/1.jpg" width="22%" />
+  <img src="images/2.jpg" width="22%" />
+  <img src="images/3.jpg" width="22%" />
+  <img src="images/4.jpg" width="22%" />
+  <img src="images/5.jpg" width="22%" />
+  <img src="images/6.jpg" width="22%" />
+  <img src="images/7.jpg" width="22%" />
+  <img src="images/8.jpg" width="22%" />
 </p>
 
 ## :books: Libraries Used
