@@ -35,14 +35,18 @@
 | 2024/03/07 |       |        | 2      |       |         | 2    | Review & edit component diagram to conform example syntax |
 | 2024/03/15 | 5     |        |        |       |         |      | Design UI for ChatGPT response and Summary page           |
 | 2024/03/17 | 1     | 1      | 1      | 1     | 1       | 1    | Group Meeting on progress - Discord                       |
+| 2024/03/18 |       |        |        | 7     |         |      | GPT Tokenization and Prompt Testing                       |
 | 2024/03/18 | 6     |        |        |       |         |      | Save My Trips locally in RoomDB                           |
 | 2024/03/19 | 6     |        |        |       | 10      |      | Create UI for My Trips page                               |
 | 2024/03/19 | 4     |        |        |       |         |      | Account for edge cases, create UI for error states        |
 | 2024/03/21 |       |        | 2.5    |       | 2       |      | Draft Pipeline & Filters architecture style example (D4)  |
+| 2024/03/21 |       |        |        | 8     |         |      | Designed Backend Data Models, GPT/Instructor Integration  |
 | 2024/03/22 |       |        | 3.5    |       | 2       | 6    | Client-Server and Layer architecture style (D4) &Review   |
+| 2024/03/23 |       |        |        | 12    |         |      | Designed Business Layer and Prompt Layers for Backstep    |
 | 2024/03/19 | 4     |        |        |       | 5       |      | Update UI, move itinerary loading to SummaryFragment      |
 | 2024/03/27 |       |        | 3      |       |         |      | Draft & make diagrams for Examples of Design Patterns (D5)|
 | 2024/03/28 |       |        | 3      |       |         |      | Write Usages of Design Patterns on Examples (D5)          |
 | 2024/03/28 |       |        |        |       | 2       | 3    | Compilation of the D5 - Review and submission             |
 | 2024/03/28 |       |        |        |       | 5       | 3    | Preparing presentation slides and scripts                 |
 | 2024/03/19 | 4     |        |        |       |         |      | Use user' current location for Explore Nearby             |
+| 2024/04/03 |       |        |        | 5     |         |      | D6 Work (Functional & Non-functional) Verification        |
