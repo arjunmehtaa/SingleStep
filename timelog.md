@@ -49,4 +49,6 @@
 | 2024/03/28 |       |        |        |       | 2       | 3    | Compilation of the D5 - Review and submission             |
 | 2024/03/28 |       |        |        |       | 5       | 3    | Preparing presentation slides and scripts                 |
 | 2024/03/19 | 4     |        |        |       |         |      | Use user' current location for Explore Nearby             |
+| 2024/04/01 | 4     |        |        |       |         |      | Invalidate API keys, make repo public, update README doc  |
 | 2024/04/03 |       |        |        | 5     |         |      | D6 Work (Functional & Non-functional) Verification        |
+| 2024/04/03 | 4     |        |        |       |         |      | D6 - Design Description                                   |
