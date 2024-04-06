@@ -63,7 +63,9 @@
 | 2024/04/03 |       |        | 9      |       |         |      | D6 - sequence diagram completion                          |
 | 2024/04/04 |       |        | 4      |       |         |      | D6 - review component diagram, architecture&design pattern|
 | 2024/04/05 |       |        | 1      |       | 1       |      | D7 self work history check & listing                      |
+| 2024/04/05 |       |        | 1.5    |       |         |      | D7 YouTube video demo                                     |
 | 2024/04/05 |       |        | 0.5    |       | 2       | 5    | D6 Final check-up and review all content                  |
+| 2024/04/06 |       |        | 4      |       |         |      | D7 YouTube video demo                                     |
 
 
 
