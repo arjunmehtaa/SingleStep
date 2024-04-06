@@ -39,16 +39,25 @@
 | 2024/03/18 | 6     |        |        |       |         |      | Save My Trips locally in RoomDB                           |
 | 2024/03/19 | 6     |        |        |       | 10      |      | Create UI for My Trips page                               |
 | 2024/03/19 | 4     |        |        |       |         |      | Account for edge cases, create UI for error states        |
+| 2024/03/19 | 4     |        |        |       | 5       |      | Update UI, move itinerary loading to SummaryFragment      |
+| 2024/03/19 | 4     |        |        |       |         |      | Use user' current location for Explore Nearby             |
 | 2024/03/21 |       |        | 2.5    |       | 2       |      | Draft Pipeline & Filters architecture style example (D4)  |
 | 2024/03/21 |       |        |        | 8     |         |      | Designed Backend Data Models, GPT/Instructor Integration  |
 | 2024/03/22 |       |        | 3.5    |       | 2       | 6    | Client-Server and Layer architecture style (D4) &Review   |
 | 2024/03/23 |       |        |        | 12    |         |      | Designed Business Layer and Prompt Layers for Backstep    |
-| 2024/03/19 | 4     |        |        |       | 5       |      | Update UI, move itinerary loading to SummaryFragment      |
 | 2024/03/27 |       |        | 3      |       |         |      | Draft & make diagrams for Examples of Design Patterns (D5)|
 | 2024/03/28 |       |        | 3      |       |         |      | Write Usages of Design Patterns on Examples (D5)          |
 | 2024/03/28 |       |        |        |       | 2       | 3    | Compilation of the D5 - Review and submission             |
 | 2024/03/28 |       |        |        |       | 5       | 3    | Preparing presentation slides and scripts                 |
-| 2024/03/19 | 4     |        |        |       |         |      | Use user' current location for Explore Nearby             |
+| 2024/03/29 |       |        |        |       |         | 8    | Prepare Final Demo - Slides and writing Script            |
+| 2024/03/29 | 2     | 2      | 2      | 2     | 2       | 2    | Group meeting about final demo                            |
 | 2024/04/01 | 4     |        |        |       |         |      | Invalidate API keys, make repo public, update README doc  |
+| 2024/04/01 | 1     | 1      | 1      | 1     | 1       | 1    | Final in-class demo                                       |
+| 2024/04/02 | 3     | 3      | 3      | 3     | 3       | 3    | Group Meeting on progress and D6 - Discord                |
 | 2024/04/03 |       |        |        | 5     |         |      | D6 Work (Functional & Non-functional) Verification        |
 | 2024/04/03 | 4     |        |        |       |         |      | D6 - Design Description                                   |
+| 2024/04/03 |       |        |        |       |         | 15   | D6 - Design Description-architecture/Design section       |
+| 2024/04/03 |       |        |        |       |         | 5    | D6 Final check-up and review all content                  |
+
+
+
