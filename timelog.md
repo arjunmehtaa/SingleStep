@@ -51,13 +51,19 @@
 | 2024/03/28 |       |        |        |       | 5       | 3    | Preparing presentation slides and scripts                 |
 | 2024/03/29 |       |        |        |       |         | 8    | Prepare Final Demo - Slides and writing Script            |
 | 2024/03/29 | 2     | 2      | 2      | 2     | 2       | 2    | Group meeting about final demo                            |
+| 2024/03/31 |       |        | 2      |       |         |      | Practice demo & presentation scripts                      |
 | 2024/04/01 | 4     |        |        |       |         |      | Invalidate API keys, make repo public, update README doc  |
 | 2024/04/01 | 1     | 1      | 1      | 1     | 1       | 1    | Final in-class demo                                       |
-| 2024/04/02 | 3     | 3      | 3      | 3     | 3       | 3    | Group Meeting on progress and D6 - Discord                |
+| 2024/04/01 |       |        | 2.5    |       |         |      | D6 - review code & make basics of class diagram           |
+| 2024/04/01 | 3     | 3      | 3      | 3     | 3       | 3    | Group Meeting on progress and D6 - Discord                |
+| 2024/04/02 |       |        | 10.5   |       |         |      | D6 - class diagram completion & start sequence diagram    |
 | 2024/04/03 |       |        |        | 5     |         |      | D6 Work (Functional & Non-functional) Verification        |
 | 2024/04/03 | 4     |        |        |       |         |      | D6 - Design Description                                   |
 | 2024/04/03 |       |        |        |       |         | 15   | D6 - Design Description-architecture/Design section       |
-| 2024/04/03 |       |        |        |       |         | 5    | D6 Final check-up and review all content                  |
+| 2024/04/03 |       |        | 9      |       |         |      | D6 - sequence diagram completion                          |
+| 2024/04/04 |       |        | 4      |       |         |      | D6 - review component diagram, architecture&design pattern|
+| 2024/04/05 |       |        | 1      |       |         |      | D7 self work history check & listing                      |
+| 2024/04/05 |       |        | 0.5    |       |         | 5    | D6 Final check-up and review all content                  |
 
 
 
