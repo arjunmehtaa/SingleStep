@@ -45,7 +45,10 @@
 | 2024/03/21 |       |        |        | 15    |         |      | Designed Backend Data Models, GPT/Instructor Integration  |
 | 2024/03/22 |       |        | 3.5    |       | 2       | 6    | Client-Server and Layer architecture style (D4) &Review   |
 | 2024/03/23 |       |        |        | 12    |         |      | Designed Business Layer and Prompt Layers for Backstep    |
+| 2024/03/25 |       | 5      |        |       |         |      | Integrate GPT-4 Backend for generating itinerary on app   |
+| 2024/03/26 |       | 10     |        |       |         |      | Integrate GPT-4 Backend for generating itinerary on app   |
 | 2024/03/27 |       |        | 3      |       |         |      | Draft & make diagrams for Examples of Design Patterns (D5)|
+| 2024/03/27 |       | 10     |        |       |         |      | Integrate GPT-4 Backend for generating itinerary on app   |
 | 2024/03/28 |       |        | 3      |       |         |      | Write Usages of Design Patterns on Examples (D5)          |
 | 2024/03/28 |       |        |        |       | 2       | 3    | Compilation of the D5 - Review and submission             |
 | 2024/03/28 |       |        |        |       | 5       | 3    | Preparing presentation slides and scripts                 |
